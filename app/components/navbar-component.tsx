@@ -10,21 +10,19 @@ export default function NavbarComponent() {
           </span>
         </div>
         <div className="flex items-center space-x-6">
-          <a href="/sobre" className="text-sm hover:underline">
+          <a href="https://brunobianchi.dev/#sobre" className="text-sm hover:underline">
             Sobre 
           </a>
-          <a href="/experiences" className="text-sm hover:underline">
+          <a href="https://brunobianchi.dev/#experiencias" className="text-sm hover:underline">
             Experiências
           </a>
-          <a href="/projects" className="text-sm hover:underline">
-            Projetos
-          </a>
-          <a href="/blog" className="text-sm hover:underline">
+
+            <a href="https://blog.brunobianchi.dev/" className="text-sm hover:underline" rel="noopener noreferrer">
             Blog
-          </a>
+            </a>
 
           <a
-            href="https://github.com"
+            href="https://www.linkedin.com/in/bruno-bianchi-65a442268/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center text-sm space-x-1 hover:underline"

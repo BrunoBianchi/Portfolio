@@ -6,6 +6,8 @@
   --color-card: #262626;
   --color-primary: #f59e0b;
   --color-secondary: #262626;
+  --color-accent-warm: #fb923c;
+  --color-accent-soft: #fde68a;
 }
 
 html,
@@ -16,9 +18,11 @@ body {
     color-scheme: dark;
   }
 }
+
 hr {
-  @apply text-primary/25 mb-10 mt-10 border-2
+  @apply text-primary/25 mb-10 mt-10 border-2;
 }
+
 .wave-emoji {
   animation-name: wave-animation;
   animation-duration: 2.5s;
@@ -28,12 +32,130 @@ hr {
 }
 
 @keyframes wave-animation {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@layer base {
+  .prose {
+    @apply text-lg text-gray-300;
+  }
+
+  .prose h1 {
+    @apply text-4xl text-white font-bold mb-3 mt-5;
+  }
+  .prose h2 {
+    @apply text-3xl text-white font-bold mb-3 mt-5;
+  }
+  .prose h3 {
+    @apply text-2xl font-bold mb-3 mt-5 text-white;
+  }
+  .prose h4 {
+    @apply text-xl text-white font-semibold mb-3 mt-5;
+  }
+
+  .prose p {
+    @apply my-5 leading-relaxed;
+  }
+
+  .prose a {
+    @apply text-primary no-underline transition-colors hover:underline;
+  }
+  .prose strong {
+    @apply text-white;
+  }
+
+  .prose blockquote {
+    @apply border-l-[3px] border-primary pl-6 my-8 text-gray-400 italic;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply my-6 pl-5;
+  }
+  .prose li {
+    @apply my-2;
+  }
+  .prose ul {
+    list-style-type: disc;
+  }
+  .prose ol {
+    list-style-type: decimal;
+  }
+  .prose ul ul {
+    list-style-type: circle;
+  }
+  .prose ul ul ul {
+    list-style-type: square;
+  }
+
+  .prose li::marker {
+    @apply text-[var(--color-accent-warm)] text-xl;
+  }
+  .prose input[type="checkbox"] {
+    @apply h-5 w-5 rounded-sm border-2 border-primary text-primary bg-transparent focus:ring-0 focus:ring-offset-0;
+  }
+
+  .prose img {
+    @apply block rounded-lg my-10 shadow-lg max-h-[350px] w-auto mx-auto;
+  }
+
+  .prose hr {
+    @apply border-t-2 border-primary/10 my-12;
+  }
+
+  .prose pre {
+    @apply bg-card/80 border border-white/10 p-5 rounded-lg my-8 text-base;
+  }
+  .prose code {
+    @apply text-[var(--color-accent-soft)] font-mono text-[0.92em] rounded bg-card/90 px-2 py-1;
+  }
+  .prose pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+  .prose code::before,
+  .prose code::after {
+    content: "";
+  }
+
+  .prose table {
+    @apply w-full my-8 border-collapse;
+  }
+  .prose thead {
+    @apply border-b-2 border-primary;
+  }
+  .prose th {
+    @apply px-4 py-3 text-left font-bold text-white;
+  }
+  .prose tbody tr {
+    @apply border-b border-white/10;
+  }
+  .prose tbody tr:last-child {
+    @apply border-none;
+  }
+  .prose td {
+    @apply px-4 py-3;
+  }
 }

@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+export const meta = () => [
+  { title: "Bruno Bianchi - Desenvolvedor FullStack | Home" },
+  { name: "description", content: "Página inicial do portfolio de Bruno Bianchi, desenvolvedor FullStack com experiência em React, Node.js, Engenharia de Dados e Machine Learning." }
+];
+
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -80,9 +85,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-white font-sans">
-      <section className="px-6 py-24 flex items-center justify-center">
+      <section className="px-6 py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
         <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 items-center">
-          <div>
+          <header>
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
               Olá, eu sou <br />
               <span className="text-primary">Bruno Bianchi</span>
@@ -91,63 +96,68 @@ export default function Home() {
               Desenvolvedor <strong>FullStack</strong> focado em criar
               soluções digitais eficientes e escaláveis.
             </p>
-            <div className="flex flex-wrap gap-4">
-               <a href="#projects" className="px-6 py-2 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors">
+            <nav className="flex flex-wrap gap-4" aria-label="Ações principais">
+               <a href="#projects" className="px-6 py-2 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors" aria-label="Ver meus projetos">
                   Ver Projetos
                </a>
-               <a href="mailto:seu-email@example.com" className="px-6 py-2 bg-card text-white font-bold rounded-lg hover:bg-gray-700 transition-colors">
+               <a href="mailto:bruno@example.com" className="px-6 py-2 bg-card text-white font-bold rounded-lg hover:bg-gray-700 transition-colors" aria-label="Entrar em contato">
                   Contato
                </a>
-            </div>
-          </div>
-          <div className="flex justify-center md:justify-end">
+            </nav>
+          </header>
+          <aside className="flex justify-center md:justify-end">
             <img
               src="/brunobianchi.png" 
-              alt="Bruno Bianchi"
+              alt="Foto de Bruno Bianchi, desenvolvedor FullStack"
               className="rounded-xl w-64 h-64 md:w-80 md:h-80 object-cover border-2 border-secondary shadow-lg"
+              loading="eager"
             />
-          </div>
+          </aside>
         </div>
       </section>
+
       <hr className="max-w-6xl mx-auto" />
 
-      <section id="experience" className="px-6 py-5">
+      <section id="experience" className="px-6 py-5" aria-labelledby="experience-heading">
          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-12">Experiência Profissional</h2>
+            <h2 id="experience-heading" className="text-3xl font-bold mb-12">Experiência Profissional</h2>
             <div className="space-y-8 relative">
-                <div className="absolute left-3 top-2 h-full w-0.5 bg-card"></div>
+                <div className="absolute left-3 top-2 h-full w-0.5 bg-card" aria-hidden="true"></div>
                 
                 {experiences.map((exp, index) => (
-                  <div key={index} className="pl-10 relative">
-                     <div className="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background"></div>
-                     <p className="text-sm text-gray-400 mb-1">{exp.period}</p>
+                  <article key={index} className="pl-10 relative">
+                     <div className="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background" aria-hidden="true"></div>
+                     <time className="text-sm text-gray-400 mb-1" dateTime={exp.period}>{exp.period}</time>
                      <h3 className="text-xl font-semibold text-primary">{exp.role}</h3>
                      <p className="font-medium text-gray-300 mb-3">{exp.company}</p>
                      <p className="text-gray-400">{exp.description}</p>
-                     <div className="mt-3 flex flex-wrap gap-2">
+                     <div className="mt-3 flex flex-wrap gap-2" role="list" aria-label="Tecnologias utilizadas">
                        {exp.tags.map((tag) => (
                            <span
                              key={tag}
                              className="px-2 py-1 bg-card rounded-md text-xs text-gray-300"
+                             role="listitem"
                            >
                              {tag}
                            </span>
                        ))}
                      </div>
-                  </div>
+                  </article>
                 ))}
             </div>
          </div>
-      </section>
+      </section>  
 
       <hr className="max-w-6xl mx-auto" />
-      <section id="blog" className="px-6 py-5">
+      
+      {/* Blog Section */}
+      <section id="blog" className="px-6 py-5" aria-labelledby="blog-heading">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 ">Posts Recentes</h2>
+          <h2 id="blog-heading" className="text-3xl font-bold mb-12">Posts Recentes</h2>
           <div className="space-y-8">
             {posts.map((post, index) => (
               <article key={index} className="group cursor-pointer">
-                 <a href="#"> 
+                 <a href={`/blog/${post.title.toLowerCase().replace(/ /g, '-')}`} aria-label={`Ler post: ${post.title}`}> 
                     <div className="grid grid-cols-4 gap-4 items-center">
                         <div className="col-span-3">
                             <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200">
@@ -155,12 +165,12 @@ export default function Home() {
                             </h3>
                             <p className="text-gray-400 text-sm mt-1">{post.excerpt}</p>
                              <div className="flex items-center gap-4 text-xs text-gray-500 mt-2">
-                                <span>{post.date}</span>
-                                <span>•</span>
+                                <time dateTime={post.date}>{post.date}</time>
+                                <span aria-hidden="true">•</span>
                                 <span>{post.readTime}</span>
                             </div>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right" aria-hidden="true">
                            <span className="text-primary group-hover:translate-x-2 inline-block transition-transform duration-200 text-2xl">
                               →
                            </span>
@@ -170,13 +180,14 @@ export default function Home() {
               </article>
             ))}
           </div>
-          <div className="mt-8 ">
+          <div className="mt-8">
             <a
               href="/blog"
               className="text-primary inline-flex items-center gap-2 group font-semibold"
+              aria-label="Ver todos os posts do blog"
             >
               <span className="hover:underline">Ver todos os posts</span>
-              <span className="group-hover:translate-x-1 transition-transform duration-200">
+              <span className="group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true">
                 →
               </span>
             </a>
