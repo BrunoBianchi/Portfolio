@@ -12,7 +12,7 @@ export default function MainLayout({
   useEffect(() => {
     const host = window.location.hostname;
     const parts = host.split(".");
-
+    console.log(parts)
     setSubdomain(parts[0]);
 
     setIsLoading(false);
