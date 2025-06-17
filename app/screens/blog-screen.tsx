@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { usePosts } from "~/hooks/usePosts";
 
 // Ícone de busca (pode ser substituído por um da sua biblioteca de ícones)
 const SearchIcon = () => (
@@ -36,34 +37,6 @@ const ArrowRightIcon = () => (
   </svg>
 );
 
-// Dados de exemplo para os posts do blog
-const initialPosts = [
-  {
-    title: "Otimizando Performance em React Applications",
-    description:
-      "Técnicas avançadas para melhorar a performance de aplicações React em produção.",
-    date: "15 de janeiro, 2025",
-    readingTime: "5 min de leitura",
-    link: "#",
-  },
-  {
-    title: "Arquitetura de Microsserviços com Node.js",
-    description:
-      "Como estruturar e escalar aplicações usando arquitetura de microsserviços.",
-    date: "8 de janeiro, 2025",
-    readingTime: "8 min de leitura",
-    link: "#",
-  },
-  {
-    title: "O Futuro do Desenvolvimento Web em 2025",
-    description:
-      "Tendências e tecnologias que estão moldando o desenvolvimento web moderno.",
-    date: "2 de janeiro, 2025",
-    readingTime: "6 min de leitura",
-    link: "#",
-  },
-];
-
 const filterTags = [
   "Todos",
   "Node.js",
@@ -74,28 +47,11 @@ const filterTags = [
 ];
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState(initialPosts);
+  const { posts, loading, error } = usePosts();
+  const [visiblePosts, setVisiblePosts] = useState(6); // Controla quantos posts mostrar
 
   const loadMorePosts = () => {
-    const newPosts = [
-      {
-        title: "Gerenciamento de Estado com Redux Toolkit",
-        description:
-          "Um guia prático para utilizar o Redux Toolkit em seus projetos React.",
-        date: "1 de janeiro, 2025",
-        readingTime: "7 min de leitura",
-        link: "#",
-      },
-      {
-        title: "Introdução ao Docker para Desenvolvedores",
-        description:
-          "Aprenda os conceitos básicos de Docker e como containerizar suas aplicações.",
-        date: "28 de dezembro, 2024",
-        readingTime: "10 min de leitura",
-        link: "#",
-      },
-    ];
-    setPosts([...posts, ...newPosts]);
+    setVisiblePosts((prev) => prev + 6);
   };
 
   return (
@@ -142,9 +98,21 @@ export default function BlogPage() {
           ))}
         </div>
 
+        {loading && (
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-lg">Carregando posts...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-16">
+            <p className="text-red-400 text-lg">Erro ao carregar posts: {error}</p>
+          </div>
+        )}
+
         <main className="space-y-10">
-          {posts.map((post, index) => (
-            <a href={post.link} key={index} className="block group">
+          {posts.slice(0, visiblePosts).map((post, index) => (
+            <a href={post.link} key={post._id} className="block group">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex-grow">
                   <h2 className="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
@@ -161,21 +129,23 @@ export default function BlogPage() {
                   <ArrowRightIcon />
                 </div>
               </div>
-              {index < posts.length - 1 && (
+              {index < posts.slice(0, visiblePosts).length - 1 && (
                 <hr className="border-t-2 border-primary/10 mt-10" />
               )}
             </a>
           ))}
         </main>
 
-        <div className="text-center mt-12 md:mt-16">
-          <button
-            onClick={loadMorePosts}
-            className="bg-primary text-background font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-colors"
-          >
-            Carregar mais
-          </button>
-        </div>
+        {visiblePosts < posts.length && (
+          <div className="text-center mt-12 md:mt-16">
+            <button
+              onClick={loadMorePosts}
+              className="bg-primary text-background font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-colors"
+            >
+              Carregar mais
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

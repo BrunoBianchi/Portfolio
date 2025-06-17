@@ -33,13 +33,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        {/* SEO Meta Tags */}
         <meta name="description" content="Bruno Bianchi - Desenvolvedor FullStack especializado em React, Node.js e soluções escaláveis. Experiência em Engenharia de Dados e Machine Learning." />
         <meta name="keywords" content="desenvolvedor fullstack, react, nodejs, engenharia de dados, machine learning, bruno bianchi, portfolio" />
         <meta name="author" content="Bruno Bianchi" />
         <meta name="robots" content="index, follow" />
         
-        {/* Open Graph Tags */}
         <meta property="og:title" content="Bruno Bianchi - Desenvolvedor FullStack" />
         <meta property="og:description" content="Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." />
         <meta property="og:type" content="website" />
@@ -47,16 +45,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:image" content="https://brunobianchi.dev/brunobianchi.png" />
         <meta property="og:locale" content="pt_BR" />
         
-        {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Bruno Bianchi - Desenvolvedor FullStack" />
         <meta name="twitter:description" content="Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." />
         <meta name="twitter:image" content="https://brunobianchi.dev/brunobianchi.png" />
         
-        {/* Canonical URL */}
         <link rel="canonical" href="https://brunobianchi.dev" />
         
-        {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -87,6 +82,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <Links />
       </head>
       <body>

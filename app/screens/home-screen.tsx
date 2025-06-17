@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePosts } from "~/hooks/usePosts";
 
 export const meta = () => [
   { title: "Bruno Bianchi - Desenvolvedor FullStack | Home" },
@@ -6,6 +7,7 @@ export const meta = () => [
 ];
 
 export default function Home() {
+  const { posts, loading, error } = usePosts();
   const [hoveredProject, setHoveredProject] = useState(null);
 
   const experiences = [
@@ -56,30 +58,6 @@ export default function Home() {
         "Dashboard interativo para visualização de dados empresariais",
       tech: ["React", "D3.js", "Express", "Redis"],
       link: "#",
-    },
-  ];
-
-  const posts = [
-    {
-      title: "Otimizando Performance em React Applications",
-      date: "15 de Janeiro, 2025",
-      readTime: "5 min de leitura",
-      excerpt:
-        "Técnicas avançadas para melhorar a performance de aplicações React em produção.",
-    },
-    {
-      title: "Arquitetura de Microsserviços com Node.js",
-      date: "8 de Janeiro, 2025",
-      readTime: "8 min de leitura",
-      excerpt:
-        "Como estruturar e escalar aplicações usando arquitetura de microsserviços.",
-    },
-    {
-      title: "O Futuro do Desenvolvimento Web em 2025",
-      date: "2 de Janeiro, 2025",
-      readTime: "6 min de leitura",
-      excerpt:
-        "Tendências e tecnologias que estão moldando o desenvolvimento web moderno.",
     },
   ];
 
@@ -154,43 +132,35 @@ export default function Home() {
       <section id="blog" className="px-6 py-5" aria-labelledby="blog-heading">
         <div className="max-w-4xl mx-auto">
           <h2 id="blog-heading" className="text-3xl font-bold mb-12">Posts Recentes</h2>
+          
+          {loading && (
+            <div className="text-center py-8">
+              <p className="text-gray-400">Carregando posts...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center py-8">
+              <p className="text-red-400">Erro ao carregar posts: {error}</p>
+            </div>
+          )}
+
           <div className="space-y-8">
-            {posts.map((post, index) => (
-              <article key={index} className="group cursor-pointer">
-                 <a href={`/blog/${post.title.toLowerCase().replace(/ /g, '-')}`} aria-label={`Ler post: ${post.title}`}> 
-                    <div className="grid grid-cols-4 gap-4 items-center">
-                        <div className="col-span-3">
-                            <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200">
-                                {post.title}
-                            </h3>
-                            <p className="text-gray-400 text-sm mt-1">{post.excerpt}</p>
-                             <div className="flex items-center gap-4 text-xs text-gray-500 mt-2">
-                                <time dateTime={post.date}>{post.date}</time>
-                                <span aria-hidden="true">•</span>
-                                <span>{post.readTime}</span>
-                            </div>
-                        </div>
-                        <div className="text-right" aria-hidden="true">
-                           <span className="text-primary group-hover:translate-x-2 inline-block transition-transform duration-200 text-2xl">
-                              →
-                           </span>
-                        </div>
-                    </div>
-                 </a>
+            {posts.slice(0, 3).map((post) => ( // Mostra apenas os 3 primeiros
+              <article key={post._id} className="group cursor-pointer">
+                <a href={post.link} className="block">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-400 mb-3">{post.description}</p>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <span>{post.date}</span>
+                    <span className="mx-2">•</span>
+                    <span>{post.readingTime}</span>
+                  </div>
+                </a>
               </article>
             ))}
-          </div>
-          <div className="mt-8">
-            <a
-              href="/blog"
-              className="text-primary inline-flex items-center gap-2 group font-semibold"
-              aria-label="Ver todos os posts do blog"
-            >
-              <span className="hover:underline">Ver todos os posts</span>
-              <span className="group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true">
-                →
-              </span>
-            </a>
           </div>
         </div>
       </section>
