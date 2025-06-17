@@ -1,7 +1,8 @@
-import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import { useParams } from "react-router";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+import { usePost } from "../hooks/usePost";
 
 
 const CalendarIcon = () => (
@@ -16,24 +17,46 @@ const ChevronRightIcon = () => (
 
 
 
-const postData = {
-    title: 'Testando todos os recursos do Markdown',
-    date: '20 de junho de 2025',
-    readingTime: '5',
-    markdownContent: ``
-};
+export default function PostPage() {
+  const { id } = useParams();
+  const { post, loading, error } = usePost(id as string);
 
+  if (loading) {
+    return (
+      <div className="bg-background flex flex-col min-h-screen">
+        <main className="flex-grow pt-16 sm:pt-20">
+          <div className="max-w-4xl mx-auto px-4 text-center py-16">
+            <p className="text-gray-400 text-lg">Carregando post...</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
-export default function PostPage({ post = postData }) {
+  if (error || !post) {
+    return (
+      <div className="bg-background flex flex-col min-h-screen">
+        <main className="flex-grow pt-16 sm:pt-20">
+          <div className="max-w-4xl mx-auto px-4 text-center py-16">
+            <p className="text-red-400 text-lg">
+              {error || "Post não encontrado"}
+            </p>
+            <a href="/blog" className="text-primary hover:underline mt-4 inline-block">
+              Voltar ao blog
+            </a>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background flex flex-col min-h-screen">
       <main className="flex-grow pt-16 sm:pt-20">
         <article className="max-w-4xl mx-auto px-4">
-
           <div className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
             <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
             <ChevronRightIcon />
-
             <span className="text-white truncate">{post.title}</span>
           </div>
 
@@ -57,6 +80,20 @@ export default function PostPage({ post = postData }) {
                 <span>{post.readingTime} minutos de leitura</span>
               </div>
             </div>
+            
+            {/* Tags do post */}
+            {post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 bg-card rounded-md text-sm text-gray-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </header>
 
           <div className="prose max-w-none">
@@ -69,8 +106,6 @@ export default function PostPage({ post = postData }) {
           </div>
         </article>
       </main>
-
-
     </div>
   );
 }
