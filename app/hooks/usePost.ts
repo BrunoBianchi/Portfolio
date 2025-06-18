@@ -36,13 +36,12 @@ export function usePost(postId: string) {
         const data: Post = await response.json();
        console.log("Resposta da API /posts:", data);
 
-        // Transforma os dados para o formato esperado
         const transformedPost: PostWithParsedContent = {
           _id: data._id,
           id: data.id,
           title: data.title,
           content: data.content,
-          markdownContent: data.content, // O conteúdo já deve estar em markdown
+          markdownContent: data.content, 
           tags: data.tags,
           createdAt: data.createdAt,
           date: new Intl.DateTimeFormat('pt-BR', {

@@ -32,10 +32,10 @@ export function usePosts() {
         if (!response.ok) {
           throw new Error(`Erro ao buscar posts: ${response.status}`);
         }
-        const data:{posts: Post[]} = await response.json();
+        const data: Post[] = await response.json();
         console.log("Resposta da API /posts:", data);
 
-        const transformedPosts: PostSummary[] = data.posts.map(post => ({
+        const transformedPosts: PostSummary[] = data.map(post => ({
           _id: post._id,
           id: post.id,
           title: post.title,
