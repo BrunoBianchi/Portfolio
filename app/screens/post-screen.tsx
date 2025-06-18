@@ -62,7 +62,7 @@ export default function PostPage() {
       <main className="flex-grow pt-16 sm:pt-20">
         <article className="max-w-4xl mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
-            <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
+            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors">Blog</a>
             <ChevronRightIcon />
             <span className="text-white truncate">{post.title}</span>
           </div>
@@ -88,7 +88,6 @@ export default function PostPage() {
               </div>
             </div>
             
-            {/* Tags do post */}
             {post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-4">
                 {post.tags.map((tag) => (
