@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { usePosts } from "~/hooks/usePosts";
 
+// Ícone de busca (pode ser substituído por um da sua biblioteca de ícones)
 const SearchIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +19,7 @@ const SearchIcon = () => (
   </svg>
 );
 
-
+// Ícone de seta para os posts
 const ArrowRightIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

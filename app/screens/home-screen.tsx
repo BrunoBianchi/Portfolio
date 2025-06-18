@@ -9,6 +9,7 @@ export const meta = () => [
 export default function Home() {
   const { posts, loading, error } = usePosts();
   const [hoveredProject, setHoveredProject] = useState(null);
+
   const experiences = [
     {
       company: "UNIFEI - Universidade Federal de Itajubá",
