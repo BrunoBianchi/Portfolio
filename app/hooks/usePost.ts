@@ -34,7 +34,8 @@ export function usePost(postId: string) {
         }
         
         const data: Post = await response.json();
-        
+       console.log("Resposta da API /posts:", data);
+
         // Transforma os dados para o formato esperado
         const transformedPost: PostWithParsedContent = {
           _id: data._id,

@@ -29,28 +29,30 @@ export function usePosts() {
       try {
         setLoading(true);
         const response = await fetch('https://api.brunobianchi.dev/posts');
-        
         if (!response.ok) {
           throw new Error(`Erro ao buscar posts: ${response.status}`);
         }
-        
-        const data: Post[] = await response.json();
-        
-        // Transforma os dados da API para o formato esperado pelo frontend
+        const data = await response.json();
+        console.log("Resposta da API /posts:", data);
+
+        if (!Array.isArray(data)) {
+          throw new Error("A resposta da API não é uma lista de posts.");
+        }
+
         const transformedPosts: PostSummary[] = data.map(post => ({
           _id: post._id,
           id: post.id,
           title: post.title,
-          description: post.content.slice(0, 150) + '...', // Primeiros 150 caracteres como descrição
+          description: post.content.slice(0, 150) + '...',
           date: new Intl.DateTimeFormat('pt-BR', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
           }).format(new Date(post.createdAt)),
-          readingTime: `${Math.ceil(post.content.split(' ').length / 200)} min de leitura`, // Estimativa de tempo de leitura
+          readingTime: `${Math.ceil(post.content.split(' ').length / 200)} min de leitura`,
           link: `/post/${post.id}`
         }));
-        
+
         setPosts(transformedPosts);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Erro desconhecido');
