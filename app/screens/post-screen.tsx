@@ -3,8 +3,6 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
-import helmetAsyncPkg from "react-helmet-async";
-const { HelmetProvider, Helmet } = helmetAsyncPkg;
 
 
 const CalendarIcon = () => (
@@ -17,12 +15,18 @@ const ChevronRightIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
 );
 
-
+let meta = () => [
+  { title: "Bruno Bianchi - Desenvolvedor FullStack | Home" },
+  { name: "description", content: "Página inicial do portfolio de Bruno Bianchi, desenvolvedor FullStack com experiência em React, Node.js, Engenharia de Dados e Machine Learning." }
+];
 
 export default function PostPage() {
   const { id } = useParams();
   const { post, loading, error } = usePost(id as string);
-
+  meta = ()=> [
+    { title: post!.title + " | Bruno Bianchi" },
+    { name: "description", content: post!.content.slice(0, 150) }
+  ]
   if (loading) {
     return (
       <div className="bg-background flex flex-col min-h-screen">
@@ -54,14 +58,12 @@ export default function PostPage() {
 
   return (
     <div className="bg-background flex flex-col min-h-screen">
-      <Helmet>
         <title>{post.title} | Bruno Bianchi</title>
         <meta name="description" content={post.content.slice(0, 150)} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.content.slice(0, 150)} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://blog.brunobianchi.dev/post/${post.id}`} />
-      </Helmet>
       <main className="flex-grow pt-16 sm:pt-20">
         <article className="max-w-4xl mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
@@ -119,3 +121,4 @@ export default function PostPage() {
     </div>
   );
 }
+export { meta };
