@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { usePosts } from "~/hooks/usePosts";
 
 // Ícone de busca (pode ser substituído por um da sua biblioteca de ícones)
@@ -118,7 +121,12 @@ export default function BlogPage() {
                   <h2 className="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
                     {post.title}
                   </h2>
-                  <p className="text-gray-400 mt-2">{post.description}</p>
+                  <p className="text-gray-400 mt-2">            <ReactMarkdown
+                                rehypePlugins={[rehypeRaw]}
+                                remarkPlugins={[remarkGfm]}
+                              >
+                                {post.description}
+                              </ReactMarkdown></p>
                   <div className="text-sm text-gray-500 mt-3">
                     <span>{post.date}</span>
                     <span className="mx-2">•</span>
