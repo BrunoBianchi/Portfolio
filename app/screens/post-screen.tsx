@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
+import { Helmet } from "react-helmet-async";
 
 
 const CalendarIcon = () => (
@@ -52,6 +53,14 @@ export default function PostPage() {
 
   return (
     <div className="bg-background flex flex-col min-h-screen">
+      <Helmet>
+        <title>{post.title} | Bruno Bianchi</title>
+        <meta name="description" content={post.content.slice(0, 150)} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.content.slice(0, 150)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://blog.brunobianchi.dev/post/${post.id}`} />
+      </Helmet>
       <main className="flex-grow pt-16 sm:pt-20">
         <article className="max-w-4xl mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
