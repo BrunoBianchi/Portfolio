@@ -73,18 +73,18 @@ const Roadmap: React.FC<RoadmapProps> = ({ headings, activeId }) => {
                 <a
                     href={`#${heading.id}`}
                     className={`
-                        block py-1.5 px-3 text-sm rounded-md transition-all duration-200
-                        hover:bg-gray-800/50
+                        block py-1 px-2 text-xs rounded transition-all duration-200
+                        hover:bg-gray-100 dark:hover:bg-gray-800/30
                         ${isActive 
-                            ? 'text-white bg-gray-800/30 font-medium' 
-                            : 'text-gray-400 hover:text-gray-200'
+                            ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800/20 font-medium' 
+                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                         }
                     `}
                 >
                     <span className="truncate block">{heading.text}</span>
                 </a>
                 {hasChildren && (
-                    <ul className="ml-3 mt-1 border-l border-gray-800">
+                    <ul className="ml-3 mt-1 border-l border-gray-200 dark:border-gray-800">
                         {heading.children.map((child: any) => renderHeading(child))}
                     </ul>
                 )}
@@ -95,12 +95,12 @@ const Roadmap: React.FC<RoadmapProps> = ({ headings, activeId }) => {
     const hierarchy = buildHierarchy();
 
     return (
-        <aside className="w-full lg:w-64 xl:w-72 lg:sticky lg:top-24 self-start">
-            <nav className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-4 border border-gray-800">
-                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+        <aside className="w-full lg:w-48 xl:w-56 lg:sticky lg:top-24 self-start">
+            <nav className="rounded-lg p-3">
+                <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
                     Neste artigo
                 </h3>
-                <ul className="space-y-1">
+                <ul className="space-y-0.5">
                     {hierarchy.map(heading => renderHeading(heading))}
                 </ul>
             </nav>
@@ -117,18 +117,9 @@ const HeadingRenderer: React.FC<HeadingRendererProps> = ({ level, children }) =>
     const id = slugify(text);
     const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     
-    const classes = {
-        1: "text-4xl font-bold text-white mb-6 scroll-mt-24",
-        2: "text-3xl font-bold text-white mt-12 mb-4 scroll-mt-24",
-        3: "text-2xl font-semibold text-white mt-8 mb-3 scroll-mt-24",
-        4: "text-xl font-semibold text-gray-100 mt-6 mb-2 scroll-mt-24",
-        5: "text-lg font-medium text-gray-200 mt-4 mb-2 scroll-mt-24",
-        6: "text-base font-medium text-gray-300 mt-3 mb-1 scroll-mt-24"
-    };
-    
     return React.createElement(Tag, { 
         id, 
-        className: classes[level as keyof typeof classes] 
+        className: "scroll-mt-24" 
     }, children);
 };
 
@@ -196,11 +187,11 @@ export default function PostScreen() {
 
     if (loading) {
         return (
-            <div className="bg-gray-950 flex flex-col min-h-screen">
+            <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen">
                 <main className="flex-grow pt-16 sm:pt-20">
-                    <div className="max-w-4xl mx-auto px-4 text-center py-16">
+                    <div className="max-w-6xl mx-auto px-4 text-center py-16">
                         <div className="animate-pulse">
-                            <div className="h-4 bg-gray-800 rounded w-32 mx-auto"></div>
+                            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-32 mx-auto"></div>
                         </div>
                     </div>
                 </main>
@@ -210,10 +201,10 @@ export default function PostScreen() {
 
     if (!post) {
         return (
-            <div className="bg-gray-950 flex flex-col min-h-screen">
+            <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen">
                 <main className="flex-grow pt-16 sm:pt-20">
-                    <div className="max-w-4xl mx-auto px-4 text-center py-16">
-                        <p className="text-gray-400 text-lg">Post não encontrado</p>
+                    <div className="max-w-6xl mx-auto px-4 text-center py-16">
+                        <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
                     </div>
                 </main>
             </div>
@@ -221,77 +212,38 @@ export default function PostScreen() {
     }
 
     return (
-        <div className="bg-gray-950 flex flex-col min-h-screen text-gray-100">
-            <style>{`
-                html { 
-                    scroll-behavior: smooth; 
-                }
-                .prose {
-                    color: #e5e7eb;
-                }
-                .prose strong {
-                    color: #f3f4f6;
-                }
-                .prose code {
-                    background: #1f2937;
-                    color: #60a5fa;
-                    padding: 0.125rem 0.375rem;
-                    border-radius: 0.375rem;
-                    font-size: 0.875em;
-                }
-                .prose pre {
-                    background: #111827;
-                    border: 1px solid #374151;
-                }
-                .prose a {
-                    color: #60a5fa;
-                    text-decoration: none;
-                    border-bottom: 1px solid transparent;
-                    transition: border-color 0.2s;
-                }
-                .prose a:hover {
-                    border-bottom-color: #60a5fa;
-                }
-                .prose blockquote {
-                    border-left-color: #4b5563;
-                    color: #9ca3af;
-                }
-                .prose hr {
-                    border-color: #374151;
-                }
-            `}</style>
-            
+        <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
             <main className="flex-grow pt-16 sm:pt-20">
-                <div className="container mx-auto flex flex-col lg:flex-row gap-8 px-4 py-8">
+                <div className="container max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 px-4 py-8">
                     
-                    {/* Roadmap Lateral */}
+                    {/* Roadmap Lateral - Menor */}
                     <Roadmap headings={headings} activeId={activeHeadingId} />
 
-                    {/* Conteúdo do Post */}
-                    <article className="w-full lg:max-w-4xl">
+                    {/* Conteúdo do Post - Maior */}
+                    <article className="w-full lg:max-w-5xl">
                         {/* Breadcrumb */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
+                        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-500 mb-8">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors">
                                 Blog
                             </a>
                             <ChevronRightIcon />
-                            <span className="text-gray-300 truncate">{post.title}</span>
+                            <span className="text-gray-900 dark:text-gray-300 truncate">{post.title}</span>
                         </div>
 
                         {/* Header do Post */}
                         <header className="mb-12">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
+                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-8">
                                 {post.title}
                             </h1>
                             
-                            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-400">
+                            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-600 dark:text-gray-400">
                                 <div className="flex items-center">
                                     <img 
                                         src="/brunobianchi.png" 
                                         alt="Avatar de Bruno Bianchi" 
-                                        className="w-10 h-10 rounded-full mr-3 ring-2 ring-gray-800" 
+                                        className="w-10 h-10 rounded-full mr-3 ring-2 ring-gray-200 dark:ring-gray-800" 
                                     />
-                                    <span className="font-medium text-gray-200">Bruno Bianchi</span>
+                                    <span className="font-medium text-gray-900 dark:text-gray-200">Bruno Bianchi</span>
                                 </div>
                                 
                                 <div className="flex items-center text-sm">
@@ -311,7 +263,7 @@ export default function PostScreen() {
                                     {post.tags.map((tag: string, index: number) => (
                                         <span 
                                             key={index} 
-                                            className="px-3 py-1.5 text-xs font-medium bg-gray-800/50 text-gray-300 rounded-full border border-gray-700 hover:border-gray-600 transition-colors"
+                                            className="px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 rounded-full border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
                                         >
                                             {tag}
                                         </span>

@@ -10,13 +10,17 @@
   --color-accent-soft: #fde68a;
 }
 
-html,
-body {
+html, body {
   @apply bg-white dark:bg-background;
-
+  
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
 }
 
 hr {
@@ -62,35 +66,46 @@ hr {
   .prose {
     @apply text-lg text-gray-300;
   }
-
+  
   .prose h1 {
-    @apply text-4xl text-white font-bold mb-3 mt-5;
+    @apply text-4xl text-white font-bold mb-6 mt-5;
   }
   .prose h2 {
-    @apply text-3xl text-white font-bold mb-3 mt-5;
+    @apply text-3xl text-white font-bold mb-4 mt-12;
   }
   .prose h3 {
-    @apply text-2xl font-bold mb-3 mt-5 text-white;
+    @apply text-2xl font-semibold mb-3 mt-8 text-white;
   }
   .prose h4 {
-    @apply text-xl text-white font-semibold mb-3 mt-5;
+    @apply text-xl text-gray-100 font-semibold mb-2 mt-6;
   }
-
+  .prose h5 {
+    @apply text-lg text-gray-200 font-medium mb-2 mt-4;
+  }
+  .prose h6 {
+    @apply text-base text-gray-300 font-medium mb-1 mt-3;
+  }
+  
   .prose p {
     @apply my-5 leading-relaxed;
   }
-
+  
   .prose a {
-    @apply text-primary no-underline transition-colors hover:underline;
+    @apply text-primary no-underline transition-all hover:underline;
+    border-bottom: 1px solid transparent;
   }
+  .prose a:hover {
+    border-bottom-color: var(--color-primary);
+  }
+  
   .prose strong {
-    @apply text-white;
+    @apply text-white font-semibold;
   }
-
+  
   .prose blockquote {
-    @apply border-l-[3px] border-primary pl-6 my-8 text-gray-400 italic;
+    @apply border-l-[3px] border-gray-600 pl-6 my-8 text-gray-400 italic;
   }
-
+  
   .prose ul,
   .prose ol {
     @apply my-6 pl-5;
@@ -110,36 +125,37 @@ hr {
   .prose ul ul ul {
     list-style-type: square;
   }
-
+  
   .prose li::marker {
     @apply text-[var(--color-accent-warm)] text-xl;
   }
   .prose input[type="checkbox"] {
     @apply h-5 w-5 rounded-sm border-2 border-primary text-primary bg-transparent focus:ring-0 focus:ring-offset-0;
   }
-
+  
   .prose img {
     @apply block rounded-lg my-10 shadow-lg max-h-[350px] w-auto mx-auto;
   }
-
+  
   .prose hr {
-    @apply border-t-2 border-primary/10 my-12;
+    @apply border-t-2 border-gray-700 my-12;
   }
-
+  
   .prose pre {
-    @apply bg-card/80 border border-white/10 p-5 rounded-lg my-8 text-base;
+    @apply bg-gray-900 border border-gray-700 p-5 rounded-lg my-8 text-base overflow-x-auto;
   }
+  
   .prose code {
-    @apply text-[var(--color-accent-soft)] font-mono text-[0.92em] rounded bg-card/90 px-2 py-1;
+    @apply text-blue-400 font-mono text-[0.875em] rounded bg-gray-800 px-2 py-1;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-inherit;
+    @apply bg-transparent p-0 text-inherit text-gray-200;
   }
   .prose code::before,
   .prose code::after {
     content: "";
   }
-
+  
   .prose table {
     @apply w-full my-8 border-collapse;
   }
@@ -158,4 +174,9 @@ hr {
   .prose td {
     @apply px-4 py-3;
   }
+}
+
+/* Estilos para scroll e headings */
+.scroll-mt-24 {
+  scroll-margin-top: 6rem;
 }
