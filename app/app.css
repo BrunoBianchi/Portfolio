@@ -11,11 +11,8 @@
 }
 
 html, body {
-  @apply bg-white dark:bg-background;
-  
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-background text-white;
+  color-scheme: dark;
 }
 
 /* Scroll suave */
@@ -202,31 +199,43 @@ hr {
 /* Responsividade adicional */
 @media (max-width: 640px) {
   .prose {
-    @apply text-base;
+    @apply text-sm;
   }
 
   .prose h1 {
-    @apply text-2xl mb-4 mt-4;
+    @apply text-xl mb-3 mt-3;
   }
 
   .prose h2 {
-    @apply text-xl mb-3 mt-8;
-  }
-
-  .prose h3 {
     @apply text-lg mb-2 mt-6;
   }
 
+  .prose h3 {
+    @apply text-base mb-2 mt-4;
+  }
+
+  .prose h4 {
+    @apply text-sm mb-1 mt-3;
+  }
+
   .prose p {
-    @apply my-4;
+    @apply my-3 text-sm leading-relaxed;
   }
 
   .prose pre {
-    @apply text-sm p-3;
+    @apply text-xs p-2;
   }
 
   .prose img {
-    @apply max-h-[250px] my-6;
+    @apply max-h-[200px] my-4;
+  }
+
+  .prose ul, .prose ol {
+    @apply my-4 pl-4;
+  }
+
+  .prose li {
+    @apply my-1 text-sm;
   }
 }
 
@@ -234,21 +243,31 @@ hr {
 @media (max-width: 768px) {
   /* Ajustar padding dos containers */
   .container {
-    @apply px-4;
+    @apply px-3;
   }
 
   /* Melhorar espaçamento em telas pequenas */
   .space-y-8 > * + * {
-    @apply mt-6;
+    @apply mt-4;
   }
 
   .space-y-10 > * + * {
-    @apply mt-8;
+    @apply mt-6;
   }
 
   /* Ajustar prose para tablets */
   .prose {
-    @apply text-base;
+    @apply text-sm;
+  }
+
+  /* Melhorar botões em mobile */
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+
+  /* Ajustar formulários */
+  input, textarea, select {
+    @apply text-base; /* Evita zoom no iOS */
   }
 }
 

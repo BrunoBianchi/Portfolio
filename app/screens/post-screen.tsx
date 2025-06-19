@@ -206,9 +206,9 @@ export default function PostScreen() {
 
     if (loading && !loaderData) {
         return (
-            <div className="bg-white dark:bg-background flex flex-col min-h-screen">
-                <main className="flex-grow container mx-auto px-4 text-center py-16">
-                    <div className="animate-pulse h-10 bg-gray-200 dark:bg-gray-800 rounded w-1/2 mx-auto"></div>
+            <div className="bg-background flex flex-col min-h-screen">
+                <main className="flex-grow container mx-auto px-4 text-center py-8 sm:py-16">
+                    <div className="animate-pulse h-8 sm:h-10 bg-gray-800 rounded w-3/4 sm:w-1/2 mx-auto"></div>
                 </main>
             </div>
         );
@@ -216,51 +216,51 @@ export default function PostScreen() {
 
     if (!post) {
         return (
-            <div className="bg-white dark:bg-background flex flex-col min-h-screen">
-                <main className="flex-grow container mx-auto px-4 text-center py-16">
-                    <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
+            <div className="bg-background flex flex-col min-h-screen">
+                <main className="flex-grow container mx-auto px-4 text-center py-8 sm:py-16">
+                    <p className="text-gray-400 text-base sm:text-lg">Post não encontrado</p>
                 </main>
             </div>
         );
     }
 
     return (
-        <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
+        <div className="bg-background flex flex-col min-h-screen text-white">
             <main className="flex-grow pt-2 sm:pt-4 md:pt-6">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 relative">
+                <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 relative">
                     <Roadmap headings={headings} />
                     
                     <article>
                         {/* Breadcrumb */}
-                        <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+                        <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 md:mb-8">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors whitespace-nowrap">
                                 Blog
                             </a>
                             <ChevronRightIcon />
-                            <span className="text-gray-700 dark:text-gray-300 truncate">{cleanMarkdown(post.title)}</span>
+                            <span className="text-gray-300 truncate">{cleanMarkdown(post.title)}</span>
                         </div>
 
                         {/* Header do Post */}
-                        <header className="mb-12">
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-6">
+                        <header className="mb-8 sm:mb-10 md:mb-12">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6">
                                 {cleanMarkdown(post.title)}
                             </h1>
-                            
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-600 dark:text-gray-400 text-sm">
+
+                            <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 text-gray-400 text-xs sm:text-sm">
                                 <div className="flex items-center">
-                                    <img 
-                                        src="/brunobianchi.png" 
-                                        alt="Avatar de Bruno Bianchi" 
-                                        className="w-8 h-8 rounded-full mr-2" 
+                                    <img
+                                        src="/brunobianchi.png"
+                                        alt="Avatar de Bruno Bianchi"
+                                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full mr-2"
                                     />
-                                    <span className="font-medium text-gray-800 dark:text-gray-200">Bruno Bianchi</span>
+                                    <span className="font-medium text-gray-200">Bruno Bianchi</span>
                                 </div>
-                                <span className="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
+                                <span className="hidden sm:inline text-gray-600">•</span>
                                 <div className="flex items-center">
                                     <CalendarIcon />
                                     <span>{post.date}</span>
                                 </div>
-                                <span className="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
+                                <span className="hidden sm:inline text-gray-600">•</span>
                                 <div className="flex items-center">
                                     <ClockIcon />
                                     <span>{post.readingTime} min de leitura</span>
@@ -268,11 +268,11 @@ export default function PostScreen() {
                             </div>
 
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2 mt-4">
+                                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4">
                                     {post.tags.map((tag: string, index: number) => (
-                                        <span 
-                                            key={index} 
-                                            className="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md"
+                                        <span
+                                            key={index}
+                                            className="px-2 sm:px-2.5 py-1 text-xs font-medium bg-gray-800 text-gray-300 rounded-md"
                                         >
                                             {tag}
                                         </span>
@@ -281,10 +281,10 @@ export default function PostScreen() {
                             )}
                         </header>
 
-                        <hr className="border-gray-200 dark:border-gray-800 mb-8" />
+                        <hr className="border-gray-800 mb-6 sm:mb-8" />
 
                         {/* Reações do Post */}
-                        <div className="mb-8 py-4 border-t border-b border-gray-800/30">
+                        <div className="mb-6 sm:mb-8 py-3 sm:py-4 border-t border-b border-gray-800/30">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -295,7 +295,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert prose-headings:scroll-mt-20">
+                        <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:scroll-mt-20">
                             {/* Debug: Mostrar conteúdo bruto */}
 
                             <ReactMarkdown

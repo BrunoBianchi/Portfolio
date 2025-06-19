@@ -59,16 +59,16 @@ export const Reactions: React.FC<ReactionsProps> = ({
   const activeReactions = Object.entries(reactions).filter(([_, reaction]) => reaction.count > 0);
 
   return (
-    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-1.5 sm:gap-2 ${className}`}>
       {/* Reações existentes */}
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
         {activeReactions.map(([emoji, reaction]) => (
           <button
             key={emoji}
             onClick={() => handleReaction(emoji as ReactionEmoji)}
             disabled={isLoading}
             className={`
-              flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 min-w-0
+              flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 min-w-0
               ${reaction.userReacted
                 ? 'bg-yellow-400/15 text-yellow-400 border border-yellow-400/30 shadow-sm'
                 : 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600/50'
@@ -77,7 +77,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
             `}
             title={`${reaction.count} ${reaction.count === 1 ? 'pessoa reagiu' : 'pessoas reagiram'} com ${emoji}`}
           >
-            <span className="text-base leading-none">{emoji}</span>
+            <span className="text-sm sm:text-base leading-none">{emoji}</span>
             <span className="text-xs font-semibold min-w-[1ch]">{reaction.count}</span>
           </button>
         ))}
@@ -89,7 +89,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
           onClick={() => setShowPicker(!showPicker)}
           disabled={isLoading}
           className={`
-            flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 border
+            flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-200 border
             ${showPicker
               ? 'bg-yellow-400/15 text-yellow-400 border-yellow-400/30 shadow-sm'
               : 'bg-gray-800/30 text-gray-400 border-gray-700/50 hover:bg-gray-700/40 hover:text-gray-300 hover:border-gray-600/50'
@@ -99,9 +99,9 @@ export const Reactions: React.FC<ReactionsProps> = ({
           title="Adicionar reação"
         >
           {isLoading ? (
-            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+            <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
           ) : (
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
           )}
@@ -109,14 +109,14 @@ export const Reactions: React.FC<ReactionsProps> = ({
 
         {/* Picker de emojis */}
         {showPicker && (
-          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 p-3 bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-2xl z-50 min-w-max">
-            <div className="grid grid-cols-4 gap-2">
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 sm:mb-3 p-2 sm:p-3 bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-2xl z-50 min-w-max">
+            <div className="grid grid-cols-4 gap-1 sm:gap-2">
               {AVAILABLE_REACTIONS.map(({ emoji, label }) => (
                 <button
                   key={emoji}
                   onClick={() => handleReaction(emoji)}
                   disabled={isLoading}
-                  className="p-2.5 text-xl hover:bg-gray-800/50 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
+                  className="p-1.5 sm:p-2.5 text-lg sm:text-xl hover:bg-gray-800/50 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
                   title={label}
                 >
                   {emoji}

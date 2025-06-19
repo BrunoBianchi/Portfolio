@@ -67,13 +67,13 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block fixed top-32 left-4 lg:left-8 w-56 lg:w-64 z-30 pointer-events-none">
+      <aside className="hidden lg:block fixed top-24 xl:top-32 left-2 lg:left-4 xl:left-8 w-52 lg:w-56 xl:w-64 z-30 pointer-events-none">
         <div className="pointer-events-auto">
-        <nav className="bg-gray-900/15 backdrop-blur-sm rounded-lg p-4 border border-gray-800/20 shadow-lg max-h-[calc(100vh-10rem)] overflow-hidden">
-          <h3 className="text-xs font-medium text-gray-300 mb-3 tracking-wide uppercase">
+        <nav className="bg-gray-900/20 backdrop-blur-sm rounded-lg p-3 lg:p-4 border border-gray-800/30 shadow-lg max-h-[calc(100vh-8rem)] overflow-hidden">
+          <h3 className="text-xs font-medium text-gray-300 mb-2 lg:mb-3 tracking-wide uppercase">
             Neste post
           </h3>
-          <ol className="space-y-0.5 text-xs overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent scroll-smooth">
+          <ol className="space-y-0.5 text-xs overflow-y-auto aside-scrollbar scroll-smooth max-h-[calc(100vh-12rem)]">
             {filteredHeadings.map(renderHeading)}
           </ol>
         </nav>
@@ -81,10 +81,10 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
       </aside>
 
       {/* Mobile Floating Button */}
-      <div className="lg:hidden fixed bottom-6 right-6 z-50">
+      <div className="lg:hidden fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="bg-primary text-black p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200 flex items-center justify-center"
+          className="bg-primary text-black p-2.5 sm:p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200 flex items-center justify-center"
           aria-label="Abrir índice do post"
         >
           {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -96,17 +96,17 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
         <>
           {/* Backdrop */}
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-40"
+            className="lg:hidden fixed inset-0 bg-black/60 z-40"
             onClick={() => setIsMobileMenuOpen(false)}
           />
 
           {/* Menu */}
-          <div className="lg:hidden fixed bottom-20 right-6 left-6 z-50 max-h-[70vh]">
-            <nav className="bg-gray-900/95 backdrop-blur-sm rounded-xl p-4 border border-gray-800/50 shadow-2xl">
-              <h3 className="font-medium text-gray-200 text-sm mb-3 tracking-wide uppercase">
+          <div className="lg:hidden fixed bottom-16 sm:bottom-20 right-3 left-3 sm:right-6 sm:left-6 z-50 max-h-[70vh]">
+            <nav className="bg-gray-900/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-gray-800/50 shadow-2xl">
+              <h3 className="font-medium text-gray-200 text-sm mb-2 sm:mb-3 tracking-wide uppercase">
                 Neste post
               </h3>
-              <ol className="space-y-0.5 text-sm max-h-[50vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+              <ol className="space-y-0.5 text-sm max-h-[50vh] overflow-y-auto aside-scrollbar">
                 {filteredHeadings.map(renderHeading)}
               </ol>
             </nav>

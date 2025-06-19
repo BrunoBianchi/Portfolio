@@ -64,14 +64,14 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
   };
 
   return (
-    <section className="mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+    <section className="mt-12 sm:mt-16 border-t border-gray-800 pt-8 sm:pt-12">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
           Comentários
         </h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          {total === 0 
-            ? 'Seja o primeiro a comentar!' 
+        <p className="text-gray-400 text-sm sm:text-base">
+          {total === 0
+            ? 'Seja o primeiro a comentar!'
             : `${total} comentário${total !== 1 ? 's' : ''}`
           }
         </p>
@@ -79,19 +79,19 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
 
       {/* Formulário de comentário ou prompt de login */}
       {isAuthenticated ? (
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           {!showForm ? (
             <button
               onClick={() => setShowForm(true)}
-              className="w-full p-4 text-left bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="w-full p-3 sm:p-4 text-left bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors"
             >
               <div className="flex items-center space-x-3">
                 <img
                   src={user?.avatar_url}
                   alt={user?.name || user?.login}
-                  className="w-8 h-8 rounded-full"
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
                 />
-                <span className="text-gray-500 dark:text-gray-400">
+                <span className="text-gray-400 text-sm sm:text-base">
                   Escreva um comentário...
                 </span>
               </div>
@@ -111,13 +111,13 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
 
       {/* Lista de comentários */}
       {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-red-600 dark:text-red-400 text-sm">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-900/20 border border-red-800 rounded-lg">
+          <p className="text-red-400 text-sm">
             {error}
           </p>
           <button
             onClick={refresh}
-            className="mt-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm underline"
+            className="mt-2 text-red-400 hover:text-red-300 text-sm underline"
           >
             Tentar novamente
           </button>
@@ -125,22 +125,22 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
       )}
 
       {loading && comments.length === 0 ? (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="animate-pulse">
               <div className="flex space-x-3">
-                <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-700 rounded-full"></div>
                 <div className="flex-1 space-y-2">
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                  <div className="h-3 sm:h-4 bg-gray-700 rounded w-1/4"></div>
+                  <div className="h-3 sm:h-4 bg-gray-700 rounded w-3/4"></div>
+                  <div className="h-3 sm:h-4 bg-gray-700 rounded w-1/2"></div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {comments.map((comment) => (
             <CommentItem
               key={comment.id}
@@ -153,11 +153,11 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
           ))}
 
           {hasMore && (
-            <div className="text-center pt-6">
+            <div className="text-center pt-4 sm:pt-6">
               <button
                 onClick={loadMore}
                 disabled={loading}
-                className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-4 sm:px-6 py-2 bg-primary text-black rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base"
               >
                 {loading ? 'Carregando...' : 'Carregar mais comentários'}
               </button>
@@ -165,9 +165,9 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
           )}
 
           {comments.length === 0 && !loading && (
-            <div className="text-center py-12">
-              <div className="text-gray-400 dark:text-gray-600 text-6xl mb-4">💬</div>
-              <p className="text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 sm:py-12">
+              <div className="text-gray-600 text-4xl sm:text-6xl mb-3 sm:mb-4">💬</div>
+              <p className="text-gray-400 text-sm sm:text-base">
                 Nenhum comentário ainda. Seja o primeiro a comentar!
               </p>
             </div>
