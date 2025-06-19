@@ -1,5 +1,6 @@
+// PostScreen.tsx
 import { useParams } from "react-router";
-import React, { useState, useEffect, type ReactNode } from "react";
+import React, { useState, useEffect, type ReactNode, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -32,76 +33,75 @@ const slugify = (text: string): string =>
     .replace(/[^\w\-]+/g, '')
     .replace(/\-\-+/g, '-');
 
-// COMPONENTE ROADMAP MELHORADO
+// Função para remover formatação markdown básica
+const cleanMarkdown = (text: string): string => {
+    return text
+        .replace(/\*\*/g, '') // Remove bold **
+        .replace(/\*/g, '')   // Remove italic *
+        .replace(/__/g, '')   // Remove bold __
+        .replace(/_/g, '');   // Remove italic _
+};
+
+// --- ÍCONES PARA O ROADMAP ---
+const BulletIcon = () => (
+    <svg viewBox="0 0 16 16" className="w-2.5 h-2.5 mr-3 text-primary flex-shrink-0">
+        <circle cx="8" cy="8" r="7" fill="currentColor" />
+    </svg>
+);
+
+const SubheadingArrowIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="w-4 h-4 mr-2.5 text-gray-500 flex-shrink-0">
+        <path d="M4 5.5V8.5C4 9.05228 4.44772 9.5 5 9.5H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+        <path d="M10 7.5L12 9.5L10 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+    </svg>
+);
+
+
+
+
+
+// --- COMPONENTE ATUALIZADO ---
 const Roadmap: React.FC<RoadmapProps> = ({ headings, activeId }) => {
     if (!headings || headings.length === 0) {
         return null;
     }
 
-    // Agrupa headings em uma estrutura hierárquica
-    const buildHierarchy = () => {
-        const hierarchy: any[] = [];
-        const stack: any[] = [];
-
-        headings.forEach(heading => {
-            const item = { ...heading, children: [] };
-
-            // Remove items do stack até encontrar um pai adequado
-            while (stack.length > 0 && stack[stack.length - 1].level >= heading.level) {
-                stack.pop();
-            }
-
-            // Se há um pai no stack, adiciona como filho
-            if (stack.length > 0) {
-                stack[stack.length - 1].children.push(item);
-            } else {
-                hierarchy.push(item);
-            }
-
-            stack.push(item);
-        });
-
-        return hierarchy;
-    };
-
-    const renderHeading = (heading: any) => {
+    const renderHeading = (heading: Heading) => {
         const isActive = activeId === heading.id;
-        const hasChildren = heading.children && heading.children.length > 0;
+        const indentClass = heading.level > 2 ? `pl-${(heading.level - 2) * 4}` : '';
         
         return (
-            <li key={heading.id} className="relative">
+            <li key={heading.id} className={`my-1 ${indentClass}`}>
                 <a
                     href={`#${heading.id}`}
                     className={`
-                        block py-1 px-2 text-xs rounded transition-all duration-200
-                        hover:bg-gray-100 dark:hover:bg-gray-800/30
-                        ${isActive 
-                            ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800/20 font-medium' 
-                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                        flex items-center py-2 px-3 text-sm rounded-lg
+                        transition-all duration-200 border-l-4
+                        ${
+                            isActive 
+                                ? 'text-primary font-semibold bg-primary/10 border-primary' 
+                                : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/50'
                         }
                     `}
+                    title={heading.text}
                 >
-                    <span className="truncate block">{heading.text}</span>
+                    {heading.level === 2 ? <BulletIcon /> : <SubheadingArrowIcon />}
+                    <span className="block truncate">
+                        {cleanMarkdown(heading.text)}
+                    </span>
                 </a>
-                {hasChildren && (
-                    <ul className="ml-3 mt-1 border-l border-gray-200 dark:border-gray-800">
-                        {heading.children.map((child: any) => renderHeading(child))}
-                    </ul>
-                )}
             </li>
         );
     };
 
-    const hierarchy = buildHierarchy();
-
     return (
-        <aside className="w-full lg:w-48 xl:w-56 lg:sticky lg:top-24 self-start">
-            <nav className="rounded-lg p-3">
-                <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                    Neste artigo
+        <aside className="hidden xl:block fixed top-40 left-[1.5vw] w-55">
+            <nav className="border-transparent backdrop-blur-sm rounded-xl p-4 border ">
+                <h3 className="font-bold text-gray-800 dark:text-gray-200 text-lg mb-4 px-2">
+                    Neste post
                 </h3>
-                <ul className="space-y-0.5">
-                    {hierarchy.map(heading => renderHeading(heading))}
+                <ul className="space-y-1 max-h-[75vh] overflow-y-auto pr-1 aside-scrollbar">
+                    {headings.filter(h => h.level > 1).map(renderHeading)}
                 </ul>
             </nav>
         </aside>
@@ -114,30 +114,29 @@ const HeadingRenderer: React.FC<HeadingRendererProps> = ({ level, children }) =>
         typeof child === 'string' ? child : ''
     ).join('');
     
-    const id = slugify(text);
+    const cleanedText = cleanMarkdown(text);
+    const id = slugify(cleanedText);
     const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
     
     return React.createElement(Tag, { 
         id, 
-        className: "scroll-mt-24" 
+        className: "scroll-mt-24"
     }, children);
 };
 
-// Ícones melhorados
+// Ícones do post
 const ChevronRightIcon = () => (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
     </svg>
 );
-
 const CalendarIcon = () => (
-    <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
     </svg>
 );
-
 const ClockIcon = () => (
-    <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
 );
@@ -147,6 +146,7 @@ export default function PostScreen() {
     const { post, loading } = usePost(id as string);
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [activeHeadingId, setActiveHeadingId] = useState<string>("");
+    const observerRef = useRef<IntersectionObserver | null>(null);
 
     // Extrai headings do markdown
     useEffect(() => {
@@ -156,44 +156,53 @@ export default function PostScreen() {
                 const match = line.match(/^(#{1,6})/);
                 const level = match ? match[0].length : 1;
                 const text = line.replace(/^#{1,6}\s*/, '').trim();
-                const id = slugify(text);
-                return { id, text, level };
+                const cleanedText = cleanMarkdown(text);
+                const id = slugify(cleanedText);
+                return { id, text: cleanedText, level };
             });
             setHeadings(extractedHeadings);
         }
     }, [post?.markdownContent]);
 
-    // Detecta o heading ativo baseado no scroll
+    // Detecta o heading ativo usando Intersection Observer
     useEffect(() => {
-        const handleScroll = () => {
-            const headingElements = headings.map(h => document.getElementById(h.id));
-            const scrollPosition = window.scrollY + 100;
-
-            let activeId = "";
-            for (let i = headingElements.length - 1; i >= 0; i--) {
-                const element = headingElements[i];
-                if (element && element.offsetTop <= scrollPosition) {
-                    activeId = headings[i].id;
-                    break;
+        if (headings.length === 0) return;
+        
+        const handleObserver = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                     setActiveHeadingId(entry.target.id);
                 }
-            }
-            setActiveHeadingId(activeId);
+            });
         };
 
-        window.addEventListener('scroll', handleScroll);
-        handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+        const observerOptions = {
+            rootMargin: '0px 0px -80% 0px',
+            threshold: 1.0
+        };
+
+        observerRef.current = new IntersectionObserver(handleObserver, observerOptions);
+        const observer = observerRef.current;
+
+        headings.forEach(heading => {
+            const element = document.getElementById(heading.id);
+            if (element) observer.observe(element);
+        });
+
+        return () => {
+            headings.forEach(heading => {
+                const element = document.getElementById(heading.id);
+                if (element) observer.unobserve(element);
+            });
+        };
     }, [headings]);
+
 
     if (loading) {
         return (
-            <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen">
-                <main className="flex-grow pt-16 sm:pt-20">
-                    <div className="max-w-6xl mx-auto px-4 text-center py-16">
-                        <div className="animate-pulse">
-                            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-32 mx-auto"></div>
-                        </div>
-                    </div>
+            <div className="bg-white dark:bg-background flex flex-col min-h-screen">
+                <main className="flex-grow container mx-auto px-4 text-center py-16">
+                    <div className="animate-pulse h-10 bg-gray-200 dark:bg-gray-800 rounded w-1/2 mx-auto"></div>
                 </main>
             </div>
         );
@@ -201,69 +210,67 @@ export default function PostScreen() {
 
     if (!post) {
         return (
-            <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen">
-                <main className="flex-grow pt-16 sm:pt-20">
-                    <div className="max-w-6xl mx-auto px-4 text-center py-16">
-                        <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
-                    </div>
+            <div className="bg-white dark:bg-background flex flex-col min-h-screen">
+                <main className="flex-grow container mx-auto px-4 text-center py-16">
+                    <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
                 </main>
             </div>
         );
     }
 
     return (
-        <div className="bg-white dark:bg-gray-950 flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
-            <main className="flex-grow pt-16 sm:pt-20">
-                <div className="container max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 px-4 py-8">
-                    
-                    {/* Roadmap Lateral - Menor */}
-                    <Roadmap headings={headings} activeId={activeHeadingId} />
+        <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
+            <main className="flex-grow pt-2 sm:pt-2">
+                {/* --- CONTAINER CENTRAL COM POSIÇÃO RELATIVA --- */}
+                <div className="max-w-4xl mx-auto px-6 py-8 relative">
 
-                    {/* Conteúdo do Post - Maior */}
-                    <article className="w-full lg:max-w-5xl">
+                    {/* O Roadmap é posicionado de forma absoluta em relação a este container */}
+                    <Roadmap headings={headings} activeId={activeHeadingId} />
+                    
+                    {/* O Article ocupa 100% da largura do container (max-w-4xl) */}
+                    <article>
                         {/* Breadcrumb */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-500 mb-8">
+                        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors">
                                 Blog
                             </a>
                             <ChevronRightIcon />
-                            <span className="text-gray-900 dark:text-gray-300 truncate">{post.title}</span>
+                            <span className="text-gray-700 dark:text-gray-300 truncate">{cleanMarkdown(post.title)}</span>
                         </div>
 
                         {/* Header do Post */}
                         <header className="mb-12">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight mb-8">
-                                {post.title}
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-6">
+                                {cleanMarkdown(post.title)}
                             </h1>
                             
-                            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-600 dark:text-gray-400">
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-600 dark:text-gray-400 text-sm">
                                 <div className="flex items-center">
                                     <img 
                                         src="/brunobianchi.png" 
                                         alt="Avatar de Bruno Bianchi" 
-                                        className="w-10 h-10 rounded-full mr-3 ring-2 ring-gray-200 dark:ring-gray-800" 
+                                        className="w-8 h-8 rounded-full mr-2" 
                                     />
-                                    <span className="font-medium text-gray-900 dark:text-gray-200">Bruno Bianchi</span>
+                                    <span className="font-medium text-gray-800 dark:text-gray-200">Bruno Bianchi</span>
                                 </div>
-                                
-                                <div className="flex items-center text-sm">
+                                <span className="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
+                                <div className="flex items-center">
                                     <CalendarIcon />
                                     <span>{post.date}</span>
                                 </div>
-                                
-                                <div className="flex items-center text-sm">
+                                <span className="hidden sm:inline text-gray-400 dark:text-gray-600">•</span>
+                                <div className="flex items-center">
                                     <ClockIcon />
                                     <span>{post.readingTime} min de leitura</span>
                                 </div>
                             </div>
 
-                            {/* Tags */}
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2 mt-6">
+                                <div className="flex flex-wrap gap-2 mt-4">
                                     {post.tags.map((tag: string, index: number) => (
                                         <span 
                                             key={index} 
-                                            className="px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 rounded-full border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+                                            className="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md"
                                         >
                                             {tag}
                                         </span>
@@ -272,18 +279,20 @@ export default function PostScreen() {
                             )}
                         </header>
 
+                        <hr className="border-gray-200 dark:border-gray-800 mb-8" />
+
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none">
+                        <div className="prose prose-lg max-w-none dark:prose-invert">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
                                 components={{
-                                    h1: (props: any) => <HeadingRenderer level={1} {...props} />,
-                                    h2: (props: any) => <HeadingRenderer level={2} {...props} />,
-                                    h3: (props: any) => <HeadingRenderer level={3} {...props} />,
-                                    h4: (props: any) => <HeadingRenderer level={4} {...props} />,
-                                    h5: (props: any) => <HeadingRenderer level={5} {...props} />,
-                                    h6: (props: any) => <HeadingRenderer level={6} {...props} />,
+                                    h1: (props) => <HeadingRenderer level={1} {...props} />,
+                                    h2: (props) => <HeadingRenderer level={2} {...props} />,
+                                    h3: (props) => <HeadingRenderer level={3} {...props} />,
+                                    h4: (props) => <HeadingRenderer level={4} {...props} />,
+                                    h5: (props) => <HeadingRenderer level={5} {...props} />,
+                                    h6: (props) => <HeadingRenderer level={6} {...props} />,
                                 }}
                             >
                                 {post.markdownContent}
