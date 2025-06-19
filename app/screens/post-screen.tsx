@@ -218,10 +218,21 @@ export const meta: MetaFunction = ({ data, params }: any) => {
 export default function PostScreen() {
     const { id } = useParams();
     const loaderData = useLoaderData<typeof loader>();
-    const { post: hookPost, loading } = usePost(id as string);
+    const { post: hookPost, loading, error } = usePost(id as string);
 
     // Use dados do loader se disponível, senão use o hook
-    const post = loaderData?.post || hookPost;
+    // Temporariamente forçando o uso do hook para debug
+    const post = hookPost || loaderData?.post;
+
+    // Debug logs
+    console.log('PostScreen Debug:', {
+        id,
+        loaderData,
+        hookPost,
+        loading,
+        error,
+        finalPost: post
+    });
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [activeHeadingId, setActiveHeadingId] = useState<string>("");
     const observerRef = useRef<IntersectionObserver | null>(null);
@@ -291,6 +302,14 @@ export default function PostScreen() {
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
+                    <div className="mt-4 text-sm text-gray-500">
+                        <p>Debug Info:</p>
+                        <p>ID: {id}</p>
+                        <p>Loading: {loading.toString()}</p>
+                        <p>Error: {error || 'None'}</p>
+                        <p>Loader Data: {loaderData ? 'Present' : 'None'}</p>
+                        <p>Hook Post: {hookPost ? 'Present' : 'None'}</p>
+                    </div>
                 </main>
             </div>
         );
@@ -357,6 +376,15 @@ export default function PostScreen() {
 
                         {/* Conteúdo Markdown */}
                         <div className="prose prose-lg max-w-none dark:prose-invert">
+                            {/* Debug: Mostrar conteúdo bruto */}
+                            <div className="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                                <p><strong>Debug - Conteúdo disponível:</strong></p>
+                                <p>markdownContent: {post.markdownContent ? 'Present' : 'Missing'}</p>
+                                <p>content: {post.content ? 'Present' : 'Missing'}</p>
+                                <p>Primeiro caractere: {post.markdownContent?.[0] || post.content?.[0] || 'None'}</p>
+                                <p>Tamanho: {(post.markdownContent || post.content || '').length}</p>
+                            </div>
+
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -369,7 +397,7 @@ export default function PostScreen() {
                                     h6: (props) => <HeadingRenderer level={6} {...props} />,
                                 }}
                             >
-                                {post.markdownContent}
+                                {post.markdownContent || post.content || 'Conteúdo não encontrado'}
                             </ReactMarkdown>
                         </div>
                     </article>
