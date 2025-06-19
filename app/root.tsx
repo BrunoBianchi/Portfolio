@@ -10,6 +10,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import NavbarComponent from "./components/navbar-component";
 import FooterComponent from "./components/footer-component";
+import { AuthProvider } from "./contexts/auth-context";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -101,7 +102,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <AuthProvider>
+      <Outlet />
+    </AuthProvider>
+  );
 }
 
 export function ErrorBoundary() {

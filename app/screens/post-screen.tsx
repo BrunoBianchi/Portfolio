@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
+import { CommentsSection } from "../components/comments-section";
 
 import { stripMarkdown } from '~/services/stripMarkdownService';
 
@@ -385,6 +386,9 @@ export default function PostScreen() {
                                 {post.markdownContent || post.content || 'Conteúdo não encontrado'}
                             </ReactMarkdown>
                         </div>
+
+                        {/* Seção de Comentários */}
+                        <CommentsSection postId={post.id} />
                     </article>
                 </div>
             </main>
