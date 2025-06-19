@@ -12,12 +12,7 @@ interface RoadmapProps {
   headings: Heading[];
 }
 
-const SubheadingArrowIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="w-3 h-3 mr-1.5 text-gray-500 flex-shrink-0 mt-0.5">
-    <path d="M4 5.5V8.5C4 9.05228 4.44772 9.5 5 9.5H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-    <path d="M10 7.5L12 9.5L10 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-  </svg>
-);
+// Removido - não precisamos mais do ícone
 
 const MenuIcon = () => (
   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,28 +36,27 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
 
   const filteredHeadings = headings.filter(h => h.level > 1);
 
-  const renderHeading = (heading: Heading) => {
+  const renderHeading = (heading: Heading, index: number) => {
     const isActive = activeId === heading.id;
     const isSubheading = heading.level > 2;
-    
+
     return (
-      <li key={heading.id}>
+      <li key={heading.id} className="relative">
         <button
           onClick={() => {
             scrollToSection(heading.id);
-            setIsMobileMenuOpen(false); // Fechar menu mobile após clique
+            setIsMobileMenuOpen(false);
           }}
           className={`
-            flex items-start w-full text-left px-2 py-1.5 rounded-md transition-all duration-200 group
+            block w-full text-left py-1.5 px-2 rounded transition-all duration-200 text-xs
             ${isActive
-              ? 'bg-primary/10 text-primary border-l-2 border-primary'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50'
+              ? 'text-yellow-400 bg-yellow-400/5 border-l-2 border-yellow-400 font-medium'
+              : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/20'
             }
-            ${isSubheading ? 'ml-3 text-xs' : 'text-sm font-medium'}
+            ${isSubheading ? 'ml-3 py-1 text-[11px]' : ''}
           `}
         >
-          {isSubheading && <SubheadingArrowIcon />}
-          <span className="leading-snug line-clamp-2">
+          <span className="block leading-snug line-clamp-2">
             {heading.text}
           </span>
         </button>
@@ -73,19 +67,19 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden xl:block fixed top-32 left-4 w-56 z-30">
-        <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg p-3 border border-gray-200 dark:border-gray-700 shadow-lg">
-          <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm mb-3 px-2">
+      <aside className="hidden lg:block fixed top-32 right-4 lg:right-8 w-56 lg:w-64 z-30">
+        <nav className="bg-gray-900/15 backdrop-blur-sm rounded-lg p-4 border border-gray-800/20 shadow-lg">
+          <h3 className="text-xs font-medium text-gray-300 mb-3 tracking-wide uppercase">
             Neste post
           </h3>
-          <ul className="space-y-0.5 max-h-[70vh] overflow-y-auto pr-1 aside-scrollbar">
+          <ol className="space-y-0.5 text-xs max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
             {filteredHeadings.map(renderHeading)}
-          </ul>
+          </ol>
         </nav>
       </aside>
 
       {/* Mobile Floating Button */}
-      <div className="xl:hidden fixed bottom-6 right-6 z-50">
+      <div className="lg:hidden fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="bg-primary text-black p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200 flex items-center justify-center"
@@ -99,20 +93,20 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
       {isMobileMenuOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="xl:hidden fixed inset-0 bg-black/50 z-40"
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-40"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          
+
           {/* Menu */}
-          <div className="xl:hidden fixed bottom-20 right-6 left-6 z-50 max-h-[70vh]">
-            <nav className="bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-2xl">
-              <h3 className="font-bold text-gray-800 dark:text-gray-200 text-lg mb-4 px-2">
+          <div className="lg:hidden fixed bottom-20 right-6 left-6 z-50 max-h-[70vh]">
+            <nav className="bg-gray-900/95 backdrop-blur-sm rounded-xl p-4 border border-gray-800/50 shadow-2xl">
+              <h3 className="font-medium text-gray-200 text-sm mb-3 tracking-wide uppercase">
                 Neste post
               </h3>
-              <ul className="space-y-1 max-h-[50vh] overflow-y-auto pr-1 aside-scrollbar">
+              <ol className="space-y-0.5 text-sm max-h-[50vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
                 {filteredHeadings.map(renderHeading)}
-              </ul>
+              </ol>
             </nav>
           </div>
         </>
