@@ -149,7 +149,7 @@ hr {
     @apply text-blue-400 font-mono text-[0.875em] rounded bg-gray-800 px-2 py-1;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-inherit text-gray-200;
+    @apply bg-transparent p-0 text-gray-200;
   }
   .prose code::before,
   .prose code::after {
@@ -179,4 +179,97 @@ hr {
 /* Estilos para scroll e headings */
 .scroll-mt-24 {
   scroll-margin-top: 6rem;
+}
+
+/* Scrollbar personalizada para o aside */
+.aside-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.aside-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aside-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 2px;
+}
+
+.aside-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.5);
+}
+
+/* Responsividade adicional */
+@media (max-width: 640px) {
+  .prose {
+    @apply text-base;
+  }
+
+  .prose h1 {
+    @apply text-2xl mb-4 mt-4;
+  }
+
+  .prose h2 {
+    @apply text-xl mb-3 mt-8;
+  }
+
+  .prose h3 {
+    @apply text-lg mb-2 mt-6;
+  }
+
+  .prose p {
+    @apply my-4;
+  }
+
+  .prose pre {
+    @apply text-sm p-3;
+  }
+
+  .prose img {
+    @apply max-h-[250px] my-6;
+  }
+}
+
+/* Melhorias para mobile */
+@media (max-width: 768px) {
+  /* Ajustar padding dos containers */
+  .container {
+    @apply px-4;
+  }
+
+  /* Melhorar espaçamento em telas pequenas */
+  .space-y-8 > * + * {
+    @apply mt-6;
+  }
+
+  .space-y-10 > * + * {
+    @apply mt-8;
+  }
+
+  /* Ajustar prose para tablets */
+  .prose {
+    @apply text-base;
+  }
+}
+
+/* Animações suaves para interações */
+@media (prefers-reduced-motion: no-preference) {
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .wave-emoji {
+    animation: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

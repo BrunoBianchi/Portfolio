@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import { useState } from "react";
 import { usePosts } from "~/hooks/usePosts";
 
 // Ícone de busca (pode ser substituído por um da sua biblioteca de ícones)
@@ -58,13 +55,13 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white min-h-screen py-10 md:py-16">
-      <div className="w-full max-w-4xl mx-auto px-4">
-        <header className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto px-2">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>
@@ -86,11 +83,11 @@ export default function BlogPage() {
           </button>
         </div>
 
-        <div className="flex flex-wrap justify-start gap-2 mb-12">
+        <div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-8 sm:mb-12">
           {filterTags.map((tag, index) => (
             <button
               key={index}
-              className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
                 tag === "Todos"
                   ? "bg-primary text-background"
                   : "bg-card text-gray-300 hover:bg-primary/20 hover:text-primary"
@@ -113,18 +110,18 @@ export default function BlogPage() {
           </div>
         )}
 
-        <main className="space-y-10">
+        <main className="space-y-8 sm:space-y-10">
           {posts.slice(0, visiblePosts).map((post, index) => (
             <a href={post.link} key={post._id} className="block group">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                 <div className="flex-grow">
-                  <h2 className="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 leading-tight">
                     {post.title}
                   </h2>
-                  <p className="text-gray-400 mt-2">{post.description}</p>
-                  <div className="text-sm text-gray-500 mt-3">
+                  <p className="text-gray-400 mt-2 text-sm sm:text-base leading-relaxed">{post.description}</p>
+                  <div className="text-xs sm:text-sm text-gray-500 mt-3 flex flex-wrap gap-1">
                     <span>{post.date}</span>
-                    <span className="mx-2">•</span>
+                    <span className="mx-1 sm:mx-2">•</span>
                     <span>{post.readingTime}</span>
                   </div>
                 </div>
@@ -133,7 +130,7 @@ export default function BlogPage() {
                 </div>
               </div>
               {index < posts.slice(0, visiblePosts).length - 1 && (
-                <hr className="border-t-2 border-primary/10 mt-10" />
+                <hr className="border-t-2 border-primary/10 mt-8 sm:mt-10" />
               )}
             </a>
           ))}

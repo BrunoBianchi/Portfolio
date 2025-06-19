@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { usePosts } from "~/hooks/usePosts";
 
 export const meta = () => [
@@ -8,7 +7,6 @@ export const meta = () => [
 
 export default function Home() {
   const { posts, loading, error } = usePosts();
-  const [hoveredProject, setHoveredProject] = useState(null);
 
   const experiences = [
     {
@@ -37,57 +35,35 @@ export default function Home() {
     },
   ];
 
-  const projects = [
-    {
-      title: "E-commerce Platform",
-      description:
-        "Plataforma completa de e-commerce com dashboard administrativo",
-      tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      link: "#",
-    },
-    {
-      title: "Task Management App",
-      description:
-        "Aplicativo de gestão de tarefas com colaboração em tempo real",
-      tech: ["Next.js", "Socket.io", "MongoDB", "Tailwind"],
-      link: "#",
-    },
-    {
-      title: "Analytics Dashboard",
-      description:
-        "Dashboard interativo para visualização de dados empresariais",
-      tech: ["React", "D3.js", "Express", "Redis"],
-      link: "#",
-    },
-  ];
+
 
   return (
     <div className="min-h-screen bg-background text-white font-sans">
-      <section className="px-6 py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
-        <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 items-center">
-          <header>
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+      <section className="px-4 sm:px-6 py-16 sm:py-20 md:py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
+        <div className="max-w-4xl w-full grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <header className="text-center md:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4">
               Olá, eu sou <br />
               <span className="text-primary">Bruno Bianchi</span>
             </h1>
-            <p className="text-lg text-gray-300 max-w-md mb-8">
+            <p className="text-base sm:text-lg text-gray-300 max-w-md mx-auto md:mx-0 mb-6 sm:mb-8">
               Desenvolvedor <strong>FullStack</strong> focado em criar
               soluções digitais eficientes e escaláveis.
             </p>
-            <nav className="flex flex-wrap gap-4" aria-label="Ações principais">
-               <a href="#projects" className="px-6 py-2 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors" aria-label="Ver meus projetos">
+            <nav className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start" aria-label="Ações principais">
+               <a href="#projects" className="px-6 py-3 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors text-center" aria-label="Ver meus projetos">
                   Ver Projetos
                </a>
-               <a href="mailto:bruno@example.com" className="px-6 py-2 bg-card text-white font-bold rounded-lg hover:bg-gray-700 transition-colors" aria-label="Entrar em contato">
+               <a href="mailto:bruno@example.com" className="px-6 py-3 bg-card text-white font-bold rounded-lg hover:bg-gray-700 transition-colors text-center" aria-label="Entrar em contato">
                   Contato
                </a>
             </nav>
           </header>
-          <aside className="flex justify-center md:justify-end">
+          <aside className="flex justify-center md:justify-end order-first md:order-last">
             <img
-              src="/brunobianchi.png" 
+              src="/brunobianchi.png"
               alt="Foto de Bruno Bianchi, desenvolvedor FullStack"
-              className="rounded-xl w-64 h-64 md:w-80 md:h-80 object-cover border-2 border-secondary shadow-lg"
+              className="rounded-xl w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover border-2 border-secondary shadow-lg"
               loading="eager"
             />
           </aside>
@@ -96,24 +72,24 @@ export default function Home() {
 
       <hr className="max-w-6xl mx-auto" />
 
-      <section id="experience" className="px-6 py-5" aria-labelledby="experience-heading">
+      <section id="experience" className="px-4 sm:px-6 py-12 sm:py-16" aria-labelledby="experience-heading">
          <div className="max-w-4xl mx-auto">
-            <h2 id="experience-heading" className="text-3xl font-bold mb-12">Experiência Profissional</h2>
-            <div className="space-y-8 relative">
-                <div className="absolute left-3 top-2 h-full w-0.5 bg-card" aria-hidden="true"></div>
-                
+            <h2 id="experience-heading" className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center sm:text-left">Experiência Profissional</h2>
+            <div className="space-y-6 sm:space-y-8 relative">
+                <div className="absolute left-3 top-2 h-full w-0.5 bg-card hidden sm:block" aria-hidden="true"></div>
+
                 {experiences.map((exp, index) => (
-                  <article key={index} className="pl-10 relative">
-                     <div className="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background" aria-hidden="true"></div>
-                     <time className="text-sm text-gray-400 mb-1" dateTime={exp.period}>{exp.period}</time>
-                     <h3 className="text-xl font-semibold text-primary">{exp.role}</h3>
-                     <p className="font-medium text-gray-300 mb-3">{exp.company}</p>
-                     <p className="text-gray-400">{exp.description}</p>
-                     <div className="mt-3 flex flex-wrap gap-2" role="list" aria-label="Tecnologias utilizadas">
+                  <article key={index} className="sm:pl-10 relative bg-card/20 sm:bg-transparent p-4 sm:p-0 rounded-lg sm:rounded-none">
+                     <div className="absolute left-1 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background hidden sm:block" aria-hidden="true"></div>
+                     <time className="text-xs sm:text-sm text-gray-400 mb-1 block" dateTime={exp.period}>{exp.period}</time>
+                     <h3 className="text-lg sm:text-xl font-semibold text-primary">{exp.role}</h3>
+                     <p className="font-medium text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base">{exp.company}</p>
+                     <p className="text-gray-400 text-sm sm:text-base leading-relaxed">{exp.description}</p>
+                     <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2" role="list" aria-label="Tecnologias utilizadas">
                        {exp.tags.map((tag) => (
                            <span
                              key={tag}
-                             className="px-2 py-1 bg-card rounded-md text-xs text-gray-300"
+                             className="px-2 py-1 bg-card rounded-md text-xs text-gray-300 whitespace-nowrap"
                              role="listitem"
                            >
                              {tag}
@@ -124,15 +100,15 @@ export default function Home() {
                 ))}
             </div>
          </div>
-      </section>  
+      </section>
 
       <hr className="max-w-6xl mx-auto" />
       
       {/* Blog Section */}
-      <section id="blog" className="px-6 py-5" aria-labelledby="blog-heading">
+      <section id="blog" className="px-4 sm:px-6 py-12 sm:py-16" aria-labelledby="blog-heading">
         <div className="max-w-4xl mx-auto">
-          <h2 id="blog-heading" className="text-3xl font-bold mb-12">Posts Recentes</h2>
-          
+          <h2 id="blog-heading" className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center sm:text-left">Posts Recentes</h2>
+
           {loading && (
             <div className="text-center py-8">
               <p className="text-gray-400">Carregando posts...</p>
@@ -145,22 +121,31 @@ export default function Home() {
             </div>
           )}
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {posts.slice(0, 3).map((post) => ( // Mostra apenas os 3 primeiros
-              <article key={post._id} className="group cursor-pointer">
+              <article key={post._id} className="group cursor-pointer bg-card/20 p-4 rounded-lg hover:bg-card/30 transition-colors">
                 <a href={post.link} className="block">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors leading-tight">
                     {post.title}
                   </h3>
-                  <p className="text-gray-400 mb-3">{post.description}</p>
-                  <div className="flex items-center text-sm text-gray-500">
+                  <p className="text-gray-400 mb-3 text-sm sm:text-base leading-relaxed">{post.description}</p>
+                  <div className="flex items-center text-xs sm:text-sm text-gray-500 flex-wrap gap-1">
                     <span>{post.date}</span>
-                    <span className="mx-2">•</span>
+                    <span className="mx-1 sm:mx-2">•</span>
                     <span>{post.readingTime}</span>
                   </div>
                 </a>
               </article>
             ))}
+          </div>
+
+          <div className="text-center mt-8 sm:mt-12">
+            <a
+              href="https://blog.brunobianchi.dev"
+              className="inline-block px-6 py-3 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors"
+            >
+              Ver todos os posts
+            </a>
           </div>
         </div>
       </section>

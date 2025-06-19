@@ -1,12 +1,13 @@
 // PostScreen.tsx
 import { useParams, useLoaderData } from "react-router";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import React, { useState, useEffect, type ReactNode, useRef } from "react";
+import React, { useState, useEffect, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
 import { CommentsSection } from "../components/comments-section";
+import { Roadmap } from "../components/roadmap";
 
 import { stripMarkdown } from '~/services/stripMarkdownService';
 
@@ -17,10 +18,7 @@ interface Heading {
     level: number;
 }
 
-interface RoadmapProps {
-    headings: Heading[];
-    activeId?: string;
-}
+
 
 interface HeadingRendererProps {
     level: number;
@@ -46,71 +44,13 @@ const cleanMarkdown = (text: string): string => {
         .replace(/_/g, '');   // Remove italic _
 };
 
-// --- ÍCONES PARA O ROADMAP ---
-const BulletIcon = () => (
-    <svg viewBox="0 0 16 16" className="w-2.5 h-2.5 mr-3 text-primary flex-shrink-0">
-        <circle cx="8" cy="8" r="7" fill="currentColor" />
-    </svg>
-);
-
-const SubheadingArrowIcon = () => (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="w-4 h-4 mr-2.5 text-gray-500 flex-shrink-0">
-        <path d="M4 5.5V8.5C4 9.05228 4.44772 9.5 5 9.5H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-        <path d="M10 7.5L12 9.5L10 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-    </svg>
-);
 
 
 
 
 
-// --- COMPONENTE ATUALIZADO ---
-const Roadmap: React.FC<RoadmapProps> = ({ headings, activeId }) => {
-    if (!headings || headings.length === 0) {
-        return null;
-    }
 
-    const renderHeading = (heading: Heading) => {
-        const isActive = activeId === heading.id;
-        const indentClass = heading.level > 2 ? `pl-${(heading.level - 2) * 4}` : '';
-        
-        return (
-            <li key={heading.id} className={`my-1 ${indentClass}`}>
-                <a
-                    href={`#${heading.id}`}
-                    className={`
-                        flex items-center py-2 px-3 text-sm rounded-lg
-                        transition-all duration-200 border-l-4
-                        ${
-                            isActive 
-                                ? 'text-primary font-semibold bg-primary/10 border-primary' 
-                                : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/50'
-                        }
-                    `}
-                    title={heading.text}
-                >
-                    {heading.level === 2 ? <BulletIcon /> : <SubheadingArrowIcon />}
-                    <span className="block truncate">
-                        {cleanMarkdown(heading.text)}
-                    </span>
-                </a>
-            </li>
-        );
-    };
 
-    return (
-        <aside className="hidden xl:block fixed top-40 left-[1.5vw] w-55">
-            <nav className="border-transparent backdrop-blur-sm rounded-xl p-4 border ">
-                <h3 className="font-bold text-gray-800 dark:text-gray-200 text-lg mb-4 px-2">
-                    Neste post
-                </h3>
-                <ul className="space-y-1 max-h-[75vh] overflow-y-auto pr-1 aside-scrollbar">
-                    {headings.filter(h => h.level > 1).map(renderHeading)}
-                </ul>
-            </nav>
-        </aside>
-    );
-};
 
 // Renderizador de headings com IDs
 const HeadingRenderer: React.FC<HeadingRendererProps> = ({ level, children }) => {
@@ -170,7 +110,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 // Função meta para SEO dinâmico
-export const meta: MetaFunction = ({ data, params }: any) => {
+export const meta: MetaFunction = ({ data }: any) => {
   if (!data?.post) {
     return [
       { title: "Post não encontrado | Bruno Bianchi Blog" },
@@ -235,8 +175,7 @@ export default function PostScreen() {
         finalPost: post
     });
     const [headings, setHeadings] = useState<Heading[]>([]);
-    const [activeHeadingId, setActiveHeadingId] = useState<string>("");
-    const observerRef = useRef<IntersectionObserver | null>(null);
+
 
     // Extrai headings do markdown
     useEffect(() => {
@@ -254,38 +193,7 @@ export default function PostScreen() {
         }
     }, [post?.markdownContent]);
 
-    // Detecta o heading ativo usando Intersection Observer
-    useEffect(() => {
-        if (headings.length === 0) return;
-        
-        const handleObserver = (entries: IntersectionObserverEntry[]) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                     setActiveHeadingId(entry.target.id);
-                }
-            });
-        };
 
-        const observerOptions = {
-            rootMargin: '0px 0px -80% 0px',
-            threshold: 1.0
-        };
-
-        observerRef.current = new IntersectionObserver(handleObserver, observerOptions);
-        const observer = observerRef.current;
-
-        headings.forEach(heading => {
-            const element = document.getElementById(heading.id);
-            if (element) observer.observe(element);
-        });
-
-        return () => {
-            headings.forEach(heading => {
-                const element = document.getElementById(heading.id);
-                if (element) observer.unobserve(element);
-            });
-        };
-    }, [headings]);
 
 
     if (loading && !loaderData) {
@@ -310,14 +218,14 @@ export default function PostScreen() {
 
     return (
         <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
-            <main className="flex-grow pt-2 sm:pt-2">
-                <div className="max-w-4xl mx-auto px-6 py-8 relative">
-                    <Roadmap headings={headings} activeId={activeHeadingId} />
+            <main className="flex-grow pt-2 sm:pt-4 md:pt-6">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 relative">
+                    <Roadmap headings={headings} />
                     
                     <article>
                         {/* Breadcrumb */}
-                        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
-                            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors">
+                        <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
+                            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors whitespace-nowrap">
                                 Blog
                             </a>
                             <ChevronRightIcon />
@@ -368,7 +276,7 @@ export default function PostScreen() {
                         <hr className="border-gray-200 dark:border-gray-800 mb-8" />
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none dark:prose-invert">
+                        <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert prose-headings:scroll-mt-20">
                             {/* Debug: Mostrar conteúdo bruto */}
 
                             <ReactMarkdown
