@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from '~/contexts/auth-context';
 
 export default function AuthCallback() {
   const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
   const [message, setMessage] = useState('Processando callback do GitHub...');
+  const { reinitializeAuth } = useAuth();
 
   useEffect(() => {
     const processCallback = async () => {
@@ -18,13 +20,38 @@ export default function AuthCallback() {
           throw new Error('Parâmetros de callback ausentes');
         }
 
-        setMessage('Código de autorização recebido!');
+        setMessage('Trocando código por token...');
 
-        // Simular processamento por 2 segundos
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Fazer requisição para o backend para trocar código por token
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/auth/github/token`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code, state }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+        }
+
+        const authData = await response.json();
+        console.log('Auth response:', authData);
+
+        if (!authData.success || !authData.data) {
+          throw new Error('Resposta de autenticação inválida');
+        }
+
+        // Salvar token e dados do usuário
+        localStorage.setItem('github_access_token', authData.data.access_token);
+        localStorage.setItem('github_user', JSON.stringify(authData.data.user));
+
+        // Reinicializar contexto de autenticação
+        await reinitializeAuth();
 
         setStatus('success');
-        setMessage('Redirecionando...');
+        setMessage('Login realizado com sucesso! Redirecionando...');
 
         // Redirecionar após 1 segundo
         setTimeout(() => {

@@ -131,11 +131,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  // Função para reinicializar após callback
+  const reinitializeAuth = async (): Promise<void> => {
+    await initializeAuth();
+  };
+
   const contextValue: AuthContextType = {
     ...state,
     login,
     logout,
     refreshUser,
+    reinitializeAuth,
   };
 
   return (

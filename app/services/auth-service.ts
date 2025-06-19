@@ -5,6 +5,7 @@ import type { GitHubUser, ApiResponse } from '~/types';
 const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID || 'your_github_client_id';
 const GITHUB_REDIRECT_URI = typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : '';
 const GITHUB_SCOPE = 'user:email';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 export class AuthService {
   private static readonly TOKEN_KEY = 'github_access_token';
@@ -51,7 +52,7 @@ export class AuthService {
 
     try {
       // Trocar código por token de acesso
-      const tokenResponse = await fetch('/api/auth/github/token', {
+      const tokenResponse = await fetch(`${API_BASE_URL}/auth/github/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
