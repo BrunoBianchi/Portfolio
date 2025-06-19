@@ -10,6 +10,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import NavbarComponent from "./components/navbar-component";
 import FooterComponent from "./components/footer-component";
+import { HelmetProvider } from 'react-helmet-async';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,7 +24,6 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap",
   },
   { rel: "preload", href: "/brunobianchi.png", as: "image" },
-
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -33,6 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
+        {/* Metatags padrão - serão sobrescritas pelo Helmet quando necessário */}
         <meta name="description" content="Bruno Bianchi - Desenvolvedor FullStack especializado em React, Node.js e soluções escaláveis. Experiência em Engenharia de Dados e Machine Learning." />
         <meta name="keywords" content="desenvolvedor fullstack, react, nodejs, engenharia de dados, machine learning, bruno bianchi, portfolio" />
         <meta name="author" content="Bruno Bianchi" />
@@ -76,28 +77,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         
         <Meta />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
-        <link rel="manifest" href="/site.webmanifest" />
         <Links />
       </head>
       <body>
-        <main className="w-[60%] mx-auto">
-          <NavbarComponent />
-          {children}
-          <FooterComponent />
-          <ScrollRestoration />
-          <Scripts />
-        </main>
+        <HelmetProvider>
+          <main className="w-[60%] mx-auto">
+            <NavbarComponent />
+            {children}
+            <FooterComponent />
+            <ScrollRestoration />
+            <Scripts />
+          </main>
+        </HelmetProvider>
       </body>
     </html>
   );
@@ -107,31 +98,27 @@ export default function App() {
   return <Outlet />;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
-
+export function ErrorBoundary() {
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <html lang="pt-br">
+      <head>
+        <title>Erro | Bruno Bianchi</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <main className="w-[60%] mx-auto">
+          <NavbarComponent />
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-red-500 mb-4">Oops!</h1>
+              <p className="text-gray-600">Algo deu errado. Tente novamente mais tarde.</p>
+            </div>
+          </div>
+          <FooterComponent />
+          <Scripts />
+        </main>
+      </body>
+    </html>
   );
 }

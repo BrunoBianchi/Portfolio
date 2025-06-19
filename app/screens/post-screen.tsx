@@ -5,6 +5,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
+import { Helmet } from 'react-helmet-async';
+import { stripMarkdown } from "~/services/stripMarkdownService";
 
 // Define types for the heading data
 interface Heading {
@@ -201,6 +203,10 @@ export default function PostScreen() {
     if (loading) {
         return (
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
+                <Helmet>
+                    <title>Carregando... | Bruno Bianchi Blog</title>
+                    <meta name="description" content="Carregando post..." />
+                </Helmet>
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <div className="animate-pulse h-10 bg-gray-200 dark:bg-gray-800 rounded w-1/2 mx-auto"></div>
                 </main>
@@ -211,6 +217,10 @@ export default function PostScreen() {
     if (!post) {
         return (
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
+                <Helmet>
+                    <title>Post não encontrado | Bruno Bianchi Blog</title>
+                    <meta name="description" content="Post não encontrado" />
+                </Helmet>
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
                 </main>
@@ -218,8 +228,82 @@ export default function PostScreen() {
         );
     }
 
+    // Gerar dados dinâmicos para SEO
+    const postDescription = post.description || stripMarkdown(post.content).slice(0, 160) + '...';
+    const postUrl = `https://blog.brunobianchi.dev/post/${post.id}`;
+    const postImage = "https://brunobianchi.dev/brunobianchi.png";
+    const postTitle = `${post.title} | Bruno Bianchi Blog`;
+
     return (
         <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
+            <Helmet>
+                {/* Título */}
+                <title>{postTitle}</title>
+                
+                {/* Meta básicas */}
+                <meta name="description" content={postDescription} />
+                <meta name="keywords" content={post.tags?.join(', ') || ''} />
+                <meta name="author" content="Bruno Bianchi" />
+                <meta name="robots" content="index, follow" />
+                
+                {/* Open Graph */}
+                <meta property="og:title" content={postTitle} />
+                <meta property="og:description" content={postDescription} />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={postUrl} />
+                <meta property="og:image" content={postImage} />
+                <meta property="og:locale" content="pt_BR" />
+                <meta property="og:site_name" content="Bruno Bianchi Blog" />
+                
+                {/* Article específicas */}
+                <meta property="article:author" content="Bruno Bianchi" />
+                <meta property="article:published_time" content={post.createdAt} />
+                <meta property="article:section" content="Tecnologia" />
+                {post.tags?.map((tag, index) => (
+                    <meta key={index} property="article:tag" content={tag} />
+                ))}
+                
+                {/* Twitter Cards */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={postTitle} />
+                <meta name="twitter:description" content={postDescription} />
+                <meta name="twitter:image" content={postImage} />
+                <meta name="twitter:creator" content="@brunobianchi" />
+                
+                {/* Canonical */}
+                <link rel="canonical" href={postUrl} />
+                
+                {/* Schema.org JSON-LD */}
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BlogPosting",
+                        headline: post.title,
+                        description: postDescription,
+                        author: {
+                            "@type": "Person",
+                            name: "Bruno Bianchi",
+                            url: "https://brunobianchi.dev"
+                        },
+                        publisher: {
+                            "@type": "Person",
+                            name: "Bruno Bianchi",
+                            logo: {
+                                "@type": "ImageObject",
+                                url: postImage
+                            }
+                        },
+                        url: postUrl,
+                        image: postImage,
+                        datePublished: post.createdAt,
+                        dateModified: post.createdAt,
+                        keywords: post.tags?.join(', ') || '',
+                        wordCount: post.content?.split(' ').length || 0,
+                        timeRequired: `PT${post.readingTime}M`
+                    })}
+                </script>
+            </Helmet>
+
             <main className="flex-grow pt-2 sm:pt-2">
                 {/* --- CONTAINER CENTRAL COM POSIÇÃO RELATIVA --- */}
                 <div className="max-w-4xl mx-auto px-6 py-8 relative">
@@ -305,7 +389,5 @@ export default function PostScreen() {
     );
 }
 
-export const meta = () => [
-    { title: "Bruno Bianchi - Blog Post" },
-    { name: "description", content: "Blog post content" }
-];
+// Remova a função meta existente, pois agora usamos Helmet
+// export const meta = () => [...]
