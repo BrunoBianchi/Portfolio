@@ -160,7 +160,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
         ...post,
         description: stripMarkdown(post.content).slice(0, 160) + '...',
         url: `https://blog.brunobianchi.dev/post/${post.id}`,
-        image: "https://brunobianchi.dev/brunobianchi.png"
+        image: ""
       }
     };
   } catch (error) {
@@ -302,14 +302,6 @@ export default function PostScreen() {
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
-                    <div className="mt-4 text-sm text-gray-500">
-                        <p>Debug Info:</p>
-                        <p>ID: {id}</p>
-                        <p>Loading: {loading.toString()}</p>
-                        <p>Error: {error || 'None'}</p>
-                        <p>Loader Data: {loaderData ? 'Present' : 'None'}</p>
-                        <p>Hook Post: {hookPost ? 'Present' : 'None'}</p>
-                    </div>
                 </main>
             </div>
         );
