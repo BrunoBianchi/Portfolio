@@ -5,7 +5,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
-import { Helmet } from 'react-helmet-async';
+import pkg from 'react-helmet-async';
+const { Helmet } = pkg;
 import { stripMarkdown } from "~/services/stripMarkdownService";
 
 // Define types for the heading data

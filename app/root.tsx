@@ -10,7 +10,10 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import NavbarComponent from "./components/navbar-component";
 import FooterComponent from "./components/footer-component";
-import { HelmetProvider } from 'react-helmet-async';
+
+// Mudança na importação do Helmet
+import pkg from 'react-helmet-async';
+const { HelmetProvider } = pkg;
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
