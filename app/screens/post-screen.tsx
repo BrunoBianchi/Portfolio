@@ -219,7 +219,7 @@ export default function PostScreen() {
     const { id } = useParams();
     const loaderData = useLoaderData<typeof loader>();
     const { post: hookPost, loading } = usePost(id as string);
-    
+
     // Use dados do loader se disponível, senão use o hook
     const post = loaderData?.post || hookPost;
     const [headings, setHeadings] = useState<Heading[]>([]);
