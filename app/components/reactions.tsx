@@ -59,26 +59,26 @@ export const Reactions: React.FC<ReactionsProps> = ({
   const activeReactions = Object.entries(reactions).filter(([_, reaction]) => reaction.count > 0);
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-2 ${className}`}>
       {/* Reações existentes */}
-      <div className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center gap-1.5">
         {activeReactions.map(([emoji, reaction]) => (
           <button
             key={emoji}
             onClick={() => handleReaction(emoji as ReactionEmoji)}
             disabled={isLoading}
             className={`
-              flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-all duration-200
-              ${reaction.userReacted 
-                ? 'bg-primary/20 text-primary border border-primary/30' 
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+              flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 min-w-0
+              ${reaction.userReacted
+                ? 'bg-yellow-400/15 text-yellow-400 border border-yellow-400/30 shadow-sm'
+                : 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600/50'
               }
-              ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}
+              ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}
             `}
             title={`${reaction.count} ${reaction.count === 1 ? 'pessoa reagiu' : 'pessoas reagiram'} com ${emoji}`}
           >
-            <span className="text-sm">{emoji}</span>
-            <span>{reaction.count}</span>
+            <span className="text-base leading-none">{emoji}</span>
+            <span className="text-xs font-semibold min-w-[1ch]">{reaction.count}</span>
           </button>
         ))}
       </div>
@@ -89,12 +89,12 @@ export const Reactions: React.FC<ReactionsProps> = ({
           onClick={() => setShowPicker(!showPicker)}
           disabled={isLoading}
           className={`
-            flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200
-            ${showPicker 
-              ? 'bg-primary/20 text-primary' 
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+            flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 border
+            ${showPicker
+              ? 'bg-yellow-400/15 text-yellow-400 border-yellow-400/30 shadow-sm'
+              : 'bg-gray-800/30 text-gray-400 border-gray-700/50 hover:bg-gray-700/40 hover:text-gray-300 hover:border-gray-600/50'
             }
-            ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}
+            ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110 active:scale-95'}
           `}
           title="Adicionar reação"
         >
@@ -109,27 +109,29 @@ export const Reactions: React.FC<ReactionsProps> = ({
 
         {/* Picker de emojis */}
         {showPicker && (
-          <div className="absolute bottom-full left-0 mb-2 p-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-            <div className="grid grid-cols-4 gap-1">
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 p-3 bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-2xl z-50 min-w-max">
+            <div className="grid grid-cols-4 gap-2">
               {AVAILABLE_REACTIONS.map(({ emoji, label }) => (
                 <button
                   key={emoji}
                   onClick={() => handleReaction(emoji)}
                   disabled={isLoading}
-                  className="p-2 text-lg hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+                  className="p-2.5 text-xl hover:bg-gray-800/50 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
                   title={label}
                 >
                   {emoji}
                 </button>
               ))}
             </div>
+            {/* Seta do tooltip */}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-700/50"></div>
           </div>
         )}
       </div>
 
-      {/* Contador total (opcional) */}
+      {/* Contador total - mais compacto */}
       {totalReactions > 0 && (
-        <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
+        <span className="text-xs text-gray-500 ml-1 hidden sm:inline">
           {totalReactions} {totalReactions === 1 ? 'reação' : 'reações'}
         </span>
       )}
