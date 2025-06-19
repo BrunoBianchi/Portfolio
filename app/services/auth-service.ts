@@ -18,11 +18,21 @@ export class AuthService {
       throw new Error('GitHub login can only be initiated in the browser');
     }
 
+    // Salvar página atual para retornar após login
+    sessionStorage.setItem('auth_return_to', window.location.pathname + window.location.search);
+
+    const state = this.generateState();
     const params = new URLSearchParams({
       client_id: GITHUB_CLIENT_ID,
       redirect_uri: GITHUB_REDIRECT_URI,
       scope: GITHUB_SCOPE,
-      state: this.generateState(),
+      state,
+    });
+
+    console.log('Iniciando GitHub OAuth:', {
+      client_id: GITHUB_CLIENT_ID,
+      redirect_uri: GITHUB_REDIRECT_URI,
+      state
     });
 
     const authUrl = `https://github.com/login/oauth/authorize?${params.toString()}`;
