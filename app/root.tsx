@@ -11,10 +11,6 @@ import "./app.css";
 import NavbarComponent from "./components/navbar-component";
 import FooterComponent from "./components/footer-component";
 
-// Mudança na importação do Helmet
-import pkg from 'react-helmet-async';
-const { HelmetProvider } = pkg;
-
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -29,6 +25,34 @@ export const links: Route.LinksFunction = () => [
   { rel: "preload", href: "/brunobianchi.png", as: "image" },
 ];
 
+// Função meta padrão para a root
+export const meta: Route.MetaFunction = () => {
+  return [
+    { title: "Bruno Bianchi - Desenvolvedor FullStack" },
+    { name: "description", content: "Bruno Bianchi - Desenvolvedor FullStack especializado em React, Node.js e soluções escaláveis. Experiência em Engenharia de Dados e Machine Learning." },
+    { name: "keywords", content: "desenvolvedor fullstack, react, nodejs, engenharia de dados, machine learning, bruno bianchi, portfolio" },
+    { name: "author", content: "Bruno Bianchi" },
+    { name: "robots", content: "index, follow" },
+    
+    // Open Graph
+    { property: "og:title", content: "Bruno Bianchi - Desenvolvedor FullStack" },
+    { property: "og:description", content: "Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://brunobianchi.dev" },
+    { property: "og:image", content: "https://brunobianchi.dev/brunobianchi.png" },
+    { property: "og:locale", content: "pt_BR" },
+    
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Bruno Bianchi - Desenvolvedor FullStack" },
+    { name: "twitter:description", content: "Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." },
+    { name: "twitter:image", content: "https://brunobianchi.dev/brunobianchi.png" },
+    
+    // Canonical
+    { rel: "canonical", href: "https://brunobianchi.dev" },
+  ];
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-br">
@@ -36,26 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        {/* Metatags padrão - serão sobrescritas pelo Helmet quando necessário */}
-        <meta name="description" content="Bruno Bianchi - Desenvolvedor FullStack especializado em React, Node.js e soluções escaláveis. Experiência em Engenharia de Dados e Machine Learning." />
-        <meta name="keywords" content="desenvolvedor fullstack, react, nodejs, engenharia de dados, machine learning, bruno bianchi, portfolio" />
-        <meta name="author" content="Bruno Bianchi" />
-        <meta name="robots" content="index, follow" />
-        
-        <meta property="og:title" content="Bruno Bianchi - Desenvolvedor FullStack" />
-        <meta property="og:description" content="Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://brunobianchi.dev" />
-        <meta property="og:image" content="https://brunobianchi.dev/brunobianchi.png" />
-        <meta property="og:locale" content="pt_BR" />
-        
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Bruno Bianchi - Desenvolvedor FullStack" />
-        <meta name="twitter:description" content="Desenvolvedor FullStack focado em criar soluções digitais eficientes e escaláveis." />
-        <meta name="twitter:image" content="https://brunobianchi.dev/brunobianchi.png" />
-        
-        <link rel="canonical" href="https://brunobianchi.dev" />
-        
+        {/* JSON-LD Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -83,15 +88,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <HelmetProvider>
-          <main className="w-[60%] mx-auto">
-            <NavbarComponent />
-            {children}
-            <FooterComponent />
-            <ScrollRestoration />
-            <Scripts />
-          </main>
-        </HelmetProvider>
+        <main className="w-[60%] mx-auto">
+          <NavbarComponent />
+          {children}
+          <FooterComponent />
+          <ScrollRestoration />
+          <Scripts />
+        </main>
       </body>
     </html>
   );

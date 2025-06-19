@@ -1,13 +1,13 @@
 // PostScreen.tsx
-import { useParams } from "react-router";
+import { useParams, useLoaderData } from "react-router";
+import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import React, { useState, useEffect, type ReactNode, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
-import pkg from 'react-helmet-async';
-const { Helmet } = pkg;
-import { stripMarkdown } from "~/services/stripMarkdownService";
+
+import { stripMarkdown } from '~/services/stripMarkdownService';
 
 // Define types for the heading data
 interface Heading {
@@ -144,9 +144,84 @@ const ClockIcon = () => (
     </svg>
 );
 
+// Loader para buscar dados do post
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  try {
+    const response = await fetch(`https://api.brunobianchi.dev/post/${params.id}`);
+    
+    if (!response.ok) {
+      throw new Response("Post não encontrado", { status: 404 });
+    }
+    
+    const post = await response.json();
+    
+    return {
+      post: {
+        ...post,
+        description: stripMarkdown(post.content).slice(0, 160) + '...',
+        url: `https://blog.brunobianchi.dev/post/${post.id}`,
+        image: "https://brunobianchi.dev/brunobianchi.png"
+      }
+    };
+  } catch (error) {
+    throw new Response("Post não encontrado", { status: 404 });
+  }
+};
+
+// Função meta para SEO dinâmico
+export const meta: MetaFunction = ({ data, params }: any) => {
+  if (!data?.post) {
+    return [
+      { title: "Post não encontrado | Bruno Bianchi Blog" },
+      { name: "description", content: "Post não encontrado" },
+      { name: "robots", content: "noindex, nofollow" },
+    ];
+  }
+
+  const { post } = data;
+  const postTitle = `${post.title} | Bruno Bianchi Blog`;
+  
+  return [
+    { title: postTitle },
+    { name: "description", content: post.description },
+    { name: "keywords", content: post.tags?.join(', ') || '' },
+    { name: "author", content: "Bruno Bianchi" },
+    { name: "robots", content: "index, follow" },
+    
+    // Open Graph
+    { property: "og:title", content: postTitle },
+    { property: "og:description", content: post.description },
+    { property: "og:type", content: "article" },
+    { property: "og:url", content: post.url },
+    { property: "og:image", content: post.image },
+    { property: "og:locale", content: "pt_BR" },
+    { property: "og:site_name", content: "Bruno Bianchi Blog" },
+    
+    // Article específicas
+    { property: "article:author", content: "Bruno Bianchi" },
+    { property: "article:published_time", content: post.createdAt },
+    { property: "article:section", content: "Tecnologia" },
+    { property: "article:tag", content: post.tags?.join(', ') || '' },
+    
+    // Twitter Cards
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: postTitle },
+    { name: "twitter:description", content: post.description },
+    { name: "twitter:image", content: post.image },
+    { name: "twitter:creator", content: "@brunobianchi" },
+    
+    // Canonical
+    { rel: "canonical", href: post.url },
+  ];
+};
+
 export default function PostScreen() {
     const { id } = useParams();
-    const { post, loading } = usePost(id as string);
+    const loaderData = useLoaderData<typeof loader>();
+    const { post: hookPost, loading } = usePost(id as string);
+    
+    // Use dados do loader se disponível, senão use o hook
+    const post = loaderData?.post || hookPost;
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [activeHeadingId, setActiveHeadingId] = useState<string>("");
     const observerRef = useRef<IntersectionObserver | null>(null);
@@ -155,7 +230,7 @@ export default function PostScreen() {
     useEffect(() => {
         if (post?.markdownContent) {
             const headingLines = post.markdownContent.match(/^#{1,6}\s.*$/gm) || [];
-            const extractedHeadings: Heading[] = headingLines.map(line => {
+            const extractedHeadings: Heading[] = headingLines.map((line: string) => {
                 const match = line.match(/^(#{1,6})/);
                 const level = match ? match[0].length : 1;
                 const text = line.replace(/^#{1,6}\s*/, '').trim();
@@ -201,13 +276,9 @@ export default function PostScreen() {
     }, [headings]);
 
 
-    if (loading) {
+    if (loading && !loaderData) {
         return (
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
-                <Helmet>
-                    <title>Carregando... | Bruno Bianchi Blog</title>
-                    <meta name="description" content="Carregando post..." />
-                </Helmet>
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <div className="animate-pulse h-10 bg-gray-200 dark:bg-gray-800 rounded w-1/2 mx-auto"></div>
                 </main>
@@ -218,10 +289,6 @@ export default function PostScreen() {
     if (!post) {
         return (
             <div className="bg-white dark:bg-background flex flex-col min-h-screen">
-                <Helmet>
-                    <title>Post não encontrado | Bruno Bianchi Blog</title>
-                    <meta name="description" content="Post não encontrado" />
-                </Helmet>
                 <main className="flex-grow container mx-auto px-4 text-center py-16">
                     <p className="text-gray-600 dark:text-gray-400 text-lg">Post não encontrado</p>
                 </main>
@@ -229,90 +296,12 @@ export default function PostScreen() {
         );
     }
 
-    // Gerar dados dinâmicos para SEO
-    const postDescription = post.description || stripMarkdown(post.content).slice(0, 160) + '...';
-    const postUrl = `https://blog.brunobianchi.dev/post/${post.id}`;
-    const postImage = "https://brunobianchi.dev/brunobianchi.png";
-    const postTitle = `${post.title} | Bruno Bianchi Blog`;
-
     return (
         <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
-            <Helmet>
-                {/* Título */}
-                <title>{postTitle}</title>
-                
-                {/* Meta básicas */}
-                <meta name="description" content={postDescription} />
-                <meta name="keywords" content={post.tags?.join(', ') || ''} />
-                <meta name="author" content="Bruno Bianchi" />
-                <meta name="robots" content="index, follow" />
-                
-                {/* Open Graph */}
-                <meta property="og:title" content={postTitle} />
-                <meta property="og:description" content={postDescription} />
-                <meta property="og:type" content="article" />
-                <meta property="og:url" content={postUrl} />
-                <meta property="og:image" content={postImage} />
-                <meta property="og:locale" content="pt_BR" />
-                <meta property="og:site_name" content="Bruno Bianchi Blog" />
-                
-                {/* Article específicas */}
-                <meta property="article:author" content="Bruno Bianchi" />
-                <meta property="article:published_time" content={post.createdAt} />
-                <meta property="article:section" content="Tecnologia" />
-                {post.tags?.map((tag, index) => (
-                    <meta key={index} property="article:tag" content={tag} />
-                ))}
-                
-                {/* Twitter Cards */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content={postTitle} />
-                <meta name="twitter:description" content={postDescription} />
-                <meta name="twitter:image" content={postImage} />
-                <meta name="twitter:creator" content="@brunobianchi" />
-                
-                {/* Canonical */}
-                <link rel="canonical" href={postUrl} />
-                
-                {/* Schema.org JSON-LD */}
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "BlogPosting",
-                        headline: post.title,
-                        description: postDescription,
-                        author: {
-                            "@type": "Person",
-                            name: "Bruno Bianchi",
-                            url: "https://brunobianchi.dev"
-                        },
-                        publisher: {
-                            "@type": "Person",
-                            name: "Bruno Bianchi",
-                            logo: {
-                                "@type": "ImageObject",
-                                url: postImage
-                            }
-                        },
-                        url: postUrl,
-                        image: postImage,
-                        datePublished: post.createdAt,
-                        dateModified: post.createdAt,
-                        keywords: post.tags?.join(', ') || '',
-                        wordCount: post.content?.split(' ').length || 0,
-                        timeRequired: `PT${post.readingTime}M`
-                    })}
-                </script>
-            </Helmet>
-
             <main className="flex-grow pt-2 sm:pt-2">
-                {/* --- CONTAINER CENTRAL COM POSIÇÃO RELATIVA --- */}
                 <div className="max-w-4xl mx-auto px-6 py-8 relative">
-
-                    {/* O Roadmap é posicionado de forma absoluta em relação a este container */}
                     <Roadmap headings={headings} activeId={activeHeadingId} />
                     
-                    {/* O Article ocupa 100% da largura do container (max-w-4xl) */}
                     <article>
                         {/* Breadcrumb */}
                         <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
@@ -389,6 +378,3 @@ export default function PostScreen() {
         </div>
     );
 }
-
-// Remova a função meta existente, pois agora usamos Helmet
-// export const meta = () => [...]
