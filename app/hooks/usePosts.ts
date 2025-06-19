@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import { stripMarkdown } from '~/services/stripMarkdownService';
 export interface Post {
   _id: string;
   id: string;
@@ -38,7 +38,7 @@ export function usePosts() {
           _id: post._id,
           id: post.id,
           title: post.title,
-          description: post.content.slice(0, 150) + '...',
+          description: stripMarkdown(post.content).slice(0, 150) + '...',
           date: new Intl.DateTimeFormat('pt-BR', {
             day: 'numeric',
             month: 'long',
