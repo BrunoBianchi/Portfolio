@@ -102,53 +102,7 @@ export default function Home() {
          </div>
       </section>
 
-      <hr className="max-w-6xl mx-auto" />
-      
-      {/* Blog Section */}
-      <section id="blog" className="px-4 sm:px-6 py-12 sm:py-16" aria-labelledby="blog-heading">
-        <div className="max-w-4xl mx-auto">
-          <h2 id="blog-heading" className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center sm:text-left">Posts Recentes</h2>
-
-          {loading && (
-            <div className="text-center py-8">
-              <p className="text-gray-400">Carregando posts...</p>
-            </div>
-          )}
-
-          {error && (
-            <div className="text-center py-8">
-              <p className="text-red-400">Erro ao carregar posts: {error}</p>
-            </div>
-          )}
-
-          <div className="space-y-6 sm:space-y-8">
-            {posts.slice(0, 3).map((post) => ( // Mostra apenas os 3 primeiros
-              <article key={post._id} className="group cursor-pointer bg-card/20 p-4 rounded-lg hover:bg-card/30 transition-colors">
-                <a href={post.link} className="block">
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors leading-tight">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-400 mb-3 text-sm sm:text-base leading-relaxed">{post.description}</p>
-                  <div className="flex items-center text-xs sm:text-sm text-gray-500 flex-wrap gap-1">
-                    <span>{post.date}</span>
-                    <span className="mx-1 sm:mx-2">•</span>
-                    <span>{post.readingTime}</span>
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-
-          <div className="text-center mt-8 sm:mt-12">
-            <a
-              href="https://blog.brunobianchi.dev"
-              className="inline-block px-6 py-3 bg-primary text-black font-bold rounded-lg hover:bg-amber-400 transition-colors"
-            >
-              Ver todos os posts
-            </a>
-          </div>
-        </div>
-      </section>
+  
 
       <hr className="max-w-6xl mx-auto" />
 
