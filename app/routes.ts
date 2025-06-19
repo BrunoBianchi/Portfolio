@@ -4,5 +4,8 @@ export default [
     route("auth/callback", "./routes/auth.callback.tsx"),
     layout("./layouts/blogs-layout.tsx",[
         route("post/:id", "./screens/post-screen.tsx"),
-    ])
+    ]),
+    // Rotas para path /blog/ (além do subdomínio)
+    route("blog", "./screens/blog-screen.tsx"),
+    route("blog/:id", "./routes/blog-post.tsx"),
 ] satisfies RouteConfig;
