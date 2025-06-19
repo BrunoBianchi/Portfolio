@@ -8,6 +8,8 @@ import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
 import { CommentsSection } from "../components/comments-section";
 import { Roadmap } from "../components/roadmap";
+import { Reactions } from "../components/reactions";
+import { useReactions } from "../hooks/useReactions";
 
 import { stripMarkdown } from '~/services/stripMarkdownService';
 
@@ -165,6 +167,12 @@ export default function PostScreen() {
     // Temporariamente forçando o uso do hook para debug
     const post = hookPost || loaderData?.post;
 
+    // Hook para reações do post
+    const { reactions, react } = useReactions({
+        targetId: id as string,
+        targetType: 'post'
+    });
+
     // Debug logs
     console.log('PostScreen Debug:', {
         id,
@@ -274,6 +282,17 @@ export default function PostScreen() {
                         </header>
 
                         <hr className="border-gray-200 dark:border-gray-800 mb-8" />
+
+                        {/* Reações do Post */}
+                        <div className="mb-8">
+                            <Reactions
+                                targetId={id as string}
+                                targetType="post"
+                                reactions={reactions}
+                                onReact={react}
+                                className="justify-center sm:justify-start"
+                            />
+                        </div>
 
                         {/* Conteúdo Markdown */}
                         <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert prose-headings:scroll-mt-20">

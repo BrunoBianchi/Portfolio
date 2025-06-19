@@ -17,6 +17,7 @@ export interface PostSummary {
   date: string;
   readingTime: string;
   link: string;
+  tags: string[];
 }
 
 export function usePosts() {
@@ -45,7 +46,8 @@ export function usePosts() {
             year: 'numeric'
           }).format(new Date(post.createdAt)),
           readingTime: `${Math.ceil(post.content.split(' ').length / 200)} min de leitura`,
-          link: `/post/${post.id}`
+          link: `/post/${post.id}`,
+          tags: post.tags || []
         }));
 
         setPosts(transformedPosts);

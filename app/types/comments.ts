@@ -1,4 +1,6 @@
 // types/comments.ts
+import type { ReactionSummary } from './reactions';
+
 export interface Comment {
   id: string;
   postId: string;
@@ -13,6 +15,7 @@ export interface Comment {
   updatedAt: string;
   replies?: Comment[];
   parentId?: string;
+  reactions?: ReactionSummary;
 }
 
 export interface CreateCommentRequest {

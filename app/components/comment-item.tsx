@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import type { Comment, GitHubUser } from '~/types';
 import { CommentForm } from './comment-form';
 import { useAuth } from '~/contexts/auth-context';
+import { Reactions } from './reactions';
+import { useReactions } from '~/hooks/useReactions';
 
 interface CommentItemProps {
   comment: Comment;
@@ -25,6 +27,13 @@ export function CommentItem({
   const [isEditing, setIsEditing] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Hook para reações do comentário
+  const { reactions, react } = useReactions({
+    targetId: comment.id,
+    targetType: 'comment',
+    initialReactions: comment.reactions || {}
+  });
 
   const isOwner = currentUser?.id === comment.author.id;
   const formattedDate = new Date(comment.createdAt).toLocaleDateString('pt-BR', {
@@ -110,6 +119,19 @@ export function CommentItem({
             </div>
           )}
 
+          {/* Reações do comentário */}
+          {!isEditing && (
+            <div className="mb-3">
+              <Reactions
+                targetId={comment.id}
+                targetType="comment"
+                reactions={reactions}
+                onReact={react}
+                className="justify-start"
+              />
+            </div>
+          )}
+
           {/* Ações do comentário */}
           {!isEditing && (
             <div className="flex items-center space-x-4 text-sm">
@@ -121,7 +143,7 @@ export function CommentItem({
                   Responder
                 </button>
               )}
-              
+
               {isOwner && (
                 <>
                   <button

@@ -13,7 +13,7 @@ interface RoadmapProps {
 }
 
 const SubheadingArrowIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="w-4 h-4 mr-2.5 text-gray-500 flex-shrink-0">
+  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="w-3 h-3 mr-1.5 text-gray-500 flex-shrink-0 mt-0.5">
     <path d="M4 5.5V8.5C4 9.05228 4.44772 9.5 5 9.5H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
     <path d="M10 7.5L12 9.5L10 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
   </svg>
@@ -53,16 +53,16 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
             setIsMobileMenuOpen(false); // Fechar menu mobile após clique
           }}
           className={`
-            flex items-start w-full text-left px-3 py-2 rounded-lg transition-all duration-200 group
-            ${isActive 
-              ? 'bg-primary/10 text-primary border-l-2 border-primary' 
+            flex items-start w-full text-left px-2 py-1.5 rounded-md transition-all duration-200 group
+            ${isActive
+              ? 'bg-primary/10 text-primary border-l-2 border-primary'
               : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50'
             }
-            ${isSubheading ? 'ml-4 text-sm' : 'text-base font-medium'}
+            ${isSubheading ? 'ml-3 text-xs' : 'text-sm font-medium'}
           `}
         >
           {isSubheading && <SubheadingArrowIcon />}
-          <span className="leading-relaxed">
+          <span className="leading-snug line-clamp-2">
             {heading.text}
           </span>
         </button>
@@ -73,12 +73,12 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden xl:block fixed top-40 left-[1.5vw] w-64 z-30">
-        <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-lg">
-          <h3 className="font-bold text-gray-800 dark:text-gray-200 text-lg mb-4 px-2">
+      <aside className="hidden xl:block fixed top-32 left-4 w-56 z-30">
+        <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg p-3 border border-gray-200 dark:border-gray-700 shadow-lg">
+          <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-sm mb-3 px-2">
             Neste post
           </h3>
-          <ul className="space-y-1 max-h-[75vh] overflow-y-auto pr-1 aside-scrollbar">
+          <ul className="space-y-0.5 max-h-[70vh] overflow-y-auto pr-1 aside-scrollbar">
             {filteredHeadings.map(renderHeading)}
           </ul>
         </nav>
