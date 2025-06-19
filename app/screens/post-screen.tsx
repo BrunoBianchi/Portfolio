@@ -369,13 +369,6 @@ export default function PostScreen() {
                         {/* Conteúdo Markdown */}
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             {/* Debug: Mostrar conteúdo bruto */}
-                            <div className="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded text-xs">
-                                <p><strong>Debug - Conteúdo disponível:</strong></p>
-                                <p>markdownContent: {post.markdownContent ? 'Present' : 'Missing'}</p>
-                                <p>content: {post.content ? 'Present' : 'Missing'}</p>
-                                <p>Primeiro caractere: {post.markdownContent?.[0] || post.content?.[0] || 'None'}</p>
-                                <p>Tamanho: {(post.markdownContent || post.content || '').length}</p>
-                            </div>
 
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
