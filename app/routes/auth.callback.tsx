@@ -1,43 +1,31 @@
-// routes/auth.callback.tsx
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { useAuth } from '~/contexts/auth-context';
-
 export default function AuthCallback() {
-  const navigate = useNavigate();
-  const { login } = useAuth();
-
-  useEffect(() => {
-    const handleCallback = async () => {
-      try {
-        // O AuthProvider já vai processar o callback automaticamente
-        await login();
-        
-        // Redirecionar de volta para onde o usuário estava
-        const returnTo = sessionStorage.getItem('auth_return_to') || '/';
-        sessionStorage.removeItem('auth_return_to');
-        navigate(returnTo);
-      } catch (error) {
-        console.error('Callback error:', error);
-        navigate('/?auth_error=true');
-      }
-    };
-
-    handleCallback();
-  }, [login, navigate]);
-
   return (
-    <div className="bg-white dark:bg-background flex flex-col min-h-screen">
-      <main className="flex-grow container mx-auto px-4 text-center py-16">
-        <div className="animate-pulse">
-          <div className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Processando login...
-          </div>
-          <div className="text-gray-600 dark:text-gray-400">
-            Aguarde enquanto confirmamos sua autenticação.
-          </div>
-        </div>
-      </main>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#f3f4f6'
+    }}>
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#1f2937' }}>
+          GitHub OAuth Callback
+        </h1>
+        <p style={{ color: '#6b7280' }}>
+          Processando autenticação...
+        </p>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '4px solid #e5e7eb',
+          borderTop: '4px solid #3b82f6',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite',
+          margin: '1rem auto'
+        }}></div>
+      </div>
     </div>
   );
 }
+
+
