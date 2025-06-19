@@ -67,7 +67,8 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block fixed top-32 left-4 lg:left-8 w-56 lg:w-64 z-30">
+      <aside className="hidden lg:block fixed top-32 left-4 lg:left-8 w-56 lg:w-64 z-30 pointer-events-none">
+        <div className="pointer-events-auto">
         <nav className="bg-gray-900/15 backdrop-blur-sm rounded-lg p-4 border border-gray-800/20 shadow-lg max-h-[calc(100vh-10rem)] overflow-hidden">
           <h3 className="text-xs font-medium text-gray-300 mb-3 tracking-wide uppercase">
             Neste post
@@ -76,6 +77,7 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
             {filteredHeadings.map(renderHeading)}
           </ol>
         </nav>
+        </div>
       </aside>
 
       {/* Mobile Floating Button */}

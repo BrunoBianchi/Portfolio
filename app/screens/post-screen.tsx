@@ -227,7 +227,7 @@ export default function PostScreen() {
     return (
         <div className="bg-white dark:bg-background flex flex-col min-h-screen text-gray-900 dark:text-gray-100">
             <main className="flex-grow pt-2 sm:pt-4 md:pt-6">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:pl-72 xl:pl-80 lg:pr-8 py-4 sm:py-6 md:py-8 relative">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 relative">
                     <Roadmap headings={headings} />
                     
                     <article>
