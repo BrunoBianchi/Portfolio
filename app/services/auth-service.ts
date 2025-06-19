@@ -5,7 +5,7 @@ import type { GitHubUser, ApiResponse } from '~/types';
 const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID || 'Ov23li66cI0p2eqJJcIJ';
 const GITHUB_REDIRECT_URI = typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : '';
 const GITHUB_SCOPE = 'user:email';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.brunobianchi.dev';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 export class AuthService {
   private static readonly TOKEN_KEY = 'github_access_token';
@@ -64,16 +64,17 @@ export class AuthService {
         throw new Error('Failed to exchange code for token');
       }
 
-      const { access_token } = await tokenResponse.json();
-      
-      // Buscar dados do usuário
-      const user = await this.fetchGitHubUser(access_token);
-      
-      // Salvar token e usuário
-      this.setToken(access_token);
-      this.setUser(user);
-      
-      return user;
+      const authData = await tokenResponse.json();
+
+      if (!authData.success || !authData.data) {
+        throw new Error('Invalid authentication response');
+      }
+
+      // Salvar JWT token e dados do usuário
+      this.setToken(authData.data.access_token); // JWT token
+      this.setUser(authData.data.user);
+
+      return authData.data.user;
     } catch (error) {
       console.error('GitHub authentication error:', error);
       throw error;
@@ -81,20 +82,21 @@ export class AuthService {
   }
 
   /**
-   * Busca dados do usuário autenticado do GitHub
+   * Busca dados do usuário autenticado através do backend
    */
   static async fetchGitHubUser(token?: string): Promise<GitHubUser> {
-    const accessToken = token || this.getToken();
-    
-    if (!accessToken) {
+    const jwtToken = token || this.getToken();
+
+    if (!jwtToken) {
       throw new Error('No access token available');
     }
 
     try {
-      const response = await fetch('https://api.github.com/user', {
+      const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `Bearer ${jwtToken}`,
+          'Content-Type': 'application/json',
         },
       });
 
@@ -106,8 +108,13 @@ export class AuthService {
         throw new Error('Failed to fetch user data');
       }
 
-      const userData = await response.json();
-      return userData as GitHubUser;
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to refresh user data');
+      }
+
+      return data.data as GitHubUser;
     } catch (error) {
       console.error('Error fetching GitHub user:', error);
       throw error;

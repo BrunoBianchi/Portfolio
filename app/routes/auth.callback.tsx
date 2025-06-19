@@ -43,8 +43,8 @@ export default function AuthCallback() {
           throw new Error('Resposta de autenticação inválida');
         }
 
-        // Salvar token e dados do usuário
-        localStorage.setItem('github_access_token', authData.data.access_token);
+        // Salvar JWT token e dados do usuário
+        localStorage.setItem('github_access_token', authData.data.access_token); // Este é o JWT token
         localStorage.setItem('github_user', JSON.stringify(authData.data.user));
 
         // Reinicializar contexto de autenticação
