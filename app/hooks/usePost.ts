@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { type Post } from './usePosts';
+import { stripMarkdown } from '~/services/stripMarkdownService';
 
 export interface PostWithParsedContent {
   _id: string;
@@ -11,6 +12,9 @@ export interface PostWithParsedContent {
   createdAt: string;
   date: string;
   readingTime: string;
+  description?: string;
+  url?: string;
+  image?: string;
 }
 
 export function usePost(postId: string) {
@@ -34,7 +38,6 @@ export function usePost(postId: string) {
         }
         
         const data: Post = await response.json();
-       console.log("Resposta da API /posts:", data);
 
         const transformedPost: PostWithParsedContent = {
           _id: data._id,
@@ -49,7 +52,10 @@ export function usePost(postId: string) {
             month: 'long',
             year: 'numeric'
           }).format(new Date(data.createdAt)),
-          readingTime: `${Math.ceil(data.content.split(' ').length / 200)}` // Sem "min de leitura" aqui
+          readingTime: `${Math.ceil(data.content.split(' ').length / 200)}`,
+          description: stripMarkdown(data.content).slice(0, 160) + '...',
+          url: `https://blog.brunobianchi.dev/post/${data.id}`,
+          image: "https://brunobianchi.dev/brunobianchi.png"
         };
         
         setPost(transformedPost);

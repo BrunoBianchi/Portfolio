@@ -1,10 +1,11 @@
 // PostScreen.tsx
-import { useParams } from "react-router";
+import { useParams, useLoaderData } from "react-router";
 import React, { useState, useEffect, type ReactNode, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { usePost } from "../hooks/usePost";
+import { stripMarkdown } from '~/services/stripMarkdownService';
 
 // Define types for the heading data
 interface Heading {
@@ -141,9 +142,73 @@ const ClockIcon = () => (
     </svg>
 );
 
+// Adicione o loader
+export const loader = async ({ params }: { params: { id: string } }) => {
+  try {
+    const response = await fetch(`https://api.brunobianchi.dev/post/${params.id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Post não encontrado`);
+    }
+    
+    const post = await response.json();
+    
+    return {
+      post: {
+        ...post,
+        description: stripMarkdown(post.content).slice(0, 160) + '...',
+        url: `https://blog.brunobianchi.dev/post/${post.id}`,
+        image: "https://brunobianchi.dev/brunobianchi.png"
+      }
+    };
+  } catch (error) {
+    throw new Response("Post não encontrado", { status: 404 });
+  }
+};
+
+// Atualize a função meta
+export const meta = ({ data }: { data: { post: any } | undefined }) => {
+  if (!data?.post) {
+    return [
+      { title: "Post não encontrado | Bruno Bianchi Blog" },
+      { name: "description", content: "Post não encontrado" }
+    ];
+  }
+
+  const { post } = data;
+  
+  return [
+    { title: `${post.title} | Bruno Bianchi Blog` },
+    { name: "description", content: post.description },
+    { name: "keywords", content: post.tags?.join(', ') || '' },
+    { name: "author", content: "Bruno Bianchi" },
+    
+    // Open Graph
+    { property: "og:title", content: `${post.title} | Bruno Bianchi Blog` },
+    { property: "og:description", content: post.description },
+    { property: "og:type", content: "article" },
+    { property: "og:url", content: post.url },
+    { property: "og:image", content: post.image },
+    { property: "og:locale", content: "pt_BR" },
+    { property: "article:author", content: "Bruno Bianchi" },
+    { property: "article:published_time", content: post.createdAt },
+    { property: "article:tag", content: post.tags?.join(', ') || '' },
+    
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: `${post.title} | Bruno Bianchi Blog` },
+    { name: "twitter:description", content: post.description },
+    { name: "twitter:image", content: post.image },
+  ];
+};
+
 export default function PostScreen() {
     const { id } = useParams();
-    const { post, loading } = usePost(id as string);
+    const loaderData = useLoaderData() as { post: any } | undefined;
+    const { post: hookPost, loading } = usePost(id as string);
+    
+    // Use dados do loader se disponível, senão use o hook
+    const post = loaderData?.post || hookPost;
     const [headings, setHeadings] = useState<Heading[]>([]);
     const [activeHeadingId, setActiveHeadingId] = useState<string>("");
     const observerRef = useRef<IntersectionObserver | null>(null);
@@ -152,7 +217,7 @@ export default function PostScreen() {
     useEffect(() => {
         if (post?.markdownContent) {
             const headingLines = post.markdownContent.match(/^#{1,6}\s.*$/gm) || [];
-            const extractedHeadings: Heading[] = headingLines.map(line => {
+            const extractedHeadings: Heading[] = headingLines.map((line:any) => {
                 const match = line.match(/^(#{1,6})/);
                 const level = match ? match[0].length : 1;
                 const text = line.replace(/^#{1,6}\s*/, '').trim();
@@ -305,7 +370,3 @@ export default function PostScreen() {
     );
 }
 
-export const meta = () => [
-    { title: "Bruno Bianchi - Blog Post" },
-    { name: "description", content: "Blog post content" }
-];
