@@ -20,7 +20,7 @@ export default function Home() {
       description:
         "Desenvolvedor FullStack na Tech4Humans, atuando em projetos para grandes empresas de seguro.",
       tags: [
-        "FullStack Deve",
+        "FullStack Dev",
         "Soft Skills",
         "Hard Skills",
       ],
