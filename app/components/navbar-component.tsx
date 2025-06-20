@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaPlus } from "react-icons/fa";
+import { useAuth } from "~/contexts/auth-context";
+import { PostsService } from "~/services/posts-service";
 
 // Ícones do menu hambúrguer
 const MenuIcon = () => (
@@ -16,6 +18,8 @@ const CloseIcon = () => (
 
 export default function NavbarComponent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const canCreatePosts = isAuthenticated && PostsService.canCreatePosts();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -46,6 +50,12 @@ export default function NavbarComponent() {
           <a href="https://blog.brunobianchi.dev/" className="text-xs sm:text-sm hover:underline whitespace-nowrap" rel="noopener noreferrer">
             Blog
           </a>
+          {canCreatePosts && (
+            <a href="/admin/create-post" className="flex items-center text-xs sm:text-sm space-x-1 hover:underline whitespace-nowrap text-primary">
+              <FaPlus className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden lg:inline">Novo Post</span>
+            </a>
+          )}
           <a
             href="https://www.linkedin.com/in/bruno-bianchi-65a442268/"
             target="_blank"
@@ -93,6 +103,16 @@ export default function NavbarComponent() {
             >
               Blog
             </a>
+            {canCreatePosts && (
+              <a
+                href="/admin/create-post"
+                className="flex items-center py-2 text-sm space-x-2 hover:text-primary text-primary"
+                onClick={closeMobileMenu}
+              >
+                <FaPlus className="w-4 h-4" />
+                <span>Novo Post</span>
+              </a>
+            )}
             <a
               href="https://www.linkedin.com/in/bruno-bianchi-65a442268/"
               target="_blank"
