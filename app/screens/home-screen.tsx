@@ -13,6 +13,18 @@ export default function Home() {
   const { posts, loading, error } = usePosts();
 
   const experiences = [
+        {
+      company: "Tech4Humans",
+      role: "Desenvolvedor Pleno",
+      period: "07/2025 - Presente",
+      description:
+        "Desenvolvedor FullStack na Tech4Humans, atuando em projetos para grandes empresas de seguro.",
+      tags: [
+        "FullStack Deve",
+        "Soft Skills",
+        "Hard Skills",
+      ],
+    },
     {
       company: "UNIFEI - Universidade Federal de Itajubá",
       role: "P&D em Engenharia de Dados",
