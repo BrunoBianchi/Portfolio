@@ -13,8 +13,10 @@ export default function Home() {
   const { posts, loading, error } = usePosts();
 
   const experiences = [
-        {
+    {
       company: "Tech4Humans",
+      companyUrl: "https://tech4humans.com.br",
+      location: "São Paulo, SP - Remoto",
       role: "Desenvolvedor Pleno",
       period: "07/2025 - Presente",
       description:
@@ -27,6 +29,8 @@ export default function Home() {
     },
     {
       company: "UNIFEI - Universidade Federal de Itajubá",
+      companyUrl: "https://unifei.edu.br",
+      location: "Itajubá, MG - Presencial",
       role: "P&D em Engenharia de Dados",
       period: "10/2024 - Presente",
       description:
@@ -41,6 +45,8 @@ export default function Home() {
     },
     {
       company: "Asimov Jr.",
+      companyUrl: "https://asimovjr.com",
+      location: "Itajubá, MG - Híbrido",
       role: "Gerente de Projetos de Ciencia de Dados",
       period: "08/2024 - 01/2025",
       description:
@@ -55,6 +61,8 @@ export default function Home() {
     },
     {
       company: "Asimov Jr.",
+      companyUrl: "https://asimovjr.com",
+      location: "Itajubá, MG - Híbrido",
       role: "Desenvolvedor FullStack",
       period: "11/2023 - 08/2024",
       description:
@@ -281,12 +289,29 @@ export default function Home() {
                   </div>
 
                   {/* Role and Company */}
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
                     {exp.role}
                   </h3>
-                  <p className="font-medium text-gray-400 mb-3 text-base">
-                    {exp.company}
-                  </p>
+                  <div className="mb-3">
+                    <a
+                      href={exp.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-primary hover:text-amber-400 transition-colors duration-200 text-base inline-flex items-center gap-1"
+                    >
+                      {exp.company}
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                    <div className="flex items-center gap-2 mt-1">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span className="text-sm text-gray-500">{exp.location}</span>
+                    </div>
+                  </div>
 
                   {/* Description */}
                   <p className="text-gray-500 text-base leading-relaxed mb-3">
