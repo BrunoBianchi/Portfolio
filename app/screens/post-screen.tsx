@@ -296,7 +296,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-8">
+                        <div className="prose prose-base max-w-none prose-headings:scroll-mt-20 mb-8">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
