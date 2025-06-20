@@ -75,19 +75,19 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16 lg:py-20">
+    <div className="bg-background text-white min-h-screen py-8 sm:py-12 lg:py-16">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4 leading-tight">
+        <header className="text-center mb-6 sm:mb-8 lg:mb-12">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-3 sm:mb-4 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto px-2 leading-relaxed font-light">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto px-2 leading-relaxed font-light">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>
         </header>
 
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-6 sm:mb-8 gap-4 sm:gap-6">
           <div className="relative flex-grow w-full max-w-2xl">
             <span className="absolute inset-y-0 left-0 flex items-center pl-4">
               <SearchIcon />
@@ -97,7 +97,7 @@ export default function BlogPage() {
               placeholder="Buscar artigos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-card/50 text-white placeholder-gray-400 border border-card/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card rounded-lg py-3 sm:py-4 pl-12 pr-4 text-sm sm:text-base transition-all duration-300 backdrop-blur-sm"
+              className="w-full bg-card/50 text-white placeholder-gray-400 border border-card/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card rounded-lg py-3 pl-12 pr-4 text-base transition-all duration-300 backdrop-blur-sm"
             />
           </div>
           <div className="text-xs text-gray-500 w-full lg:w-auto text-center lg:text-right">
@@ -105,12 +105,12 @@ export default function BlogPage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
+        <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4 sm:mb-6">
           {filterTags.map((tag, index) => (
             <button
               key={index}
               onClick={() => handleFilterChange(tag)}
-              className={`px-3 py-1.5 text-xs font-medium rounded transition-all duration-200 whitespace-nowrap ${
+              className={`px-3 py-1.5 text-sm font-medium rounded transition-all duration-200 whitespace-nowrap ${
                 tag === activeFilter
                   ? "bg-primary text-black"
                   : "bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-gray-300"
@@ -168,10 +168,10 @@ export default function BlogPage() {
                 <article className="border border-gray-800/50 hover:border-gray-700 rounded-lg p-4 sm:p-5 transition-all duration-200">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                     <div className="flex-grow">
-                      <h2 className="text-sm sm:text-base font-semibold text-white group-hover:text-primary transition-colors duration-200 leading-tight mb-2">
+                      <h2 className="text-base sm:text-lg font-semibold text-white group-hover:text-primary transition-colors duration-200 leading-tight mb-2">
                         {post.title}
                       </h2>
-                      <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-2">{post.description}</p>
+                      <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-2">{post.description}</p>
                       <div className="text-xs text-gray-500 flex items-center gap-2">
                         <time>{post.date}</time>
                         <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
@@ -192,7 +192,7 @@ export default function BlogPage() {
           <div className="text-center mt-8 sm:mt-12">
             <button
               onClick={loadMorePosts}
-              className="bg-primary text-black font-medium py-2.5 px-6 rounded hover:bg-amber-400 transition-colors duration-200 text-sm"
+              className="bg-primary text-black font-medium py-3 px-6 rounded hover:bg-amber-400 transition-colors duration-200 text-base"
             >
               Carregar mais
             </button>

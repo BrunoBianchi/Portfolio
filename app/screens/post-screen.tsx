@@ -226,13 +226,13 @@ export default function PostScreen() {
 
     return (
         <div className="bg-background flex flex-col min-h-screen text-white">
-            <main className="flex-grow pt-4 sm:pt-6 md:pt-8 lg:pt-12">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 relative">
+            <main className="flex-grow pt-4 sm:pt-6 lg:pt-8">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 relative">
                     <Roadmap headings={headings} />
 
                     <article className="max-w-4xl mx-auto">
                         {/* Breadcrumb */}
-                        <nav className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 md:mb-10" aria-label="Breadcrumb">
+                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-4 sm:mb-6" aria-label="Breadcrumb">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
                                 Blog
                             </a>
@@ -241,12 +241,12 @@ export default function PostScreen() {
                         </nav>
 
                         {/* Header do Post */}
-                        <header className="mb-8 sm:mb-10">
-                            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white leading-tight mb-4 sm:mb-6">
+                        <header className="mb-6 sm:mb-8">
+                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-tight mb-4 sm:mb-6">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-gray-500 text-sm mb-4 sm:mb-6">
                                 <div className="flex items-center">
                                     <img
                                         src="/brunobianchi.png"
@@ -255,7 +255,7 @@ export default function PostScreen() {
                                     />
                                     <span className="font-medium text-gray-400">Bruno Bianchi</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-xs">
+                                <div className="flex items-center gap-3 text-sm">
                                     <div className="flex items-center gap-1">
                                         <CalendarIcon />
                                         <span>{post.date}</span>
@@ -272,7 +272,7 @@ export default function PostScreen() {
                                     {post.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
-                                            className="px-2 py-1 text-xs bg-gray-800/50 text-gray-400 rounded"
+                                            className="px-2 py-1 text-sm bg-gray-800/50 text-gray-400 rounded"
                                         >
                                             {tag}
                                         </span>
@@ -281,10 +281,10 @@ export default function PostScreen() {
                             )}
                         </header>
 
-                        <hr className="border-gray-800 mb-6 sm:mb-8" />
+                        <hr className="border-gray-800 mb-4 sm:mb-6" />
 
                         {/* Reações do Post */}
-                        <div className="mb-6 sm:mb-8 py-3 border border-gray-800/50 rounded-lg">
+                        <div className="mb-4 sm:mb-6 py-3 border border-gray-800/50 rounded-lg">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -295,7 +295,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-sm sm:prose-base max-w-none prose-headings:scroll-mt-20 mb-8 sm:mb-12">
+                        <div className="prose prose-base lg:prose-lg max-w-none prose-headings:scroll-mt-20 mb-6 sm:mb-8">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -313,7 +313,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-gray-800 pt-6 sm:pt-8">
+                        <div className="border-t border-gray-800 pt-4 sm:pt-6">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>
