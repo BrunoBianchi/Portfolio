@@ -60,7 +60,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
+
         {/* JSON-LD Schema */}
         <script
           type="application/ld+json"
@@ -84,29 +84,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
             })
           }}
         />
-        
+
         <Meta />
         <Links />
       </head>
       <body>
-        <main className="w-[60%] mx-auto">
-          <NavbarComponent />
-          {children}
-          <FooterComponent />
-          <ScrollRestoration />
-          <Scripts />
-        </main>
+        <AuthProvider>
+          <main className="w-[60%] mx-auto">
+            <NavbarComponent />
+            {children}
+            <FooterComponent />
+            <ScrollRestoration />
+            <Scripts />
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return (
-    <AuthProvider>
-      <Outlet />
-    </AuthProvider>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary() {
@@ -118,17 +116,19 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <main className="w-[60%] mx-auto">
-          <NavbarComponent />
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-red-500 mb-4">Oops!</h1>
-              <p className="text-gray-600">Algo deu errado. Tente novamente mais tarde.</p>
+        <AuthProvider>
+          <main className="w-[60%] mx-auto">
+            <NavbarComponent />
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold text-red-500 mb-4">Oops!</h1>
+                <p className="text-gray-600">Algo deu errado. Tente novamente mais tarde.</p>
+              </div>
             </div>
-          </div>
-          <FooterComponent />
-          <Scripts />
-        </main>
+            <FooterComponent />
+            <Scripts />
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

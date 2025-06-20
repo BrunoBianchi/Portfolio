@@ -18,8 +18,19 @@ const CloseIcon = () => (
 
 export default function NavbarComponent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isAuthenticated } = useAuth();
-  const canCreatePosts = isAuthenticated && PostsService.canCreatePosts();
+
+  // Usar try-catch para evitar erro se AuthProvider não estiver disponível
+  let isAuthenticated = false;
+  let canCreatePosts = false;
+
+  try {
+    const auth = useAuth();
+    isAuthenticated = auth.isAuthenticated;
+    canCreatePosts = isAuthenticated && PostsService.canCreatePosts();
+  } catch (error) {
+    // Se useAuth falhar, continuar com valores padrão (false)
+    console.log('Auth context not available in navbar');
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
