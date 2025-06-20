@@ -39,8 +39,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-white font-sans">
-      <section className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 flex items-center justify-center" aria-label="Apresentação pessoal">
-        <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+      <section className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 lg:py-16 flex items-center justify-center" aria-label="Apresentação pessoal">
+        <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-center">
           <header className="text-center lg:text-left order-2 lg:order-1">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight mb-3 sm:mb-4">
               Olá, eu sou <br className="hidden sm:block" />
@@ -85,10 +85,10 @@ export default function Home() {
       <hr className="max-w-6xl mx-auto border-primary/20" />
 
       {/* About Section */}
-      <section id="about" className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16" aria-labelledby="about-heading">
+      <section id="about" className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12" aria-labelledby="about-heading">
         <div className="max-w-4xl mx-auto">
-          <h2 id="about-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-6 sm:mb-8 text-center text-gray-200">Sobre Mim</h2>
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <h2 id="about-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-4 sm:mb-6 text-center text-gray-200">Sobre Mim</h2>
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 items-center">
             <div className="space-y-4">
               <p className="text-gray-400 leading-relaxed">
                 Sou um desenvolvedor apaixonado por tecnologia e inovação, com experiência sólida em desenvolvimento fullstack e engenharia de dados.
@@ -136,10 +136,10 @@ export default function Home() {
 
       <hr className="max-w-6xl mx-auto border-primary/20" />
 
-      <section id="experience" className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16" aria-labelledby="experience-heading">
+      <section id="experience" className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12" aria-labelledby="experience-heading">
          <div className="max-w-6xl mx-auto">
-            <h2 id="experience-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-6 sm:mb-8 text-center lg:text-left text-gray-200">Experiência Profissional</h2>
-            <div className="space-y-6 sm:space-y-8 relative">
+            <h2 id="experience-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-4 sm:mb-6 text-center lg:text-left text-gray-200">Experiência Profissional</h2>
+            <div className="space-y-5 sm:space-y-6 relative">
                 {/* Enhanced Timeline Line with Multiple Layers */}
                 <div className="absolute left-6 top-8 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/60 to-transparent hidden md:block animate-timeline-draw" aria-hidden="true"></div>
 
@@ -203,16 +203,16 @@ export default function Home() {
       <hr className="max-w-6xl mx-auto border-primary/20" />
 
       {/* Featured Projects Section */}
-      <section id="projects" className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16" aria-labelledby="projects-heading">
+      <section id="projects" className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12" aria-labelledby="projects-heading">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
+          <div className="text-center mb-6 sm:mb-8">
             <h2 id="projects-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-3 text-gray-200">Projetos em Destaque</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto text-sm">
               Alguns dos projetos que desenvolvi, focando em soluções inovadoras e tecnologias modernas.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-6">
             {/* Project 1 */}
             <article className="group card-hover rounded-xl p-8 animate-fade-in bg-gradient-to-br from-gray-900/50 to-gray-800/30" style={{animationDelay: '0.1s'}}>
               <div className="flex items-start gap-6">
@@ -309,16 +309,16 @@ export default function Home() {
       <hr className="max-w-6xl mx-auto border-primary/20" />
 
       {/* Contact Section */}
-      <section id="contact" className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16" aria-labelledby="contact-heading">
+      <section id="contact" className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12" aria-labelledby="contact-heading">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <h2 id="contact-heading" className="text-lg sm:text-xl lg:text-2xl font-semibold mb-3 text-gray-200">Vamos Conversar?</h2>
-            <p className="text-gray-400 text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mx-auto">
               Interessado em colaborar ou tem alguma pergunta? Estou sempre aberto a novas oportunidades e conversas interessantes.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">

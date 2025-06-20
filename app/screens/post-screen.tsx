@@ -226,97 +226,105 @@ export default function PostScreen() {
 
     return (
         <div className="bg-background flex flex-col min-h-screen text-white">
-            <main className="flex-grow pt-4 sm:pt-6 lg:pt-8">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 relative">
-                    <Roadmap headings={headings} />
+            <main className="flex-grow pt-4 sm:pt-6">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 relative">
+                    <div className="flex gap-8">
+                        {/* Sidebar com Roadmap */}
+                        <aside className="hidden lg:block w-64 flex-shrink-0">
+                            <div className="sticky top-6">
+                                <Roadmap headings={headings} />
+                            </div>
+                        </aside>
 
-                    <article className="max-w-4xl mx-auto">
-                        {/* Breadcrumb */}
-                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-4 sm:mb-6" aria-label="Breadcrumb">
-                            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
-                                Blog
-                            </a>
-                            <ChevronRightIcon />
-                            <span className="text-gray-300 truncate font-medium">{cleanMarkdown(post.title)}</span>
-                        </nav>
+                        {/* Conteúdo Principal */}
+                        <article className="flex-1 max-w-3xl">
+                            {/* Breadcrumb */}
+                            <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-4" aria-label="Breadcrumb">
+                                <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
+                                    Blog
+                                </a>
+                                <ChevronRightIcon />
+                                <span className="text-gray-300 truncate font-medium">{cleanMarkdown(post.title)}</span>
+                            </nav>
 
-                        {/* Header do Post */}
-                        <header className="mb-6 sm:mb-8">
-                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-tight mb-4 sm:mb-6">
-                                {cleanMarkdown(post.title)}
-                            </h1>
+                            {/* Header do Post */}
+                            <header className="mb-6">
+                                <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white leading-tight mb-4">
+                                    {cleanMarkdown(post.title)}
+                                </h1>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-gray-500 text-sm mb-4 sm:mb-6">
-                                <div className="flex items-center">
-                                    <img
-                                        src="/brunobianchi.png"
-                                        alt="Avatar de Bruno Bianchi"
-                                        className="w-6 h-6 rounded-full mr-2 border border-gray-700"
-                                    />
-                                    <span className="font-medium text-gray-400">Bruno Bianchi</span>
-                                </div>
-                                <div className="flex items-center gap-3 text-sm">
-                                    <div className="flex items-center gap-1">
-                                        <CalendarIcon />
-                                        <span>{post.date}</span>
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-gray-500 text-sm mb-4">
+                                    <div className="flex items-center">
+                                        <img
+                                            src="/brunobianchi.png"
+                                            alt="Avatar de Bruno Bianchi"
+                                            className="w-5 h-5 rounded-full mr-2 border border-gray-700"
+                                        />
+                                        <span className="font-medium text-gray-400">Bruno Bianchi</span>
                                     </div>
-                                    <div className="flex items-center gap-1">
-                                        <ClockIcon />
-                                        <span>{post.readingTime} min</span>
+                                    <div className="flex items-center gap-3 text-sm">
+                                        <div className="flex items-center gap-1">
+                                            <CalendarIcon />
+                                            <span>{post.date}</span>
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <ClockIcon />
+                                            <span>{post.readingTime} min</span>
+                                        </div>
                                     </div>
                                 </div>
+
+                                {post.tags.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {post.tags.map((tag: string, index: number) => (
+                                            <span
+                                                key={index}
+                                                className="px-2 py-1 text-xs bg-gray-800/50 text-gray-400 rounded-full border border-gray-700/50"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+                            </header>
+
+                            <hr className="border-gray-800/50 mb-4" />
+
+                            {/* Reações do Post */}
+                            <div className="mb-4 py-3 border border-gray-800/30 rounded-lg">
+                                <Reactions
+                                    targetId={id as string}
+                                    targetType="post"
+                                    reactions={reactions}
+                                    onReact={react}
+                                    className="justify-center sm:justify-start"
+                                />
                             </div>
 
-                            {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-1.5">
-                                    {post.tags.map((tag: string, index: number) => (
-                                        <span
-                                            key={index}
-                                            className="px-2 py-1 text-sm bg-gray-800/50 text-gray-400 rounded"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-                        </header>
+                            {/* Conteúdo Markdown */}
+                            <div className="prose prose-sm lg:prose-base max-w-none prose-headings:scroll-mt-20 mb-6">
+                                <ReactMarkdown
+                                    rehypePlugins={[rehypeRaw]}
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        h1: (props) => <HeadingRenderer level={1} {...props} />,
+                                        h2: (props) => <HeadingRenderer level={2} {...props} />,
+                                        h3: (props) => <HeadingRenderer level={3} {...props} />,
+                                        h4: (props) => <HeadingRenderer level={4} {...props} />,
+                                        h5: (props) => <HeadingRenderer level={5} {...props} />,
+                                        h6: (props) => <HeadingRenderer level={6} {...props} />,
+                                    }}
+                                >
+                                    {post.markdownContent || post.content || 'Conteúdo não encontrado'}
+                                </ReactMarkdown>
+                            </div>
 
-                        <hr className="border-gray-800 mb-4 sm:mb-6" />
-
-                        {/* Reações do Post */}
-                        <div className="mb-4 sm:mb-6 py-3 border border-gray-800/50 rounded-lg">
-                            <Reactions
-                                targetId={id as string}
-                                targetType="post"
-                                reactions={reactions}
-                                onReact={react}
-                                className="justify-center sm:justify-start"
-                            />
-                        </div>
-
-                        {/* Conteúdo Markdown */}
-                        <div className="prose prose-base lg:prose-lg max-w-none prose-headings:scroll-mt-20 mb-6 sm:mb-8">
-                            <ReactMarkdown
-                                rehypePlugins={[rehypeRaw]}
-                                remarkPlugins={[remarkGfm]}
-                                components={{
-                                    h1: (props) => <HeadingRenderer level={1} {...props} />,
-                                    h2: (props) => <HeadingRenderer level={2} {...props} />,
-                                    h3: (props) => <HeadingRenderer level={3} {...props} />,
-                                    h4: (props) => <HeadingRenderer level={4} {...props} />,
-                                    h5: (props) => <HeadingRenderer level={5} {...props} />,
-                                    h6: (props) => <HeadingRenderer level={6} {...props} />,
-                                }}
-                            >
-                                {post.markdownContent || post.content || 'Conteúdo não encontrado'}
-                            </ReactMarkdown>
-                        </div>
-
-                        {/* Seção de Comentários */}
-                        <div className="border-t border-gray-800 pt-4 sm:pt-6">
-                            <CommentsSection postId={post.id} />
-                        </div>
-                    </article>
+                            {/* Seção de Comentários */}
+                            <div className="border-t border-gray-800/50 pt-4">
+                                <CommentsSection postId={post.id} />
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </main>
         </div>
