@@ -89,7 +89,7 @@ export default function CreatePostScreen() {
                   🔒 Área restrita ao administrador
                 </p>
                 <p className="text-xs text-gray-600">
-                  Apenas o proprietário do blog (brunoBianchi) pode criar posts.
+                  Apenas o proprietário do blog (BrunoBianchi) pode criar posts.
                 </p>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function CreatePostScreen() {
 
             <div className="bg-red-900/10 border border-red-800 rounded-lg p-4 mb-6">
               <p className="text-red-300 text-sm text-center">
-                🚫 Apenas a conta <strong>brunoBianchi</strong> pode criar posts.
+                🚫 Apenas a conta <strong>BrunoBianchi</strong> pode criar posts.
               </p>
             </div>
 

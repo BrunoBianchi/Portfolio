@@ -67,7 +67,7 @@ export class PostsService {
     if (!user) return false;
 
     const allowedEmail = 'bruno.raiadobian@gmail.com';
-    const allowedLogin = 'brunoBianchi';
+    const allowedLogin = 'BrunoBianchi'; // Corrigido para maiúsculo
 
     return user.email === allowedEmail || user.login === allowedLogin;
   }
