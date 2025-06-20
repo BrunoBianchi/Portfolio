@@ -97,7 +97,7 @@ export default function BlogPage() {
               placeholder="Buscar artigos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-card/50 text-white placeholder-gray-400 border border-card/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card rounded-lg py-3 pl-12 pr-4 text-base transition-all duration-300 backdrop-blur-sm"
+              className="w-full bg-gray-800/50 text-white placeholder-gray-400 border border-gray-700/50 focus:border-gray-600 focus:outline-none rounded-lg py-3 pl-12 pr-4 text-base transition-all duration-300"
             />
           </div>
           <div className="text-xs text-gray-500 w-full lg:w-auto text-center lg:text-right">

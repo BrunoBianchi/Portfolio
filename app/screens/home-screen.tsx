@@ -102,12 +102,9 @@ export default function Home() {
                     }}
                   >
                      {/* Timeline Dot - Only current (first) item pulses */}
-                     <div className={`absolute left-4 top-4 w-4 h-4 bg-gradient-to-r from-primary to-amber-400 rounded-full border-4 border-background shadow-lg hidden md:block experience-dot ${index === 0 ? 'animate-glow-pulse' : ''}`} aria-hidden="true">
+                     <div className={`absolute left-4 top-4 w-4 h-4 rounded-full border-4 border-background shadow-lg hidden md:block experience-dot ${index === 0 ? 'bg-gradient-to-r from-primary to-amber-400 animate-glow-pulse' : 'bg-gray-600'}`} aria-hidden="true">
                        {index === 0 && (
-                         <>
-                           <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-30"></div>
-                           <div className="absolute inset-0 bg-gradient-to-r from-primary to-amber-400 rounded-full opacity-80"></div>
-                         </>
+                         <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-30"></div>
                        )}
                      </div>
 

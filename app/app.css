@@ -61,54 +61,54 @@ hr {
 
 @layer base {
   .prose {
-    @apply text-sm sm:text-base text-gray-400 leading-relaxed;
+    @apply text-base sm:text-lg text-gray-300 leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-xl sm:text-2xl text-white font-semibold mb-4 mt-6 leading-tight;
+    @apply text-2xl sm:text-3xl lg:text-4xl text-white font-semibold mb-6 mt-8 leading-tight;
   }
   .prose h2 {
-    @apply text-lg sm:text-xl text-white font-semibold mb-3 mt-8 leading-tight;
+    @apply text-xl sm:text-2xl lg:text-3xl text-white font-semibold mb-4 mt-8 leading-tight;
   }
   .prose h3 {
-    @apply text-base sm:text-lg font-medium mb-2 mt-6 text-white leading-tight;
+    @apply text-lg sm:text-xl lg:text-2xl font-medium mb-3 mt-6 text-white leading-tight;
   }
   .prose h4 {
-    @apply text-sm sm:text-base text-gray-200 font-medium mb-2 mt-4 leading-tight;
+    @apply text-base sm:text-lg text-gray-200 font-medium mb-3 mt-5 leading-tight;
   }
   .prose h5 {
-    @apply text-sm text-gray-300 font-medium mb-1 mt-3 leading-tight;
+    @apply text-base text-gray-300 font-medium mb-2 mt-4 leading-tight;
   }
   .prose h6 {
-    @apply text-xs sm:text-sm text-gray-400 font-medium mb-1 mt-2 leading-tight;
+    @apply text-sm sm:text-base text-gray-400 font-medium mb-2 mt-3 leading-tight;
   }
 
   .prose p {
-    @apply my-4 leading-relaxed;
+    @apply my-5 leading-relaxed;
   }
-  
+
   .prose a {
-    @apply text-primary no-underline transition-all hover:underline;
+    @apply text-primary no-underline transition-all duration-200 hover:text-amber-400;
     border-bottom: 1px solid transparent;
   }
   .prose a:hover {
     border-bottom-color: var(--color-primary);
   }
-  
+
   .prose strong {
     @apply text-white font-semibold;
   }
-  
+
   .prose blockquote {
-    @apply border-l-[3px] border-gray-600 pl-6 my-8 text-gray-400 italic;
+    @apply border-l-4 border-primary/40 pl-6 my-6 text-gray-300 italic bg-gray-800/20 py-4 rounded-r-lg;
   }
   
   .prose ul,
   .prose ol {
-    @apply my-4 pl-4;
+    @apply my-5 pl-6;
   }
   .prose li {
-    @apply my-1.5;
+    @apply my-2 leading-relaxed;
   }
   .prose ul {
     list-style-type: disc;
@@ -124,29 +124,29 @@ hr {
   }
 
   .prose li::marker {
-    @apply text-gray-500;
+    @apply text-primary/60;
   }
   .prose input[type="checkbox"] {
     @apply h-5 w-5 rounded-sm border-2 border-primary text-primary bg-transparent focus:ring-0 focus:ring-offset-0;
   }
   
   .prose img {
-    @apply block rounded-lg my-6 shadow-md max-h-[300px] w-auto mx-auto;
+    @apply block rounded-lg my-8 shadow-xl max-h-[400px] w-auto mx-auto border border-gray-700/30;
   }
 
   .prose hr {
-    @apply border-t border-gray-800 my-8;
+    @apply border-t-2 border-gray-700/50 my-10;
   }
 
   .prose pre {
-    @apply bg-gray-900/50 border border-gray-800 p-4 rounded-lg my-6 text-sm overflow-x-auto;
+    @apply bg-gray-900/70 border border-gray-700/50 p-5 rounded-lg my-6 text-sm overflow-x-auto shadow-lg;
   }
 
   .prose code {
-    @apply text-blue-400 font-mono text-xs rounded bg-gray-800/50 px-1.5 py-0.5;
+    @apply text-blue-300 font-mono text-sm rounded bg-gray-800/70 px-2 py-1 border border-gray-700/30;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-gray-300 text-sm;
+    @apply bg-transparent p-0 text-gray-200 text-sm border-none;
   }
   .prose code::before,
   .prose code::after {
@@ -199,51 +199,51 @@ hr {
 /* Responsividade minimalista */
 @media (max-width: 640px) {
   .prose {
-    @apply text-xs leading-relaxed;
+    @apply text-sm leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-base mb-3 mt-4 leading-tight;
+    @apply text-xl mb-4 mt-6 leading-tight;
   }
 
   .prose h2 {
-    @apply text-sm mb-2 mt-6 leading-tight;
+    @apply text-lg mb-3 mt-6 leading-tight;
   }
 
   .prose h3 {
-    @apply text-sm mb-2 mt-4 leading-tight;
+    @apply text-base mb-3 mt-5 leading-tight;
   }
 
   .prose h4 {
-    @apply text-xs mb-1 mt-3 leading-tight;
+    @apply text-sm mb-2 mt-4 leading-tight;
   }
 
   .prose p {
-    @apply my-3 text-xs leading-relaxed;
+    @apply my-4 text-sm leading-relaxed;
   }
 
   .prose pre {
-    @apply text-xs p-3 rounded overflow-x-auto;
+    @apply text-sm p-4 rounded overflow-x-auto;
   }
 
   .prose code {
-    @apply text-xs px-1 py-0.5;
+    @apply text-sm px-1.5 py-0.5;
   }
 
   .prose img {
-    @apply max-h-[200px] my-4 rounded;
+    @apply max-h-[250px] my-6 rounded;
   }
 
   .prose ul, .prose ol {
-    @apply my-3 pl-4;
+    @apply my-4 pl-5;
   }
 
   .prose li {
-    @apply my-1 text-xs leading-relaxed;
+    @apply my-1.5 text-sm leading-relaxed;
   }
 
   .prose blockquote {
-    @apply pl-3 my-4 text-xs;
+    @apply pl-4 my-5 text-sm;
   }
 
   .prose table {
@@ -376,39 +376,47 @@ hr {
 /* Melhorias para desktop grande */
 @media (min-width: 1280px) {
   .prose {
-    @apply text-lg leading-relaxed;
+    @apply text-xl leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-5xl mb-8 mt-8;
+    @apply text-5xl mb-10 mt-12;
   }
 
   .prose h2 {
-    @apply text-4xl mb-6 mt-12;
+    @apply text-4xl mb-8 mt-12;
   }
 
   .prose h3 {
-    @apply text-3xl mb-5 mt-10;
+    @apply text-3xl mb-6 mt-10;
   }
 
   .prose h4 {
-    @apply text-2xl mb-4 mt-8;
+    @apply text-2xl mb-5 mt-8;
   }
 
   .prose p {
-    @apply my-6 text-lg;
+    @apply my-7 text-xl;
   }
 
   .prose img {
-    @apply max-h-[500px] my-12;
+    @apply max-h-[600px] my-12;
   }
 
   .prose pre {
-    @apply text-base p-6;
+    @apply text-lg p-6;
   }
 
   .prose blockquote {
-    @apply pl-8 my-10 text-lg;
+    @apply pl-8 my-12 text-xl;
+  }
+
+  .prose ul, .prose ol {
+    @apply my-6 pl-8;
+  }
+
+  .prose li {
+    @apply my-3 text-xl;
   }
 }
 
