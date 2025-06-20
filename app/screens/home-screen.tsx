@@ -38,9 +38,9 @@ export default function Home() {
 
 
   return (
-    <div className="bg-background text-white font-sans">
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
-        <div className="w-full grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+    <div className="min-h-screen bg-background text-white font-sans">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
+        <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <header className="text-center lg:text-left order-2 lg:order-1">
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-tight mb-3 sm:mb-4">
               Olá, eu sou <br className="hidden sm:block" />
@@ -72,10 +72,10 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="border-primary/20" />
+      <hr className="max-w-6xl mx-auto border-primary/20" />
 
-      <section id="experience" className="py-12 sm:py-16 lg:py-20" aria-labelledby="experience-heading">
-         <div className="w-full">
+      <section id="experience" className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20" aria-labelledby="experience-heading">
+         <div className="max-w-6xl mx-auto">
             <h2 id="experience-heading" className="text-base sm:text-lg lg:text-xl font-semibold mb-6 sm:mb-8 text-center lg:text-left text-gray-200">Experiência Profissional</h2>
             <div className="space-y-6 sm:space-y-8 relative">
                 <div className="absolute left-3 top-2 h-full w-px bg-gray-700 hidden md:block" aria-hidden="true"></div>
@@ -104,11 +104,11 @@ export default function Home() {
          </div>
       </section>
 
-      <hr className="border-primary/20" />
+      <hr className="max-w-6xl mx-auto border-primary/20" />
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 sm:py-16 lg:py-20" aria-labelledby="contact-heading">
-        <div className="w-full text-center">
+      <section id="contact" className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20" aria-labelledby="contact-heading">
+        <div className="max-w-6xl mx-auto text-center">
           <h2 id="contact-heading" className="text-base sm:text-lg font-semibold mb-4 sm:mb-6 text-gray-200">Vamos Conversar?</h2>
           <p className="text-gray-400 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed font-light">
             Interessado em colaborar ou tem alguma pergunta? Entre em contato comigo!

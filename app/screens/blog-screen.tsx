@@ -75,8 +75,8 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white py-6 sm:py-10 md:py-16 lg:py-20">
-      <div className="w-full">
+    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16 lg:py-20">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
           <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4 leading-tight">
             Blog de Desenvolvimento
