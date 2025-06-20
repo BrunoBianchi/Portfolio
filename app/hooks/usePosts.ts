@@ -29,9 +29,26 @@ export function usePosts() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://api.brunobianchi.dev/posts');
+
+        // Detectar se estamos no subdomínio blog
+        const isSubdomain = typeof window !== 'undefined' && window.location.hostname.includes('blog.');
+        const apiUrl = isSubdomain
+          ? 'https://api.brunobianchi.dev/posts'
+          : 'https://api.brunobianchi.dev/posts';
+
+        console.log('Fetching from:', apiUrl, 'Subdomain:', isSubdomain);
+
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          mode: 'cors'
+        });
+
         if (!response.ok) {
-          throw new Error(`Erro ao buscar posts: ${response.status}`);
+          throw new Error(`Erro ao buscar posts: ${response.status} - ${response.statusText}`);
         }
         const data: Post[] = await response.json();
 

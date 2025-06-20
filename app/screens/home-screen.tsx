@@ -212,63 +212,79 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-2 gap-8">
             {/* Project 1 */}
-            <article className="group card-hover rounded-lg p-6 animate-fade-in" style={{animationDelay: '0.1s'}}>
-              <div className="mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3 hover-scale">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+            <article className="group card-hover rounded-xl p-8 animate-fade-in bg-gradient-to-br from-gray-900/50 to-gray-800/30" style={{animationDelay: '0.1s'}}>
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-amber-400/20 rounded-xl flex items-center justify-center hover-scale border border-primary/20">
+                    <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-white font-semibold mb-2">Análise de Dados Industriais</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-3">
-                  Sistema de análise de dados de processos industriais para multinacional, com dashboards em tempo real e insights automatizados.
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Python</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">React</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Data Analysis</span>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-white mb-3">Análise de Dados Industriais</h3>
+                  <p className="text-gray-400 leading-relaxed mb-4">
+                    Sistema completo de análise de dados de processos industriais para multinacional, com dashboards em tempo real, insights automatizados e otimização de performance.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm text-blue-300">Python</span>
+                    <span className="px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-sm text-cyan-300">React</span>
+                    <span className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-sm text-purple-300">Data Analysis</span>
+                  </div>
                 </div>
               </div>
             </article>
 
             {/* Project 2 */}
-            <article className="group card-hover rounded-lg p-6 animate-fade-in" style={{animationDelay: '0.2s'}}>
-              <div className="mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3 hover-scale">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
+            <article className="group card-hover rounded-xl p-8 animate-fade-in bg-gradient-to-br from-gray-900/50 to-gray-800/30" style={{animationDelay: '0.2s'}}>
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-amber-400/20 rounded-xl flex items-center justify-center hover-scale border border-primary/20">
+                    <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-white font-semibold mb-2">Plataforma E-educa</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-3">
-                  Plataforma de aprendizado para instituições de ensino, focada em escalabilidade e experiência do usuário.
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Node.js</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">React</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Education</span>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-white mb-3">Plataforma E-educa</h3>
+                  <p className="text-gray-400 leading-relaxed mb-4">
+                    Plataforma completa de aprendizado para instituições de ensino, focada em escalabilidade, performance e experiência excepcional do usuário.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-full text-sm text-green-300">Node.js</span>
+                    <span className="px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-sm text-cyan-300">React</span>
+                    <span className="px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-sm text-indigo-300">Education</span>
+                  </div>
                 </div>
               </div>
             </article>
 
-            {/* Project 3 */}
-            <article className="group card-hover rounded-lg p-6 md:col-span-2 lg:col-span-1 animate-fade-in" style={{animationDelay: '0.3s'}}>
-              <div className="mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3 hover-scale">
-                  <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+            {/* Project 3 - Full Width */}
+            <article className="group card-hover rounded-xl p-8 lg:col-span-2 animate-fade-in bg-gradient-to-br from-gray-900/50 to-gray-800/30" style={{animationDelay: '0.3s'}}>
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-amber-400/20 rounded-xl flex items-center justify-center hover-scale border border-primary/20">
+                    <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-white font-semibold mb-2">Otimização de Redes Móveis</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-3">
-                  Projeto de P&D utilizando machine learning para otimizar performance de redes móveis através de análise de dados em tempo real.
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Machine Learning</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">Python</span>
-                  <span className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-500">R&D</span>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <h3 className="text-xl font-semibold text-white">Otimização de Redes Móveis</h3>
+                    <span className="px-2 py-1 bg-primary/10 border border-primary/20 rounded-full text-xs text-primary font-medium">P&D Atual</span>
+                  </div>
+                  <p className="text-gray-400 leading-relaxed mb-4 max-w-4xl">
+                    Projeto de Pesquisa & Desenvolvimento na UNIFEI utilizando machine learning avançado para otimizar performance de redes móveis através de análise de dados em tempo real, com foco em algoritmos de otimização e inteligência artificial aplicada.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full text-sm text-red-300">Machine Learning</span>
+                    <span className="px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm text-blue-300">Python</span>
+                    <span className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full text-sm text-purple-300">R&D</span>
+                    <span className="px-3 py-1.5 bg-orange-500/10 border border-orange-500/20 rounded-full text-sm text-orange-300">AI</span>
+                  </div>
                 </div>
               </div>
             </article>
@@ -276,8 +292,10 @@ export default function Home() {
 
           <div className="text-center mt-8">
             <a
-              href="/blog"
+              href="https://blog.brunobianchi.dev/"
               className="inline-flex items-center gap-2 text-primary hover:text-amber-400 transition-colors duration-200 font-medium"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <span>Ver mais no blog</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
