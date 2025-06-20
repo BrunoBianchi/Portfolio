@@ -226,53 +226,53 @@ export default function PostScreen() {
 
     return (
         <div className="bg-background flex flex-col min-h-screen text-white">
-            <main className="flex-grow pt-2 sm:pt-4 md:pt-6">
-                <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8 relative">
+            <main className="flex-grow pt-4 sm:pt-6 md:pt-8 lg:pt-12">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 relative">
                     <Roadmap headings={headings} />
-                    
-                    <article>
+
+                    <article className="max-w-4xl mx-auto">
                         {/* Breadcrumb */}
-                        <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 md:mb-8">
-                            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors whitespace-nowrap">
+                        <nav className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8 md:mb-10" aria-label="Breadcrumb">
+                            <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
                                 Blog
                             </a>
                             <ChevronRightIcon />
-                            <span className="text-gray-300 truncate">{cleanMarkdown(post.title)}</span>
-                        </div>
+                            <span className="text-gray-300 truncate font-medium">{cleanMarkdown(post.title)}</span>
+                        </nav>
 
                         {/* Header do Post */}
-                        <header className="mb-8 sm:mb-10 md:mb-12">
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6">
+                        <header className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6 sm:mb-8 md:mb-10">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
-                            <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 text-gray-400 text-xs sm:text-sm">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">
                                 <div className="flex items-center">
                                     <img
                                         src="/brunobianchi.png"
                                         alt="Avatar de Bruno Bianchi"
-                                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full mr-2"
+                                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3 border-2 border-primary/20"
                                     />
-                                    <span className="font-medium text-gray-200">Bruno Bianchi</span>
+                                    <span className="font-semibold text-gray-200">Bruno Bianchi</span>
                                 </div>
-                                <span className="hidden sm:inline text-gray-600">•</span>
-                                <div className="flex items-center">
-                                    <CalendarIcon />
-                                    <span>{post.date}</span>
-                                </div>
-                                <span className="hidden sm:inline text-gray-600">•</span>
-                                <div className="flex items-center">
-                                    <ClockIcon />
-                                    <span>{post.readingTime} min de leitura</span>
+                                <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
+                                    <div className="flex items-center gap-2">
+                                        <CalendarIcon />
+                                        <span>{post.date}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <ClockIcon />
+                                        <span>{post.readingTime} min de leitura</span>
+                                    </div>
                                 </div>
                             </div>
 
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4">
+                                <div className="flex flex-wrap gap-2 sm:gap-3">
                                     {post.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
-                                            className="px-2 sm:px-2.5 py-1 text-xs font-medium bg-gray-800 text-gray-300 rounded-md"
+                                            className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-gradient-to-r from-card to-card/80 text-gray-300 rounded-full border border-primary/20 hover:border-primary/40 transition-all duration-300"
                                         >
                                             {tag}
                                         </span>
@@ -281,23 +281,21 @@ export default function PostScreen() {
                             )}
                         </header>
 
-                        <hr className="border-gray-800 mb-6 sm:mb-8" />
+                        <hr className="border-primary/20 mb-8 sm:mb-10 md:mb-12" />
 
                         {/* Reações do Post */}
-                        <div className="mb-6 sm:mb-8 py-3 sm:py-4 border-t border-b border-gray-800/30">
+                        <div className="mb-8 sm:mb-10 md:mb-12 py-4 sm:py-6 bg-card/10 rounded-xl border border-card/20">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
                                 reactions={reactions}
                                 onReact={react}
-                                className="justify-start"
+                                className="justify-center sm:justify-start"
                             />
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:scroll-mt-20">
-                            {/* Debug: Mostrar conteúdo bruto */}
-
+                        <div className="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-none prose-headings:scroll-mt-20 mb-12 sm:mb-16 md:mb-20">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -315,7 +313,9 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <CommentsSection postId={post.id} />
+                        <div className="border-t border-primary/20 pt-8 sm:pt-12 md:pt-16">
+                            <CommentsSection postId={post.id} />
+                        </div>
                     </article>
                 </div>
             </main>

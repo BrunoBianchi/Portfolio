@@ -75,21 +75,21 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16">
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16 lg:py-20">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto px-2">
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 max-w-4xl mx-auto px-2 leading-relaxed">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>
         </header>
 
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div className="relative flex-grow w-full">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-8 sm:mb-12 gap-4 sm:gap-6">
+          <div className="relative flex-grow w-full max-w-2xl">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-4">
               <SearchIcon />
             </span>
             <input
@@ -97,23 +97,23 @@ export default function BlogPage() {
               placeholder="Buscar artigos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-card text-white placeholder-gray-400 border border-transparent focus:border-primary focus:ring-0 rounded-md py-2.5 pl-10 pr-4 transition-colors"
+              className="w-full bg-card/50 text-white placeholder-gray-400 border border-card/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card rounded-lg py-3 sm:py-4 pl-12 pr-4 text-sm sm:text-base transition-all duration-300 backdrop-blur-sm"
             />
           </div>
-          <div className="text-sm text-gray-400 w-full md:w-auto text-center md:text-right">
+          <div className="text-xs sm:text-sm text-gray-400 w-full lg:w-auto text-center lg:text-right font-medium">
             {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo encontrado' : 'artigos encontrados'}
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-8 sm:mb-12">
+        <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-16">
           {filterTags.map((tag, index) => (
             <button
               key={index}
               onClick={() => handleFilterChange(tag)}
-              className={`px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 whitespace-nowrap transform hover:scale-105 ${
                 tag === activeFilter
-                  ? "bg-primary text-background"
-                  : "bg-card text-gray-300 hover:bg-primary/20 hover:text-primary"
+                  ? "bg-primary text-black shadow-lg shadow-primary/25"
+                  : "bg-card/50 text-gray-300 hover:bg-primary/20 hover:text-primary border border-card/50 hover:border-primary/30"
               }`}
             >
               {tag}
@@ -122,74 +122,83 @@ export default function BlogPage() {
         </div>
 
         {loading && (
-          <div className="text-center py-16">
-            <p className="text-gray-400 text-lg">Carregando posts...</p>
+          <div className="text-center py-16 sm:py-20 lg:py-24">
+            <div className="inline-flex items-center gap-3 text-gray-400">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+              <p className="text-base sm:text-lg">Carregando posts...</p>
+            </div>
           </div>
         )}
 
         {error && (
-          <div className="text-center py-16">
-            <p className="text-red-400 text-lg">Erro ao carregar posts: {error}</p>
+          <div className="text-center py-16 sm:py-20 lg:py-24">
+            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6 sm:p-8 max-w-md mx-auto">
+              <p className="text-red-400 text-base sm:text-lg">Erro ao carregar posts: {error}</p>
+            </div>
           </div>
         )}
 
-        <main className="space-y-8 sm:space-y-10">
+        <main className="space-y-8 sm:space-y-12 lg:space-y-16">
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-gray-400 text-lg mb-4">
-                {searchTerm || activeFilter !== "Todos"
-                  ? "Nenhum post encontrado com os filtros aplicados."
-                  : "Nenhum post disponível no momento."
-                }
-              </p>
-              {(searchTerm || activeFilter !== "Todos") && (
-                <button
-                  onClick={() => {
-                    setSearchTerm("");
-                    setActiveFilter("Todos");
-                    setVisiblePosts(6);
-                  }}
-                  className="px-4 py-2 bg-primary text-black font-medium rounded-lg hover:bg-amber-400 transition-colors"
-                >
-                  Limpar filtros
-                </button>
-              )}
+            <div className="text-center py-16 sm:py-20 lg:py-24">
+              <div className="bg-card/20 border border-card/30 rounded-xl p-8 sm:p-12 max-w-lg mx-auto">
+                <p className="text-gray-400 text-base sm:text-lg mb-6">
+                  {searchTerm || activeFilter !== "Todos"
+                    ? "Nenhum post encontrado com os filtros aplicados."
+                    : "Nenhum post disponível no momento."
+                  }
+                </p>
+                {(searchTerm || activeFilter !== "Todos") && (
+                  <button
+                    onClick={() => {
+                      setSearchTerm("");
+                      setActiveFilter("Todos");
+                      setVisiblePosts(6);
+                    }}
+                    className="px-6 py-3 bg-primary text-black font-semibold rounded-lg hover:bg-amber-400 transition-all duration-300 transform hover:scale-105"
+                  >
+                    Limpar filtros
+                  </button>
+                )}
+              </div>
             </div>
           ) : (
             filteredPosts.slice(0, visiblePosts).map((post, index) => (
               <a href={post.link} key={post._id} className="block group">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
-                  <div className="flex-grow">
-                    <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 leading-tight">
-                      {post.title}
-                    </h2>
-                    <p className="text-gray-400 mt-2 text-sm sm:text-base leading-relaxed">{post.description}</p>
-                    <div className="text-xs sm:text-sm text-gray-500 mt-3 flex flex-wrap gap-1">
-                      <span>{post.date}</span>
-                      <span className="mx-1 sm:mx-2">•</span>
-                      <span>{post.readingTime}</span>
+                <article className="bg-card/10 hover:bg-card/20 border border-card/20 hover:border-primary/30 rounded-xl p-6 sm:p-8 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/5">
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
+                    <div className="flex-grow">
+                      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 leading-tight mb-3">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed mb-4">{post.description}</p>
+                      <div className="text-xs sm:text-sm text-gray-500 flex flex-wrap items-center gap-2">
+                        <time className="font-medium">{post.date}</time>
+                        <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
+                        <span>{post.readingTime}</span>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 mt-4 lg:mt-0 lg:ml-6 transform group-hover:translate-x-2 transition-transform duration-300 self-start lg:self-center">
+                      <ArrowRightIcon />
                     </div>
                   </div>
-                  <div className="flex-shrink-0 mt-4 sm:mt-0 sm:ml-6 transform group-hover:translate-x-2 transition-transform duration-300">
-                    <ArrowRightIcon />
-                  </div>
-                </div>
-                {index < filteredPosts.slice(0, visiblePosts).length - 1 && (
-                  <hr className="border-t-2 border-primary/10 mt-8 sm:mt-10" />
-                )}
+                </article>
               </a>
             ))
           )}
         </main>
 
         {visiblePosts < filteredPosts.length && (
-          <div className="text-center mt-12 md:mt-16">
+          <div className="text-center mt-12 sm:mt-16 lg:mt-20">
             <button
               onClick={loadMorePosts}
-              className="bg-primary text-background font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-colors"
+              className="bg-primary text-black font-bold py-3 sm:py-4 px-8 sm:px-12 rounded-lg hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
             >
-              Carregar mais
+              Carregar mais artigos
             </button>
+            <p className="text-xs sm:text-sm text-gray-500 mt-3">
+              Mostrando {visiblePosts} de {filteredPosts.length} artigos
+            </p>
           </div>
         )}
       </div>

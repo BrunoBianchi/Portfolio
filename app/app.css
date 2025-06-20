@@ -199,54 +199,118 @@ hr {
 /* Responsividade adicional */
 @media (max-width: 640px) {
   .prose {
-    @apply text-sm;
+    @apply text-sm leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-xl mb-3 mt-3;
+    @apply text-xl mb-4 mt-4 leading-tight;
   }
 
   .prose h2 {
-    @apply text-lg mb-2 mt-6;
+    @apply text-lg mb-3 mt-8 leading-tight;
   }
 
   .prose h3 {
-    @apply text-base mb-2 mt-4;
+    @apply text-base mb-2 mt-6 leading-tight;
   }
 
   .prose h4 {
-    @apply text-sm mb-1 mt-3;
+    @apply text-sm mb-2 mt-4 leading-tight;
   }
 
   .prose p {
-    @apply my-3 text-sm leading-relaxed;
+    @apply my-4 text-sm leading-relaxed;
   }
 
   .prose pre {
-    @apply text-xs p-2;
+    @apply text-xs p-3 rounded-lg overflow-x-auto;
+  }
+
+  .prose code {
+    @apply text-xs px-1.5 py-0.5;
   }
 
   .prose img {
-    @apply max-h-[200px] my-4;
+    @apply max-h-[250px] my-6 rounded-lg;
   }
 
   .prose ul, .prose ol {
-    @apply my-4 pl-4;
+    @apply my-4 pl-5;
   }
 
   .prose li {
-    @apply my-1 text-sm;
+    @apply my-2 text-sm leading-relaxed;
+  }
+
+  .prose blockquote {
+    @apply pl-4 my-6 text-sm;
+  }
+
+  .prose table {
+    @apply text-xs;
+  }
+
+  .prose th, .prose td {
+    @apply px-2 py-2;
   }
 }
 
-/* Melhorias para mobile */
+/* Melhorias para tablets */
 @media (max-width: 768px) {
   /* Ajustar padding dos containers */
   .container {
-    @apply px-3;
+    @apply px-4;
   }
 
   /* Melhorar espaçamento em telas pequenas */
+  .space-y-8 > * + * {
+    @apply mt-6;
+  }
+
+  .space-y-10 > * + * {
+    @apply mt-8;
+  }
+
+  .space-y-12 > * + * {
+    @apply mt-8;
+  }
+
+  /* Ajustar prose para tablets */
+  .prose {
+    @apply text-base leading-relaxed;
+  }
+
+  .prose h1 {
+    @apply text-2xl mb-4 mt-6;
+  }
+
+  .prose h2 {
+    @apply text-xl mb-3 mt-8;
+  }
+
+  .prose h3 {
+    @apply text-lg mb-3 mt-6;
+  }
+
+  /* Melhorar botões em tablets */
+  .btn {
+    @apply px-5 py-3 text-sm;
+  }
+
+  /* Ajustar formulários */
+  input, textarea, select {
+    @apply text-base; /* Evita zoom no iOS */
+  }
+
+  /* Melhorar cards em tablets */
+  .card {
+    @apply p-4 rounded-lg;
+  }
+}
+
+/* Melhorias específicas para mobile pequeno */
+@media (max-width: 480px) {
+  /* Reduzir ainda mais os espaçamentos */
   .space-y-8 > * + * {
     @apply mt-4;
   }
@@ -255,19 +319,35 @@ hr {
     @apply mt-6;
   }
 
-  /* Ajustar prose para tablets */
+  .space-y-12 > * + * {
+    @apply mt-6;
+  }
+
+  /* Ajustar tipografia para telas muito pequenas */
   .prose {
     @apply text-sm;
   }
 
-  /* Melhorar botões em mobile */
-  .btn {
-    @apply px-4 py-2 text-sm;
+  .prose h1 {
+    @apply text-lg mb-3 mt-4;
   }
 
-  /* Ajustar formulários */
-  input, textarea, select {
-    @apply text-base; /* Evita zoom no iOS */
+  .prose h2 {
+    @apply text-base mb-2 mt-6;
+  }
+
+  .prose h3 {
+    @apply text-sm mb-2 mt-4;
+  }
+
+  /* Botões menores em mobile pequeno */
+  .btn {
+    @apply px-3 py-2 text-xs;
+  }
+
+  /* Cards mais compactos */
+  .card {
+    @apply p-3 rounded-md;
   }
 }
 
@@ -293,6 +373,45 @@ hr {
   }
 }
 
+/* Melhorias para desktop grande */
+@media (min-width: 1280px) {
+  .prose {
+    @apply text-lg leading-relaxed;
+  }
+
+  .prose h1 {
+    @apply text-5xl mb-8 mt-8;
+  }
+
+  .prose h2 {
+    @apply text-4xl mb-6 mt-12;
+  }
+
+  .prose h3 {
+    @apply text-3xl mb-5 mt-10;
+  }
+
+  .prose h4 {
+    @apply text-2xl mb-4 mt-8;
+  }
+
+  .prose p {
+    @apply my-6 text-lg;
+  }
+
+  .prose img {
+    @apply max-h-[500px] my-12;
+  }
+
+  .prose pre {
+    @apply text-base p-6;
+  }
+
+  .prose blockquote {
+    @apply pl-8 my-10 text-lg;
+  }
+}
+
 /* Utilitários adicionais */
 .line-clamp-2 {
   display: -webkit-box;
@@ -306,4 +425,66 @@ hr {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Utilitários responsivos personalizados */
+.text-responsive-xs {
+  @apply text-xs sm:text-sm md:text-base;
+}
+
+.text-responsive-sm {
+  @apply text-sm sm:text-base md:text-lg;
+}
+
+.text-responsive-base {
+  @apply text-base sm:text-lg md:text-xl;
+}
+
+.text-responsive-lg {
+  @apply text-lg sm:text-xl md:text-2xl;
+}
+
+.text-responsive-xl {
+  @apply text-xl sm:text-2xl md:text-3xl;
+}
+
+.text-responsive-2xl {
+  @apply text-2xl sm:text-3xl md:text-4xl;
+}
+
+.text-responsive-3xl {
+  @apply text-3xl sm:text-4xl md:text-5xl;
+}
+
+/* Espaçamentos responsivos */
+.space-responsive-sm > * + * {
+  @apply mt-2 sm:mt-3 md:mt-4;
+}
+
+.space-responsive-md > * + * {
+  @apply mt-4 sm:mt-6 md:mt-8;
+}
+
+.space-responsive-lg > * + * {
+  @apply mt-6 sm:mt-8 md:mt-12;
+}
+
+/* Padding responsivo */
+.p-responsive-sm {
+  @apply p-3 sm:p-4 md:p-6;
+}
+
+.p-responsive-md {
+  @apply p-4 sm:p-6 md:p-8;
+}
+
+.p-responsive-lg {
+  @apply p-6 sm:p-8 md:p-12;
 }
