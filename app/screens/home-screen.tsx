@@ -87,10 +87,7 @@ export default function Home() {
                 {/* Additional Glow Layer */}
                 <div className="absolute left-5.5 top-6 w-1 h-full bg-gradient-to-b from-primary/30 to-transparent blur-xs rounded-full hidden md:block" aria-hidden="true"></div>
 
-                {/* Timeline Start Indicator */}
-                <div className="absolute left-4 top-6 w-4 h-4 bg-gradient-to-r from-primary to-amber-400 rounded-full border-4 border-background shadow-xl hidden md:block animate-glow-pulse" aria-hidden="true">
-                  <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-40"></div>
-                </div>
+
 
                 {experiences.map((exp, index) => (
                   <article
