@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaLinkedin, FaPlus } from "react-icons/fa";
+import { FaLinkedin, FaPlus, FaGithub } from "react-icons/fa";
 import { useAuth } from "~/contexts/auth-context";
 import { PostsService } from "~/services/posts-service";
 
@@ -68,6 +68,15 @@ export default function NavbarComponent() {
             </a>
           )}
           <a
+            href="https://github.com/BrunoBianchi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center text-xs sm:text-sm space-x-1 hover:underline whitespace-nowrap"
+          >
+            <FaGithub className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden lg:inline">GitHub</span>
+          </a>
+          <a
             href="https://www.linkedin.com/in/bruno-bianchi-65a442268/"
             target="_blank"
             rel="noopener noreferrer"
@@ -124,6 +133,16 @@ export default function NavbarComponent() {
                 <span>Novo Post</span>
               </a>
             )}
+            <a
+              href="https://github.com/BrunoBianchi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center py-2 text-sm space-x-2 hover:text-primary"
+              onClick={closeMobileMenu}
+            >
+              <FaGithub className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
             <a
               href="https://www.linkedin.com/in/bruno-bianchi-65a442268/"
               target="_blank"

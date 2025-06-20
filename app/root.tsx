@@ -1,5 +1,4 @@
 import {
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
@@ -74,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               url: "https://brunobianchi.dev",
               image: "https://brunobianchi.dev/brunobianchi.png",
               sameAs: [
-                "https://linkedin.com/in/brunobianchi",
+                "https://www.linkedin.com/in/bruno-bianchi-65a442268/",
                 "https://github.com/BrunoBianchi"
               ],
               worksFor: {
