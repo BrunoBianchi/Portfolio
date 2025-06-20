@@ -107,43 +107,32 @@ export default function Home() {
                        <div className="absolute inset-0 bg-gradient-to-r from-primary to-amber-400 rounded-full opacity-80"></div>
                      </div>
 
-                     {/* Experience Card with Enhanced Effects */}
-                     <div className="experience-card bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 sm:p-8 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 relative overflow-hidden">
-                       {/* Subtle Background Pattern */}
-                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                       {/* Period Badge with Glow */}
-                       <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/20 to-amber-400/20 border border-primary/30 rounded-full mb-4 relative z-10">
-                         <time className="text-xs font-semibold text-primary" dateTime={exp.period}>{exp.period}</time>
-                         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-amber-400/10 rounded-full blur-sm"></div>
+                     {/* Simple Experience Card */}
+                     <div className="md:pl-0">
+                       {/* Period Badge Simple */}
+                       <div className="inline-block px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-3">
+                         <time className="text-xs font-medium text-primary" dateTime={exp.period}>{exp.period}</time>
                        </div>
 
                        {/* Role and Company */}
-                       <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors duration-300 relative z-10">{exp.role}</h3>
-                       <p className="font-semibold text-gray-300 mb-4 text-sm sm:text-base relative z-10">{exp.company}</p>
+                       <h3 className="text-base sm:text-lg font-semibold text-white mb-1">{exp.role}</h3>
+                       <p className="font-medium text-gray-400 mb-3 text-sm sm:text-base">{exp.company}</p>
 
                        {/* Description */}
-                       <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 relative z-10">{exp.description}</p>
+                       <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-4">{exp.description}</p>
 
-                       {/* Tags with Staggered Animation */}
-                       <div className="flex flex-wrap gap-2 relative z-10" role="list" aria-label="Tecnologias utilizadas">
-                         {exp.tags.map((tag, tagIndex) => (
+                       {/* Simple Tags */}
+                       <div className="flex flex-wrap gap-2" role="list" aria-label="Tecnologias utilizadas">
+                         {exp.tags.map((tag) => (
                              <span
                                key={tag}
-                               className="px-3 py-1.5 bg-gradient-to-r from-gray-800/80 to-gray-700/80 border border-gray-600/50 rounded-lg text-xs text-gray-300 whitespace-nowrap hover:border-primary/40 hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-amber-400/10 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
+                               className="px-2 py-1 bg-gray-800/50 rounded text-xs text-gray-400 whitespace-nowrap"
                                role="listitem"
-                               style={{
-                                 animationDelay: `${(index * 200) + (tagIndex * 100)}ms`,
-                                 animationFillMode: 'both'
-                               }}
                              >
                                {tag}
                              </span>
                          ))}
                        </div>
-
-                       {/* Hover Glow Effect */}
-                       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-amber-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
                      </div>
                   </article>
                 ))}
