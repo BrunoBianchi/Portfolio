@@ -75,45 +75,68 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white min-h-screen py-6 sm:py-8 lg:py-12">
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-8 sm:mb-10">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-white mb-2 sm:mb-3 leading-tight">
+    <div className="bg-background text-white min-h-screen py-8 sm:py-12 lg:py-16">
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-amber-400/20 rounded-xl flex items-center justify-center border border-primary/20">
+              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+          </div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>
         </header>
 
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-          <div className="relative flex-grow w-full max-w-md">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <SearchIcon />
-            </span>
-            <input
-              type="text"
-              placeholder="Buscar artigos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-900/50 text-white placeholder-gray-500 border border-gray-800 focus:border-primary/50 focus:outline-none rounded-md py-2.5 pl-10 pr-4 text-sm transition-all duration-200"
-            />
-          </div>
-          <div className="text-xs text-gray-500 whitespace-nowrap">
-            {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo' : 'artigos'}
+        <div className="bg-gray-900/30 border border-gray-800/50 rounded-2xl p-6 mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="relative flex-grow w-full max-w-lg">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-4">
+                <SearchIcon />
+              </span>
+              <input
+                type="text"
+                placeholder="Buscar artigos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-gray-800/50 text-white placeholder-gray-400 border border-gray-700/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 rounded-xl py-3 pl-12 pr-4 text-base transition-all duration-200"
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-sm text-gray-400 whitespace-nowrap">
+                {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo' : 'artigos'}
+              </div>
+              {(searchTerm || activeFilter !== "Todos") && (
+                <button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setActiveFilter("Todos");
+                    setVisiblePosts(6);
+                  }}
+                  className="text-xs text-primary hover:text-amber-400 transition-colors duration-200 font-medium"
+                >
+                  Limpar
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center sm:justify-start gap-2 mb-6">
+        <div className="flex flex-wrap justify-center sm:justify-start gap-3 mb-10">
           {filterTags.map((tag, index) => (
             <button
               key={index}
               onClick={() => handleFilterChange(tag)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 whitespace-nowrap ${
                 tag === activeFilter
-                  ? "bg-primary text-black"
-                  : "bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-gray-300 border border-gray-700/50"
+                  ? "bg-primary text-black shadow-lg shadow-primary/25"
+                  : "bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-gray-300 border border-gray-700/50 hover:border-gray-600/50"
               }`}
             >
               {tag}
@@ -138,48 +161,52 @@ export default function BlogPage() {
           </div>
         )}
 
-        <main className="space-y-3">
+        <main className="space-y-4">
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="border border-gray-800/50 rounded-lg p-6 max-w-sm mx-auto">
-                <p className="text-gray-400 text-sm mb-4">
+            <div className="text-center py-16">
+              <div className="bg-gray-900/30 border border-gray-800/50 rounded-2xl p-8 max-w-md mx-auto">
+                <div className="w-16 h-16 bg-gray-800/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <p className="text-gray-400 text-base mb-6">
                   {searchTerm || activeFilter !== "Todos"
                     ? "Nenhum post encontrado com os filtros aplicados."
                     : "Nenhum post disponível no momento."
                   }
                 </p>
-                {(searchTerm || activeFilter !== "Todos") && (
-                  <button
-                    onClick={() => {
-                      setSearchTerm("");
-                      setActiveFilter("Todos");
-                      setVisiblePosts(6);
-                    }}
-                    className="px-4 py-2 bg-primary text-black font-medium rounded-md hover:bg-amber-400 transition-colors duration-200 text-sm"
-                  >
-                    Limpar filtros
-                  </button>
-                )}
               </div>
             </div>
           ) : (
             filteredPosts.slice(0, visiblePosts).map((post, index) => (
               <a href={post.link} key={post._id} className="block group">
-                <article className="border border-gray-800/30 hover:border-gray-700/50 rounded-lg p-4 transition-all duration-200 hover:bg-gray-900/20">
-                  <div className="flex items-start justify-between gap-4">
+                <article className="bg-gray-900/20 border border-gray-800/30 hover:border-gray-700/50 rounded-2xl p-6 transition-all duration-300 hover:bg-gray-900/40 hover:shadow-lg hover:shadow-black/20">
+                  <div className="flex items-start justify-between gap-6">
                     <div className="flex-grow min-w-0">
-                      <h2 className="text-base font-medium text-white group-hover:text-primary transition-colors duration-200 leading-snug mb-2 line-clamp-2">
+                      <h2 className="text-lg font-semibold text-white group-hover:text-primary transition-colors duration-200 leading-tight mb-3 line-clamp-2">
                         {post.title}
                       </h2>
-                      <p className="text-gray-400 text-sm leading-relaxed mb-3 line-clamp-2">{post.description}</p>
-                      <div className="text-xs text-gray-500 flex items-center gap-2">
-                        <time>{post.date}</time>
-                        <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                        <span>{post.readingTime}</span>
+                      <p className="text-gray-400 text-base leading-relaxed mb-4 line-clamp-2">{post.description}</p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <time>{post.date}</time>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>{post.readingTime} min</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex-shrink-0 transform group-hover:translate-x-1 transition-transform duration-200 mt-1">
-                      <ArrowRightIcon />
+                    <div className="flex-shrink-0 transform group-hover:translate-x-1 transition-transform duration-200 mt-2">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-200">
+                        <ArrowRightIcon />
+                      </div>
                     </div>
                   </div>
                 </article>
@@ -189,15 +216,15 @@ export default function BlogPage() {
         </main>
 
         {visiblePosts < filteredPosts.length && (
-          <div className="text-center mt-8">
+          <div className="text-center mt-12">
             <button
               onClick={loadMorePosts}
-              className="bg-primary text-black font-medium py-2.5 px-5 rounded-md hover:bg-amber-400 transition-colors duration-200 text-sm"
+              className="bg-primary text-black font-semibold py-3 px-8 rounded-xl hover:bg-amber-400 transition-all duration-200 text-base shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105"
             >
-              Carregar mais
+              Carregar mais artigos
             </button>
-            <p className="text-xs text-gray-500 mt-2">
-              {visiblePosts} de {filteredPosts.length} artigos
+            <p className="text-sm text-gray-500 mt-4">
+              Mostrando {visiblePosts} de {filteredPosts.length} artigos
             </p>
           </div>
         )}

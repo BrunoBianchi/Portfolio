@@ -61,30 +61,30 @@ hr {
 
 @layer base {
   .prose {
-    @apply text-sm sm:text-base text-gray-300 leading-relaxed;
+    @apply text-base sm:text-lg text-gray-300 leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-xl sm:text-2xl lg:text-3xl text-white font-semibold mb-4 mt-6 leading-tight;
+    @apply text-2xl sm:text-3xl lg:text-4xl text-white font-bold mb-6 mt-8 leading-tight;
   }
   .prose h2 {
-    @apply text-lg sm:text-xl lg:text-2xl text-white font-semibold mb-3 mt-6 leading-tight;
+    @apply text-xl sm:text-2xl lg:text-3xl text-white font-semibold mb-5 mt-8 leading-tight;
   }
   .prose h3 {
-    @apply text-base sm:text-lg lg:text-xl font-medium mb-3 mt-5 text-white leading-tight;
+    @apply text-lg sm:text-xl lg:text-2xl font-semibold mb-4 mt-6 text-white leading-tight;
   }
   .prose h4 {
-    @apply text-sm sm:text-base text-gray-200 font-medium mb-2 mt-4 leading-tight;
+    @apply text-base sm:text-lg text-gray-200 font-medium mb-3 mt-5 leading-tight;
   }
   .prose h5 {
-    @apply text-sm text-gray-300 font-medium mb-2 mt-3 leading-tight;
+    @apply text-base text-gray-300 font-medium mb-3 mt-4 leading-tight;
   }
   .prose h6 {
-    @apply text-xs sm:text-sm text-gray-400 font-medium mb-2 mt-3 leading-tight;
+    @apply text-sm sm:text-base text-gray-400 font-medium mb-2 mt-3 leading-tight;
   }
 
   .prose p {
-    @apply my-3 leading-relaxed;
+    @apply my-5 leading-relaxed;
   }
 
   .prose a {
@@ -100,15 +100,15 @@ hr {
   }
 
   .prose blockquote {
-    @apply border-l-4 border-primary/40 pl-4 my-4 text-gray-300 italic bg-gray-800/20 py-3 rounded-r-lg;
+    @apply border-l-4 border-primary/40 pl-6 my-6 text-gray-300 italic bg-gray-800/20 py-4 rounded-r-lg;
   }
-  
+
   .prose ul,
   .prose ol {
-    @apply my-3 pl-5;
+    @apply my-5 pl-6;
   }
   .prose li {
-    @apply my-1 leading-relaxed;
+    @apply my-2 leading-relaxed;
   }
   .prose ul {
     list-style-type: disc;
@@ -131,15 +131,15 @@ hr {
   }
   
   .prose img {
-    @apply block rounded-lg my-4 shadow-xl max-h-[350px] w-auto mx-auto border border-gray-700/30;
+    @apply block rounded-lg my-8 shadow-xl max-h-[500px] w-auto mx-auto border border-gray-700/30;
   }
 
   .prose hr {
-    @apply border-t-2 border-gray-700/50 my-6;
+    @apply border-t-2 border-gray-700/50 my-10;
   }
 
   .prose pre {
-    @apply bg-gray-900/70 border border-gray-700/50 p-4 rounded-lg my-4 text-xs sm:text-sm overflow-x-auto shadow-lg;
+    @apply bg-gray-900/70 border border-gray-700/50 p-5 rounded-lg my-6 text-sm overflow-x-auto shadow-lg;
   }
 
   .prose code {
@@ -154,7 +154,7 @@ hr {
   }
   
   .prose table {
-    @apply w-full my-4 border-collapse text-sm;
+    @apply w-full my-8 border-collapse;
   }
   .prose thead {
     @apply border-b-2 border-primary;
