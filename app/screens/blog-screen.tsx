@@ -78,10 +78,10 @@ export default function BlogPage() {
     <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16 lg:py-20">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 max-w-4xl mx-auto px-2 leading-relaxed">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-4xl mx-auto px-2 leading-relaxed">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>

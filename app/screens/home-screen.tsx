@@ -42,11 +42,11 @@ export default function Home() {
       <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center justify-center" aria-label="Apresentação pessoal">
         <div className="max-w-6xl w-full grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <header className="text-center lg:text-left order-2 lg:order-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight mb-4 sm:mb-6">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight mb-4 sm:mb-6">
               Olá, eu sou <br className="hidden sm:block" />
               <span className="text-primary">Bruno Bianchi</span>
             </h1>
-            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 max-w-lg mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-lg mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
               Desenvolvedor <strong className="text-white">FullStack</strong> focado em criar
               soluções digitais eficientes e escaláveis.
             </p>
@@ -77,7 +77,7 @@ export default function Home() {
 
       <section id="experience" className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20" aria-labelledby="experience-heading">
          <div className="max-w-6xl mx-auto">
-            <h2 id="experience-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 lg:mb-16 text-center lg:text-left">Experiência Profissional</h2>
+            <h2 id="experience-heading" className="text-xl sm:text-2xl lg:text-3xl font-bold mb-8 sm:mb-12 lg:mb-16 text-center lg:text-left">Experiência Profissional</h2>
             <div className="space-y-8 sm:space-y-10 lg:space-y-12 relative">
                 <div className="absolute left-4 top-2 h-full w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent hidden md:block" aria-hidden="true"></div>
 
@@ -85,9 +85,9 @@ export default function Home() {
                   <article key={index} className="md:pl-12 relative bg-card/10 md:bg-transparent p-4 sm:p-6 md:p-0 rounded-xl md:rounded-none border border-card/20 md:border-none hover:bg-card/20 md:hover:bg-transparent transition-all duration-300">
                      <div className="absolute left-2 top-4 w-5 h-5 bg-primary rounded-full border-4 border-background shadow-lg hidden md:block animate-pulse" aria-hidden="true"></div>
                      <time className="text-xs sm:text-sm lg:text-base text-primary font-medium mb-2 block uppercase tracking-wide" dateTime={exp.period}>{exp.period}</time>
-                     <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">{exp.role}</h3>
-                     <p className="font-semibold text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg">{exp.company}</p>
-                     <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed mb-4">{exp.description}</p>
+                     <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1">{exp.role}</h3>
+                     <p className="font-semibold text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base">{exp.company}</p>
+                     <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4">{exp.description}</p>
                      <div className="flex flex-wrap gap-2 sm:gap-3" role="list" aria-label="Tecnologias utilizadas">
                        {exp.tags.map((tag) => (
                            <span
@@ -110,8 +110,8 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20" aria-labelledby="contact-heading">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 id="contact-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 lg:mb-12">Vamos Conversar?</h2>
-          <p className="text-gray-300 text-base sm:text-lg lg:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+          <h2 id="contact-heading" className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 lg:mb-12">Vamos Conversar?</h2>
+          <p className="text-gray-300 text-sm sm:text-base lg:text-lg mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
             Interessado em colaborar ou tem alguma pergunta? Entre em contato comigo!
           </p>
 
