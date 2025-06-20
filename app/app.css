@@ -61,30 +61,30 @@ hr {
 
 @layer base {
   .prose {
-    @apply text-lg text-gray-300;
+    @apply text-sm sm:text-base text-gray-400 leading-relaxed;
   }
-  
+
   .prose h1 {
-    @apply text-4xl text-white font-bold mb-6 mt-5;
+    @apply text-xl sm:text-2xl text-white font-semibold mb-4 mt-6 leading-tight;
   }
   .prose h2 {
-    @apply text-3xl text-white font-bold mb-4 mt-12;
+    @apply text-lg sm:text-xl text-white font-semibold mb-3 mt-8 leading-tight;
   }
   .prose h3 {
-    @apply text-2xl font-semibold mb-3 mt-8 text-white;
+    @apply text-base sm:text-lg font-medium mb-2 mt-6 text-white leading-tight;
   }
   .prose h4 {
-    @apply text-xl text-gray-100 font-semibold mb-2 mt-6;
+    @apply text-sm sm:text-base text-gray-200 font-medium mb-2 mt-4 leading-tight;
   }
   .prose h5 {
-    @apply text-lg text-gray-200 font-medium mb-2 mt-4;
+    @apply text-sm text-gray-300 font-medium mb-1 mt-3 leading-tight;
   }
   .prose h6 {
-    @apply text-base text-gray-300 font-medium mb-1 mt-3;
+    @apply text-xs sm:text-sm text-gray-400 font-medium mb-1 mt-2 leading-tight;
   }
-  
+
   .prose p {
-    @apply my-5 leading-relaxed;
+    @apply my-4 leading-relaxed;
   }
   
   .prose a {
@@ -105,10 +105,10 @@ hr {
   
   .prose ul,
   .prose ol {
-    @apply my-6 pl-5;
+    @apply my-4 pl-4;
   }
   .prose li {
-    @apply my-2;
+    @apply my-1.5;
   }
   .prose ul {
     list-style-type: disc;
@@ -122,31 +122,31 @@ hr {
   .prose ul ul ul {
     list-style-type: square;
   }
-  
+
   .prose li::marker {
-    @apply text-[var(--color-accent-warm)] text-xl;
+    @apply text-gray-500;
   }
   .prose input[type="checkbox"] {
     @apply h-5 w-5 rounded-sm border-2 border-primary text-primary bg-transparent focus:ring-0 focus:ring-offset-0;
   }
   
   .prose img {
-    @apply block rounded-lg my-10 shadow-lg max-h-[350px] w-auto mx-auto;
+    @apply block rounded-lg my-6 shadow-md max-h-[300px] w-auto mx-auto;
   }
-  
+
   .prose hr {
-    @apply border-t-2 border-gray-700 my-12;
+    @apply border-t border-gray-800 my-8;
   }
-  
+
   .prose pre {
-    @apply bg-gray-900 border border-gray-700 p-5 rounded-lg my-8 text-base overflow-x-auto;
+    @apply bg-gray-900/50 border border-gray-800 p-4 rounded-lg my-6 text-sm overflow-x-auto;
   }
-  
+
   .prose code {
-    @apply text-blue-400 font-mono text-[0.875em] rounded bg-gray-800 px-2 py-1;
+    @apply text-blue-400 font-mono text-xs rounded bg-gray-800/50 px-1.5 py-0.5;
   }
   .prose pre code {
-    @apply bg-transparent p-0 text-gray-200;
+    @apply bg-transparent p-0 text-gray-300 text-sm;
   }
   .prose code::before,
   .prose code::after {
@@ -196,54 +196,54 @@ hr {
   background: rgba(245, 158, 11, 0.5);
 }
 
-/* Responsividade adicional */
+/* Responsividade minimalista */
 @media (max-width: 640px) {
   .prose {
-    @apply text-sm leading-relaxed;
+    @apply text-xs leading-relaxed;
   }
 
   .prose h1 {
-    @apply text-xl mb-4 mt-4 leading-tight;
+    @apply text-base mb-3 mt-4 leading-tight;
   }
 
   .prose h2 {
-    @apply text-lg mb-3 mt-8 leading-tight;
+    @apply text-sm mb-2 mt-6 leading-tight;
   }
 
   .prose h3 {
-    @apply text-base mb-2 mt-6 leading-tight;
-  }
-
-  .prose h4 {
     @apply text-sm mb-2 mt-4 leading-tight;
   }
 
+  .prose h4 {
+    @apply text-xs mb-1 mt-3 leading-tight;
+  }
+
   .prose p {
-    @apply my-4 text-sm leading-relaxed;
+    @apply my-3 text-xs leading-relaxed;
   }
 
   .prose pre {
-    @apply text-xs p-3 rounded-lg overflow-x-auto;
+    @apply text-xs p-3 rounded overflow-x-auto;
   }
 
   .prose code {
-    @apply text-xs px-1.5 py-0.5;
+    @apply text-xs px-1 py-0.5;
   }
 
   .prose img {
-    @apply max-h-[250px] my-6 rounded-lg;
+    @apply max-h-[200px] my-4 rounded;
   }
 
   .prose ul, .prose ol {
-    @apply my-4 pl-5;
+    @apply my-3 pl-4;
   }
 
   .prose li {
-    @apply my-2 text-sm leading-relaxed;
+    @apply my-1 text-xs leading-relaxed;
   }
 
   .prose blockquote {
-    @apply pl-4 my-6 text-sm;
+    @apply pl-3 my-4 text-xs;
   }
 
   .prose table {
@@ -251,7 +251,7 @@ hr {
   }
 
   .prose th, .prose td {
-    @apply px-2 py-2;
+    @apply px-2 py-1.5;
   }
 }
 

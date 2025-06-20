@@ -75,13 +75,13 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-background text-white min-h-screen py-6 sm:py-10 md:py-16 lg:py-20">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-background text-white py-6 sm:py-10 md:py-16 lg:py-20">
+      <div className="w-full">
         <header className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4 leading-tight">
             Blog de Desenvolvimento
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-4xl mx-auto px-2 leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto px-2 leading-relaxed font-light">
             Artigos, tutoriais e insights sobre desenvolvimento fullstack,
             tecnologias modernas e melhores práticas.
           </p>
@@ -100,20 +100,20 @@ export default function BlogPage() {
               className="w-full bg-card/50 text-white placeholder-gray-400 border border-card/50 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-card rounded-lg py-3 sm:py-4 pl-12 pr-4 text-sm sm:text-base transition-all duration-300 backdrop-blur-sm"
             />
           </div>
-          <div className="text-xs sm:text-sm text-gray-400 w-full lg:w-auto text-center lg:text-right font-medium">
-            {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo encontrado' : 'artigos encontrados'}
+          <div className="text-xs text-gray-500 w-full lg:w-auto text-center lg:text-right">
+            {filteredPosts.length} {filteredPosts.length === 1 ? 'artigo' : 'artigos'}
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 mb-8 sm:mb-12 lg:mb-16">
+        <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-6 sm:mb-8">
           {filterTags.map((tag, index) => (
             <button
               key={index}
               onClick={() => handleFilterChange(tag)}
-              className={`px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 whitespace-nowrap transform hover:scale-105 ${
+              className={`px-3 py-1.5 text-xs font-medium rounded transition-all duration-200 whitespace-nowrap ${
                 tag === activeFilter
-                  ? "bg-primary text-black shadow-lg shadow-primary/25"
-                  : "bg-card/50 text-gray-300 hover:bg-primary/20 hover:text-primary border border-card/50 hover:border-primary/30"
+                  ? "bg-primary text-black"
+                  : "bg-gray-800/50 text-gray-400 hover:bg-gray-700/50 hover:text-gray-300"
               }`}
             >
               {tag}
@@ -138,11 +138,11 @@ export default function BlogPage() {
           </div>
         )}
 
-        <main className="space-y-8 sm:space-y-12 lg:space-y-16">
+        <main className="space-y-4 sm:space-y-6">
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-16 sm:py-20 lg:py-24">
-              <div className="bg-card/20 border border-card/30 rounded-xl p-8 sm:p-12 max-w-lg mx-auto">
-                <p className="text-gray-400 text-base sm:text-lg mb-6">
+            <div className="text-center py-12 sm:py-16">
+              <div className="border border-gray-800 rounded-lg p-6 sm:p-8 max-w-md mx-auto">
+                <p className="text-gray-400 text-sm mb-4">
                   {searchTerm || activeFilter !== "Todos"
                     ? "Nenhum post encontrado com os filtros aplicados."
                     : "Nenhum post disponível no momento."
@@ -155,7 +155,7 @@ export default function BlogPage() {
                       setActiveFilter("Todos");
                       setVisiblePosts(6);
                     }}
-                    className="px-6 py-3 bg-primary text-black font-semibold rounded-lg hover:bg-amber-400 transition-all duration-300 transform hover:scale-105"
+                    className="px-4 py-2 bg-primary text-black font-medium rounded hover:bg-amber-400 transition-colors duration-200 text-sm"
                   >
                     Limpar filtros
                   </button>
@@ -165,20 +165,20 @@ export default function BlogPage() {
           ) : (
             filteredPosts.slice(0, visiblePosts).map((post, index) => (
               <a href={post.link} key={post._id} className="block group">
-                <article className="bg-card/10 hover:bg-card/20 border border-card/20 hover:border-primary/30 rounded-xl p-6 sm:p-8 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/5">
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
+                <article className="border border-gray-800/50 hover:border-gray-700 rounded-lg p-4 sm:p-5 transition-all duration-200">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                     <div className="flex-grow">
-                      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 leading-tight mb-3">
+                      <h2 className="text-sm sm:text-base font-semibold text-white group-hover:text-primary transition-colors duration-200 leading-tight mb-2">
                         {post.title}
                       </h2>
-                      <p className="text-gray-400 text-sm sm:text-base lg:text-lg leading-relaxed mb-4">{post.description}</p>
-                      <div className="text-xs sm:text-sm text-gray-500 flex flex-wrap items-center gap-2">
-                        <time className="font-medium">{post.date}</time>
-                        <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
+                      <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-2">{post.description}</p>
+                      <div className="text-xs text-gray-500 flex items-center gap-2">
+                        <time>{post.date}</time>
+                        <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
                         <span>{post.readingTime}</span>
                       </div>
                     </div>
-                    <div className="flex-shrink-0 mt-4 lg:mt-0 lg:ml-6 transform group-hover:translate-x-2 transition-transform duration-300 self-start lg:self-center">
+                    <div className="flex-shrink-0 mt-2 sm:mt-0 sm:ml-4 transform group-hover:translate-x-1 transition-transform duration-200 self-start sm:self-center">
                       <ArrowRightIcon />
                     </div>
                   </div>
@@ -189,15 +189,15 @@ export default function BlogPage() {
         </main>
 
         {visiblePosts < filteredPosts.length && (
-          <div className="text-center mt-12 sm:mt-16 lg:mt-20">
+          <div className="text-center mt-8 sm:mt-12">
             <button
               onClick={loadMorePosts}
-              className="bg-primary text-black font-bold py-3 sm:py-4 px-8 sm:px-12 rounded-lg hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
+              className="bg-primary text-black font-medium py-2.5 px-6 rounded hover:bg-amber-400 transition-colors duration-200 text-sm"
             >
-              Carregar mais artigos
+              Carregar mais
             </button>
-            <p className="text-xs sm:text-sm text-gray-500 mt-3">
-              Mostrando {visiblePosts} de {filteredPosts.length} artigos
+            <p className="text-xs text-gray-500 mt-2">
+              {visiblePosts} de {filteredPosts.length} artigos
             </p>
           </div>
         )}

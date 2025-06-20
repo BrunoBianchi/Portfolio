@@ -225,9 +225,9 @@ export default function PostScreen() {
     }
 
     return (
-        <div className="bg-background flex flex-col min-h-screen text-white">
-            <main className="flex-grow pt-4 sm:pt-6 md:pt-8 lg:pt-12">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8 lg:py-12 relative">
+        <div className="bg-background text-white">
+            <div className="pt-4 sm:pt-6 md:pt-8 lg:pt-12">
+                <div className="max-w-4xl mx-auto py-4 sm:py-6 md:py-8 lg:py-12 relative">
                     <Roadmap headings={headings} />
 
                     <article className="max-w-4xl mx-auto">
@@ -241,38 +241,38 @@ export default function PostScreen() {
                         </nav>
 
                         {/* Header do Post */}
-                        <header className="mb-10 sm:mb-12 md:mb-16 lg:mb-20">
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6 sm:mb-8 md:mb-10">
+                        <header className="mb-8 sm:mb-10">
+                            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white leading-tight mb-4 sm:mb-6">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6">
                                 <div className="flex items-center">
                                     <img
                                         src="/brunobianchi.png"
                                         alt="Avatar de Bruno Bianchi"
-                                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3 border-2 border-primary/20"
+                                        className="w-6 h-6 rounded-full mr-2 border border-gray-700"
                                     />
-                                    <span className="font-semibold text-gray-200">Bruno Bianchi</span>
+                                    <span className="font-medium text-gray-400">Bruno Bianchi</span>
                                 </div>
-                                <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-                                    <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-3 text-xs">
+                                    <div className="flex items-center gap-1">
                                         <CalendarIcon />
                                         <span>{post.date}</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-1">
                                         <ClockIcon />
-                                        <span>{post.readingTime} min de leitura</span>
+                                        <span>{post.readingTime} min</span>
                                     </div>
                                 </div>
                             </div>
 
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2 sm:gap-3">
+                                <div className="flex flex-wrap gap-1.5">
                                     {post.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
-                                            className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-gradient-to-r from-card to-card/80 text-gray-300 rounded-full border border-primary/20 hover:border-primary/40 transition-all duration-300"
+                                            className="px-2 py-1 text-xs bg-gray-800/50 text-gray-400 rounded"
                                         >
                                             {tag}
                                         </span>
@@ -281,10 +281,10 @@ export default function PostScreen() {
                             )}
                         </header>
 
-                        <hr className="border-primary/20 mb-8 sm:mb-10 md:mb-12" />
+                        <hr className="border-gray-800 mb-6 sm:mb-8" />
 
                         {/* Reações do Post */}
-                        <div className="mb-8 sm:mb-10 md:mb-12 py-4 sm:py-6 bg-card/10 rounded-xl border border-card/20">
+                        <div className="mb-6 sm:mb-8 py-3 border border-gray-800/50 rounded-lg">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -295,7 +295,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl max-w-none prose-headings:scroll-mt-20 mb-12 sm:mb-16 md:mb-20">
+                        <div className="prose prose-sm sm:prose-base max-w-none prose-headings:scroll-mt-20 mb-8 sm:mb-12">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -313,12 +313,12 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-primary/20 pt-8 sm:pt-12 md:pt-16">
+                        <div className="border-t border-gray-800 pt-6 sm:pt-8">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

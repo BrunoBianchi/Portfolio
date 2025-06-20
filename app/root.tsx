@@ -89,13 +89,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <main className="w-[60%] mx-auto">
+        <div className="min-h-screen flex flex-col">
           <NavbarComponent />
-          {children}
+          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {children}
+          </main>
           <FooterComponent />
-          <ScrollRestoration />
-          <Scripts />
-        </main>
+        </div>
+        <ScrollRestoration />
+        <Scripts />
       </body>
     </html>
   );
@@ -118,17 +120,17 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body>
-        <main className="w-[60%] mx-auto">
+        <div className="min-h-screen flex flex-col">
           <NavbarComponent />
-          <div className="min-h-screen flex items-center justify-center">
+          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center">
             <div className="text-center">
               <h1 className="text-4xl font-bold text-red-500 mb-4">Oops!</h1>
               <p className="text-gray-600">Algo deu errado. Tente novamente mais tarde.</p>
             </div>
-          </div>
+          </main>
           <FooterComponent />
-          <Scripts />
-        </main>
+        </div>
+        <Scripts />
       </body>
     </html>
   );
