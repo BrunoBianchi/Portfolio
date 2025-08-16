@@ -18,9 +18,9 @@ export default function Home() {
       companyUrl: "https://tech4humans.com.br",
       location: "São Paulo, SP - Remoto",
       role: "Desenvolvedor Pleno",
-      period: "07/2025 - Presente",
+      period: "06/2025 - 08/2025",
       description:
-        "Desenvolvedor FullStack na Tech4Humans, atuando em projetos para grandes empresas de seguro.",
+        "Desenvolvedor FullStack na Tech4Humans, atuando em projetos para grandes empresas de seguro. Tive a chance de participar no desenvolvimento de novas features para o aplicativo principal, planejando tanto front quanto backend. Durante esse meu tempo na empresa, participei de projetos que incentivavam o desenvolvimento pessoal (soft skills), tais como inteligência emocional e empatia.",
       tags: [
         "FullStack Dev",
         "Soft Skills",
@@ -32,7 +32,7 @@ export default function Home() {
       companyUrl: "https://unifei.edu.br",
       location: "Itajubá, MG - Presencial",
       role: "P&D em Engenharia de Dados",
-      period: "10/2024 - Presente",
+      period: "10/2024 - 08/2025",
       description:
         "Engenheiro de dados em projeto de P&D na Vertis, atuando desde a análise de dados de redes móveis até o desenvolvimento de soluções em machine learning para otimizar a performance da rede.",
       tags: [
