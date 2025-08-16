@@ -15,7 +15,7 @@ export default function Home() {
   const experiences = [
     {
       company: "Tech4Humans",
-      companyUrl: "https://tech4humans.com.br",
+      companyUrl: "https://www.tech4h.com.br",
       location: "São Paulo, SP - Remoto",
       role: "Desenvolvedor Pleno",
       period: "06/2025 - 08/2025",
