@@ -120,6 +120,13 @@ export default function Home() {
               >
                 Contato
               </a>
+              <a
+                href="https://drive.google.com/file/d/1kz2XFUjYYo0B5i_HwVjf2TQ60vWFDS17/view?usp=sharing"
+                className="px-6 py-3 border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center text-base hover-lift"
+                aria-label="Entrar em contato"
+              >
+                Curriculo
+              </a>              
             </nav>
           </header>
           <aside className="flex justify-center lg:justify-end order-1 lg:order-2">
