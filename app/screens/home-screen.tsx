@@ -103,27 +103,27 @@ export default function Home() {
               <div className="text-sm text-gray-500">📍 Itajubá, MG</div>
             </div>
             <nav
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-2 sm:gap-2 justify-center lg:justify-start "
               aria-label="Ações principais"
             >
               <a
                 href="#experience"
-                className="btn-primary px-6 py-3 bg-primary text-black font-medium rounded-md hover:bg-amber-400 transition-all duration-200 text-center text-base hover-lift"
+                className="btn-primary text-sm px-3 py-3 bg-primary text-black font-medium rounded-md hover:bg-amber-400 transition-all duration-200 text-center  hover-lift"
                 aria-label="Ver experiências"
               >
                 Ver Experiências
               </a>
               <a
                 href="mailto:contato@brunobianchi.dev"
-                className="px-6 py-3 border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center text-base hover-lift"
+                className="px-6 py-6  border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center hover-lift"
                 aria-label="Entrar em contato"
               >
                 Contato
               </a>
               <a
                 href="https://drive.google.com/file/d/1kz2XFUjYYo0B5i_HwVjf2TQ60vWFDS17/view?usp=sharing"
-                className="px-6 py-3 border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center text-base hover-lift"
-                aria-label="Entrar em contato"
+                className="px-6 py-6  border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center  hover-lift"
+                aria-label="Acessar Resumo"
               >
                 Curriculo
               </a>              
