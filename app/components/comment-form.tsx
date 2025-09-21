@@ -93,11 +93,11 @@ export function CommentForm({
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className={`w-full p-3 border rounded-lg resize-none min-h-[100px] focus:ring-2 focus:ring-primary focus:border-transparent transition-colors ${
+              className={`w-full p-3 rounded-lg resize-none min-h-[100px] focus:ring-2 focus:ring-primary/50 transition-colors ${
                 isOverLimit
-                  ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20'
-                  : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'
-              } text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400`}
+                  ? 'bg-red-900/20 text-red-400'
+                  : 'bg-gray-800/20 text-gray-100'
+              } placeholder-gray-400`}
               disabled={isSubmitting}
             />
             <div className="absolute bottom-2 right-2 text-xs text-gray-400 dark:text-gray-500">

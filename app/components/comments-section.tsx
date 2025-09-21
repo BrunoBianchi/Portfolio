@@ -83,7 +83,7 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
           {!showForm ? (
             <button
               onClick={() => setShowForm(true)}
-              className="w-full p-3 sm:p-4 text-left bg-gray-800 border border-gray-700 rounded-lg hover:bg-gray-700 transition-colors"
+              className="w-full p-3 sm:p-4 text-left hover:bg-gray-800/20 transition-colors rounded-lg"
             >
               <div className="flex items-center space-x-3">
                 <img

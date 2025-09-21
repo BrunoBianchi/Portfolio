@@ -227,10 +227,10 @@ export default function PostScreen() {
     return (
         <div className="bg-background flex flex-col min-h-screen text-white">
             <main className="flex-grow pt-8 sm:pt-12">
-                <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 relative">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 relative">
                     <Roadmap headings={headings} />
 
-                    <article className="max-w-4xl mx-auto">
+                    <article className="max-w-5xl mx-auto">
                         {/* Breadcrumb */}
                         <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-12" aria-label="Breadcrumb">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
@@ -285,7 +285,7 @@ export default function PostScreen() {
                         </header>
 
                         {/* Reações do Post */}
-                        <div className="mb-16 py-8 bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl">
+                        <div className="mb-16 py-8">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -296,7 +296,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-16 bg-white/[0.01] backdrop-blur-sm border border-white/5 rounded-xl p-12 lg:p-16">
+                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-16 p-12 lg:p-16">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -314,7 +314,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-white/10 pt-16 mt-20 bg-white/[0.01] backdrop-blur-sm rounded-xl p-12 lg:p-16">
+                        <div className="pt-16 mt-20 p-12 lg:p-16">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>
