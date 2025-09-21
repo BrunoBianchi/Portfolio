@@ -6,7 +6,9 @@
   --color-card: #262626;
   --color-primary: #f59e0b;
   --color-secondary: #262626;
-  --color-accent-warm: #fb923c;
+  --color-acc  .prose table {
+    @apply w-full my-6 border-collapse text-sm bg-white/3 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10;
+  }m: #fb923c;
   --color-accent-soft: #fde68a;
 }
 
@@ -100,22 +102,7 @@ hr {
   }
 
   .prose blockquote {
-    @apply border-l-4 border-amber-400/60 pl-6 my-6 text-gray-300 italic bg-white/5 backdrop-blur-md py-6 rounded-r-2xl border-r border-t border-b border-white/10;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(251, 191, 36, 0.02));
-    box-shadow: 
-      0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .prose blockquote::before {
-    content: '"';
-    font-size: 3rem;
-    color: rgba(245, 158, 11, 0.3);
-    font-family: serif;
-    position: absolute;
-    margin-left: -2rem;
-    margin-top: -1rem;
+    @apply border-l-4 border-amber-400/60 pl-6 my-6 text-gray-300 italic bg-white/3 backdrop-blur-sm py-4 rounded-r-lg border-r border-t border-b border-white/10;
   }
 
   .prose ul,
@@ -154,74 +141,33 @@ hr {
   }
 
   .prose pre {
-    @apply relative bg-gray-900/80 backdrop-blur-md border border-white/10 p-0 rounded-2xl my-6 text-sm overflow-hidden shadow-2xl;
-    background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.8));
-    box-shadow: 
-      0 25px 50px -12px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(255, 255, 255, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .prose pre::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(90deg, #ef4444 0%, #f97316 33%, #eab308 66%, #22c55e 100%);
-    border-radius: 16px 16px 0 0;
-  }
-
-  .prose pre::after {
-    content: "";
-    position: absolute;
-    top: 12px;
-    left: 16px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ef4444;
-    box-shadow: 
-      20px 0 0 #f97316,
-      40px 0 0 #eab308;
+    @apply relative bg-gray-900/60 backdrop-blur-sm border border-white/20 p-6 rounded-xl my-8 text-sm overflow-x-auto;
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.6), rgba(31, 41, 55, 0.4));
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
 
   .prose code {
-    @apply inline-flex items-center text-amber-300 font-mono text-sm rounded-lg px-3 py-1.5 border transition-all duration-200;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
-    border-color: rgba(245, 158, 11, 0.2);
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    @apply inline-flex items-center text-amber-200 font-mono text-sm rounded-md px-2 py-1 border-0 transition-colors duration-200;
+    background: rgba(17, 24, 39, 0.4);
+    border: 1px solid rgba(245, 158, 11, 0.2);
   }
 
   .prose code:hover {
-    @apply text-amber-200;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.08));
+    @apply text-amber-100;
+    background: rgba(17, 24, 39, 0.6);
     border-color: rgba(245, 158, 11, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 
-      0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 
   .prose pre code {
-    @apply bg-transparent p-0 text-gray-100 text-sm border-none block leading-relaxed mt-10 px-6 pb-6;
+    @apply bg-transparent p-0 text-gray-100 text-sm border-none block leading-relaxed;
     font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Monaco', 'Inconsolata', monospace;
     line-height: 1.6;
-    transform: none;
-    box-shadow: none;
   }
 
   .prose pre code:hover {
     @apply text-gray-100;
     background: transparent;
     border: none;
-    transform: none;
-    box-shadow: none;
   }
 
   /* Syntax highlighting improvements */
