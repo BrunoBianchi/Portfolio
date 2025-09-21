@@ -64,12 +64,12 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
   };
 
   return (
-    <section className="mt-12 sm:mt-16 border-t border-gray-800 pt-8 sm:pt-12">
+    <section className="mt-12 sm:mt-16 pt-8 sm:pt-12">
       <div className="mb-6 sm:mb-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
+        <h2 className="text-lg sm:text-xl font-bold text-white mb-2">
           Comentários
         </h2>
-        <p className="text-gray-400 text-sm sm:text-base">
+        <p className="text-gray-400 text-sm">
           {total === 0
             ? 'Seja o primeiro a comentar!'
             : `${total} comentário${total !== 1 ? 's' : ''}`

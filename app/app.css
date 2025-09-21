@@ -67,22 +67,22 @@ hr {
   }
 
   .prose h1 {
-    @apply text-xl sm:text-2xl lg:text-3xl text-white font-bold mb-5 mt-6 leading-tight;
+    @apply text-lg sm:text-xl lg:text-2xl text-white font-bold mb-5 mt-6 leading-tight;
   }
   .prose h2 {
-    @apply text-lg sm:text-xl lg:text-2xl text-white font-semibold mb-4 mt-6 leading-tight;
+    @apply text-base sm:text-lg lg:text-xl text-white font-semibold mb-4 mt-6 leading-tight;
   }
   .prose h3 {
-    @apply text-base sm:text-lg lg:text-xl font-semibold mb-3 mt-5 text-white leading-tight;
+    @apply text-sm sm:text-base lg:text-lg font-semibold mb-3 mt-5 text-white leading-tight;
   }
   .prose h4 {
-    @apply text-sm sm:text-base text-gray-200 font-medium mb-3 mt-4 leading-tight;
+    @apply text-sm sm:text-sm text-gray-200 font-medium mb-3 mt-4 leading-tight;
   }
   .prose h5 {
-    @apply text-sm text-gray-300 font-medium mb-2 mt-3 leading-tight;
+    @apply text-xs sm:text-sm text-gray-300 font-medium mb-2 mt-3 leading-tight;
   }
   .prose h6 {
-    @apply text-xs sm:text-sm text-gray-400 font-medium mb-2 mt-3 leading-tight;
+    @apply text-xs text-gray-400 font-medium mb-2 mt-3 leading-tight;
   }
 
   .prose p {

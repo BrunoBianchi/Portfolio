@@ -242,7 +242,7 @@ export default function PostScreen() {
 
                         {/* Header do Post */}
                         <header className="mb-16 pb-12 border-b border-gray-700/30">
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight mb-12">
+                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-white leading-tight mb-12">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
@@ -254,7 +254,7 @@ export default function PostScreen() {
                                         className="w-16 h-16 rounded-full border-2 border-gray-600/50"
                                     />
                                     <div>
-                                        <div className="font-medium text-white text-lg">Bruno Bianchi</div>
+                                        <div className="font-medium text-white">Bruno Bianchi</div>
                                         <div className="text-sm text-gray-400 font-light mt-1">Desenvolvedor Full Stack</div>
                                     </div>
                                 </div>
@@ -296,7 +296,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-16 p-12 lg:p-16">
+                        <div className="prose max-w-none prose-headings:scroll-mt-20 mb-16 p-12 lg:p-16">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
