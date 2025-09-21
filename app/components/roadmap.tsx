@@ -48,15 +48,18 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
             setIsMobileMenuOpen(false);
           }}
           className={`
-            block w-full text-left py-1.5 px-2 rounded transition-all duration-200 text-xs
+            block w-full text-left py-2 px-3 rounded-lg transition-all duration-300 text-xs font-light relative
             ${isActive
-              ? 'text-yellow-400 bg-yellow-400/5 border-l-2 border-yellow-400 font-medium'
-              : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/20'
+              ? 'text-primary bg-primary/15 border border-primary/30 font-medium shadow-lg shadow-primary/10'
+              : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
             }
-            ${isSubheading ? 'ml-3 py-1 text-[11px]' : ''}
+            ${isSubheading ? 'ml-3 py-1.5 text-[11px]' : ''}
           `}
         >
-          <span className="block leading-snug line-clamp-2">
+          {isActive && (
+            <span className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full"></span>
+          )}
+          <span className={`block leading-relaxed truncate ${isActive ? 'pl-3' : ''}`}>
             {heading.text}
           </span>
         </button>
@@ -67,24 +70,29 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block fixed top-24 xl:top-32 left-2 lg:left-4 xl:left-8 w-52 lg:w-56 xl:w-64 z-30 pointer-events-none">
+      <aside className="hidden lg:block fixed top-24 xl:top-32 left-2 lg:left-4 xl:left-8 w-44 lg:w-48 xl:w-52 z-30 pointer-events-none">
         <div className="pointer-events-auto">
-        <nav className="bg-gray-900/20 backdrop-blur-sm rounded-lg p-3 lg:p-4 border border-gray-800/30 shadow-lg max-h-[calc(100vh-8rem)] overflow-hidden">
-          <h3 className="text-xs font-medium text-gray-300 mb-2 lg:mb-3 tracking-wide uppercase">
-            Neste post
+        <nav className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-gray-700/30 shadow-2xl max-h-[calc(100vh-8rem)] overflow-hidden">
+          <h3 className="text-xs font-medium text-white mb-4 tracking-wide">
+            Neste Post
           </h3>
-          <ol className="space-y-0.5 text-xs overflow-y-auto aside-scrollbar scroll-smooth max-h-[calc(100vh-12rem)]">
-            {filteredHeadings.map(renderHeading)}
+          <ol className="space-y-1.5 max-h-[calc(100vh-12rem)]">
+            {filteredHeadings.slice(0, 8).map(renderHeading)}
+            {filteredHeadings.length > 8 && (
+              <li className="text-xs text-gray-500 italic px-4 py-2">
+                +{filteredHeadings.length - 8} seções...
+              </li>
+            )}
           </ol>
         </nav>
         </div>
       </aside>
 
       {/* Mobile Floating Button */}
-      <div className="lg:hidden fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
+      <div className="lg:hidden fixed bottom-6 right-6 z-50">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="bg-primary text-black p-2.5 sm:p-3 rounded-full shadow-lg hover:bg-primary/90 transition-all duration-200 flex items-center justify-center"
+          className="bg-primary text-black p-4 rounded-2xl shadow-2xl hover:bg-amber-400 transition-all duration-300 flex items-center justify-center hover:scale-105"
           aria-label="Abrir índice do post"
         >
           {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -101,12 +109,12 @@ export const Roadmap: React.FC<RoadmapProps> = ({ headings }) => {
           />
 
           {/* Menu */}
-          <div className="lg:hidden fixed bottom-16 sm:bottom-20 right-3 left-3 sm:right-6 sm:left-6 z-50 max-h-[70vh]">
-            <nav className="bg-gray-900/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-gray-800/50 shadow-2xl">
-              <h3 className="font-medium text-gray-200 text-sm mb-2 sm:mb-3 tracking-wide uppercase">
-                Neste post
+          <div className="lg:hidden fixed bottom-24 right-4 left-4 z-50 max-h-[70vh]">
+            <nav className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/30 shadow-2xl">
+              <h3 className="font-medium text-white text-base mb-6 tracking-wide">
+                Neste Post
               </h3>
-              <ol className="space-y-0.5 text-sm max-h-[50vh] overflow-y-auto aside-scrollbar">
+              <ol className="space-y-2 max-h-[50vh] overflow-y-auto aside-scrollbar">
                 {filteredHeadings.map(renderHeading)}
               </ol>
             </nav>

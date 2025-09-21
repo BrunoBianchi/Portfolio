@@ -1,4 +1,84 @@
+# Robots.txt para brunobianchi.dev
+# Otimizado para todos os crawlers e search engines
+
+# Regras gerais para todos os user agents
 User-agent: *
 Allow: /
+Allow: /blog/
+Allow: /experiencias/
+Allow: /auth/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.ico
 
+# Bloquear arquivos desnecessários
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /build/
+Disallow: /.env
+Disallow: *.log
+Disallow: /admin/
+Disallow: /private/
+
+# Regras específicas para motores de busca principais
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Bloquear bots maliciosos conhecidos
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemaps
 Sitemap: https://brunobianchi.dev/sitemap.xml
+Sitemap: https://blog.brunobianchi.dev/sitemap.xml
+
+# Host principal
+Host: brunobianchi.dev

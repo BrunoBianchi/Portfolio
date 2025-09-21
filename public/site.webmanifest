@@ -1,1 +1,56 @@
-{"name":"","short_name":"","icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#ffffff","background_color":"#ffffff","display":"standalone"}
+{
+  "name": "Bruno Bianchi - Desenvolvedor FullStack",
+  "short_name": "Bruno Bianchi",
+  "description": "Portfolio profissional de Bruno Bianchi, Desenvolvedor FullStack especializado em React, Node.js e soluções escaláveis.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#f59e0b",
+  "background_color": "#171717",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "productivity",
+    "education",
+    "developer",
+    "portfolio"
+  ],
+  "screenshots": [
+    {
+      "src": "/brunobianchi.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Homepage do portfolio de Bruno Bianchi"
+    }
+  ]
+}

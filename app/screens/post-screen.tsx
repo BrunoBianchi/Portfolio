@@ -232,7 +232,7 @@ export default function PostScreen() {
 
                     <article className="max-w-4xl mx-auto">
                         {/* Breadcrumb */}
-                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-6" aria-label="Breadcrumb">
+                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-8" aria-label="Breadcrumb">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
                                 Blog
                             </a>
@@ -241,41 +241,41 @@ export default function PostScreen() {
                         </nav>
 
                         {/* Header do Post */}
-                        <header className="mb-8 pb-6 border-b border-gray-800/50">
-                            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight mb-6">
+                        <header className="mb-12 pb-8 border-b border-gray-700/30">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight mb-8">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
                                 <div className="flex items-center gap-4">
                                     <img
                                         src="/brunobianchi.png"
                                         alt="Avatar de Bruno Bianchi"
-                                        className="w-12 h-12 rounded-full border-2 border-gray-700"
+                                        className="w-14 h-14 rounded-full border-2 border-gray-600/50"
                                     />
                                     <div>
-                                        <div className="font-semibold text-white">Bruno Bianchi</div>
-                                        <div className="text-sm text-gray-400">Desenvolvedor Full Stack</div>
+                                        <div className="font-medium text-white">Bruno Bianchi</div>
+                                        <div className="text-sm text-gray-400 font-light">Desenvolvedor Full Stack</div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-6 text-sm text-gray-500">
-                                    <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-8 text-gray-400">
+                                    <div className="flex items-center gap-3">
                                         <CalendarIcon />
-                                        <span>{post.date}</span>
+                                        <span className="font-light">{post.date}</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-3">
                                         <ClockIcon />
-                                        <span>{post.readingTime} min de leitura</span>
+                                        <span className="font-light">{post.readingTime} min de leitura</span>
                                     </div>
                                 </div>
                             </div>
 
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-3">
                                     {post.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
-                                            className="px-3 py-1.5 text-sm bg-primary/10 text-primary border border-primary/20 rounded-full font-medium"
+                                            className="px-4 py-2 text-sm bg-primary/10 text-primary border border-primary/20 rounded-full font-medium"
                                         >
                                             {tag}
                                         </span>
@@ -285,7 +285,7 @@ export default function PostScreen() {
                         </header>
 
                         {/* Reações do Post */}
-                        <div className="mb-8 py-4 bg-gray-900/30 border border-gray-800/30 rounded-xl">
+                        <div className="mb-12 py-6 bg-white/5 backdrop-blur-sm border border-gray-700/30 rounded-2xl">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -314,7 +314,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-gray-800/50 pt-8 mt-12">
+                        <div className="border-t border-gray-700/30 pt-12 mt-16">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>

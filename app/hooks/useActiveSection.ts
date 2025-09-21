@@ -13,23 +13,46 @@ export function useActiveSection(headings: Heading[]) {
   useEffect(() => {
     if (!headings.length) return;
 
+    // Função para detectar scroll manual - mais confiável
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150; // Offset para melhor detecção
+      
+      let currentActiveId = '';
+      for (const heading of headings) {
+        const element = document.getElementById(heading.id);
+        if (element) {
+          const elementTop = element.offsetTop;
+          if (scrollPosition >= elementTop) {
+            currentActiveId = heading.id;
+          } else {
+            break;
+          }
+        }
+      }
+      
+      if (currentActiveId !== activeId) {
+        setActiveId(currentActiveId);
+      }
+    };
+
+    // Observer como fallback
     const observer = new IntersectionObserver(
       (entries) => {
-        // Encontrar a entrada que está mais visível
         const visibleEntries = entries.filter(entry => entry.isIntersecting);
         
         if (visibleEntries.length > 0) {
-          // Pegar o primeiro elemento visível (mais próximo do topo)
           const topEntry = visibleEntries.reduce((prev, current) => {
             return prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current;
           });
           
-          setActiveId(topEntry.target.id);
+          if (topEntry.target.id !== activeId) {
+            setActiveId(topEntry.target.id);
+          }
         }
       },
       {
-        rootMargin: '-20% 0% -35% 0%', // Ativa quando o elemento está na parte superior da viewport
-        threshold: [0, 0.25, 0.5, 0.75, 1]
+        rootMargin: '-10% 0% -50% 0%',
+        threshold: [0, 0.1, 0.25, 0.5]
       }
     );
 
@@ -41,10 +64,14 @@ export function useActiveSection(headings: Heading[]) {
       }
     });
 
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Executa uma vez para definir o estado inicial
+
     return () => {
       observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [headings]);
+  }, [headings, activeId]);
 
   // Função para scroll suave até uma seção
   const scrollToSection = (id: string) => {
