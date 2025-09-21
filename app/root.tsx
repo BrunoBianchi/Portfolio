@@ -182,6 +182,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
 
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11077489768"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-11077489768');
+            `
+          }}
+        />
+
         <Meta />
         <Links />
       </head>
