@@ -103,30 +103,59 @@ export default function Home() {
               <div className="text-sm text-gray-500">📍 Itajubá, MG</div>
             </div>
             <nav
-              className="flex flex-col sm:flex-row gap-2 sm:gap-2 justify-center lg:justify-start "
+              className="flex flex-col sm:flex-row gap-3 sm:gap-3 justify-center lg:justify-start"
               aria-label="Ações principais"
             >
               <a
                 href="#experience"
-                className="btn-primary text-sm px-3 py-3 bg-primary text-black font-medium rounded-md hover:bg-amber-400 transition-all duration-200 text-center  hover-lift"
+                className="btn btn-lg btn-primary hover-lift"
                 aria-label="Ver experiências"
               >
-                Ver Experiências
+                <span>Ver Experiências</span>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path d="M13.5 4.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V7.914l-8.293 8.293a1 1 0 1 1-1.414-1.414L17.086 6.5H14.5a1 1 0 0 1-1-1Z" />
+                  <path d="M5 6a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-3a1 1 0 1 0-2 0v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3a1 1 0 1 0 0-2H5Z" />
+                </svg>
               </a>
               <a
                 href="mailto:contato@brunobianchi.dev"
-                className="px-6 py-6  border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center hover-lift"
+                className="btn btn-lg btn-outline hover-lift"
                 aria-label="Entrar em contato"
               >
-                Contato
+                <span>Contato</span>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path d="M2.25 6.75A2.25 2.25 0 0 1 4.5 4.5h15a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 19.5 19.5h-15A2.25 2.25 0 0 1 2.25 17.25V6.75Zm2.202-.75 7.227 5.419a.75.75 0 0 0 .894 0L19.8 6H4.452Z" />
+                </svg>
               </a>
               <a
                 href="https://drive.google.com/file/d/1kz2XFUjYYo0B5i_HwVjf2TQ60vWFDS17/view?usp=sharing"
-                className="px-6 py-6  border border-gray-600 text-gray-300 font-medium rounded-md hover:border-gray-500 hover:text-white transition-all duration-200 text-center  hover-lift"
+                className="btn btn-lg btn-outline hover-lift"
                 aria-label="Acessar Resumo"
+                target="_blank" rel="noopener noreferrer"
               >
-                Curriculo
-              </a>              
+                <span>Curriculo</span>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path d="M7 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9.828a2 2 0 0 0-.586-1.414l-3.828-3.828A2 2 0 0 0 13.172 4H7Zm7 6V4.828L18.172 9H14Z" />
+                </svg>
+              </a>
             </nav>
           </header>
           <aside className="flex justify-center lg:justify-end order-1 lg:order-2">
