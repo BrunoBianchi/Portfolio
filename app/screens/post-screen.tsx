@@ -226,13 +226,13 @@ export default function PostScreen() {
 
     return (
         <div className="bg-background flex flex-col min-h-screen text-white">
-            <main className="flex-grow pt-4 sm:pt-6">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 relative">
+            <main className="flex-grow pt-8 sm:pt-12">
+                <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-12 relative">
                     <Roadmap headings={headings} />
 
                     <article className="max-w-4xl mx-auto">
                         {/* Breadcrumb */}
-                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-8" aria-label="Breadcrumb">
+                        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-12" aria-label="Breadcrumb">
                             <a href="https://blog.brunobianchi.dev/" className="hover:text-primary transition-colors duration-300 whitespace-nowrap font-medium">
                                 Blog
                             </a>
@@ -241,21 +241,21 @@ export default function PostScreen() {
                         </nav>
 
                         {/* Header do Post */}
-                        <header className="mb-12 pb-8 border-b border-gray-700/30">
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight mb-8">
+                        <header className="mb-16 pb-12 border-b border-gray-700/30">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white leading-tight mb-12">
                                 {cleanMarkdown(post.title)}
                             </h1>
 
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
-                                <div className="flex items-center gap-4">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mb-12">
+                                <div className="flex items-center gap-6">
                                     <img
                                         src="/brunobianchi.png"
                                         alt="Avatar de Bruno Bianchi"
-                                        className="w-14 h-14 rounded-full border-2 border-gray-600/50"
+                                        className="w-16 h-16 rounded-full border-2 border-gray-600/50"
                                     />
                                     <div>
-                                        <div className="font-medium text-white">Bruno Bianchi</div>
-                                        <div className="text-sm text-gray-400 font-light">Desenvolvedor Full Stack</div>
+                                        <div className="font-medium text-white text-lg">Bruno Bianchi</div>
+                                        <div className="text-sm text-gray-400 font-light mt-1">Desenvolvedor Full Stack</div>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-8 text-gray-400">
@@ -271,11 +271,11 @@ export default function PostScreen() {
                             </div>
 
                             {post.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-4">
                                     {post.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
-                                            className="px-4 py-2 text-sm bg-primary/10 text-primary border border-primary/20 rounded-full font-medium"
+                                            className="px-5 py-3 text-sm bg-primary/10 text-primary border border-primary/20 rounded-full font-medium"
                                         >
                                             {tag}
                                         </span>
@@ -285,7 +285,7 @@ export default function PostScreen() {
                         </header>
 
                         {/* Reações do Post */}
-                        <div className="mb-12 py-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
+                        <div className="mb-16 py-8 bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-xl">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -296,7 +296,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-8 bg-white/[0.02] backdrop-blur-sm border border-white/5 rounded-3xl p-8 lg:p-12 shadow-2xl">
+                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-16 bg-white/[0.01] backdrop-blur-sm border border-white/5 rounded-xl p-12 lg:p-16">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -314,7 +314,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-white/10 pt-12 mt-16 bg-white/[0.02] backdrop-blur-sm rounded-3xl p-8 lg:p-12">
+                        <div className="border-t border-white/10 pt-16 mt-20 bg-white/[0.01] backdrop-blur-sm rounded-xl p-12 lg:p-16">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>
