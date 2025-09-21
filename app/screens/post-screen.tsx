@@ -285,7 +285,7 @@ export default function PostScreen() {
                         </header>
 
                         {/* Reações do Post */}
-                        <div className="mb-12 py-6 bg-white/5 backdrop-blur-sm border border-gray-700/30 rounded-2xl">
+                        <div className="mb-12 py-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
                             <Reactions
                                 targetId={id as string}
                                 targetType="post"
@@ -296,7 +296,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Conteúdo Markdown */}
-                        <div className="prose prose-base max-w-none prose-headings:scroll-mt-20 mb-8">
+                        <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 mb-8 bg-white/[0.02] backdrop-blur-sm border border-white/5 rounded-3xl p-8 lg:p-12 shadow-2xl">
                             <ReactMarkdown
                                 rehypePlugins={[rehypeRaw]}
                                 remarkPlugins={[remarkGfm]}
@@ -314,7 +314,7 @@ export default function PostScreen() {
                         </div>
 
                         {/* Seção de Comentários */}
-                        <div className="border-t border-gray-700/30 pt-12 mt-16">
+                        <div className="border-t border-white/10 pt-12 mt-16 bg-white/[0.02] backdrop-blur-sm rounded-3xl p-8 lg:p-12">
                             <CommentsSection postId={post.id} />
                         </div>
                     </article>

@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router';
 import { useAuth } from '~/contexts/auth-context';
 import { PostsService, type CreatePostRequest } from '~/services/posts-service';
 import { MarkdownPreview } from '~/components/markdown-preview';
-import { SitemapStatus } from '~/components/sitemap-status';
+import SitemapManager from '~/components/sitemap-manager';
 import { FaGithub, FaLock, FaUser } from 'react-icons/fa';
-import { useSitemap } from '~/hooks/useSitemap';
+import { useSitemapManager } from '~/hooks/useSitemapManager';
 
 export default function CreatePostScreen() {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading, login } = useAuth();
-  const { addPost: addPostToSitemap, isLoading: sitemapLoading, error: sitemapError } = useSitemap();
+  const { addPostToSitemap, isLoading: sitemapLoading, error: sitemapError, success: sitemapSuccessMessage } = useSitemapManager();
   
   const [formData, setFormData] = useState<CreatePostRequest>({
     title: '',
@@ -191,19 +191,9 @@ export default function CreatePostScreen() {
       if (createdPostResponse.success && createdPostResponse.data?.post) {
         try {
           const post = createdPostResponse.data.post;
-          const sitemapResult = await addPostToSitemap({
-            id: post.id || post._id,
-            title: post.title,
-            createdAt: post.createdAt || new Date().toISOString(),
-            updatedAt: post.createdAt // Se não há updatedAt, usar createdAt
-          });
-          
-          if (sitemapResult) {
-            setSitemapSuccess(true);
-            console.log('✅ Post adicionado ao sitemap com sucesso');
-          } else {
-            console.warn('⚠️ Post criado, mas falha ao adicionar ao sitemap');
-          }
+          await addPostToSitemap(post.id || post._id, post.title);
+          setSitemapSuccess(true);
+          console.log('✅ Post adicionado ao sitemap com sucesso');
         } catch (sitemapErr) {
           console.error('❌ Erro ao adicionar post ao sitemap:', sitemapErr);
           // Não falha a criação do post se o sitemap falhar
@@ -408,7 +398,11 @@ console.log('Código');
 
         {/* Sitemap Status */}
         <div className="mt-12">
-          <SitemapStatus />
+          <SitemapManager 
+            className="mt-8" 
+            showDownloadButton={false} 
+            autoHideMessages={3000}
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,8 @@
 import { ExternalLink, Globe, Code, Database } from "lucide-react";
 import type { Route } from "../+types/root";
+import SitemapManager from "~/components/sitemap-manager";
+import { useAuth } from "~/contexts/auth-context";
+import { PostsService } from "~/services/posts-service";
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -232,6 +235,15 @@ const services: ServiceCategory[] = [
 ];
 
 export default function ServicesScreen() {
+  // Verificar se é admin para mostrar ferramentas de SEO
+  let canManageSitemap = false;
+  try {
+    const { isAuthenticated } = useAuth();
+    canManageSitemap = isAuthenticated && PostsService.canCreatePosts();
+  } catch (error) {
+    // Se useAuth falhar, continuar sem acesso admin
+  }
+
   return (
     <div className="min-h-screen py-16 lg:py-20">
       {/* Hero Section */}
@@ -557,6 +569,28 @@ export default function ServicesScreen() {
           </div>
         </div>
       </section>
+
+      {/* Admin Section - SEO Tools */}
+      {canManageSitemap && (
+        <section className="mt-20 mb-20">
+          <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                🔧 Ferramentas <span className="text-amber-400">SEO</span>
+              </h2>
+              <p className="text-gray-300">
+                Gerenciar sitemap e otimizações para mecanismos de busca
+              </p>
+            </div>
+            
+            <SitemapManager 
+              className="max-w-3xl mx-auto"
+              showDownloadButton={true}
+              autoHideMessages={5000}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Contact Section */}
       <section className="mt-20 text-center">

@@ -100,7 +100,22 @@ hr {
   }
 
   .prose blockquote {
-    @apply border-l-4 border-primary/50 pl-6 my-6 text-gray-300 italic bg-white/5 backdrop-blur-sm py-4 rounded-r-2xl border-r border-t border-b border-gray-700/30;
+    @apply border-l-4 border-amber-400/60 pl-6 my-6 text-gray-300 italic bg-white/5 backdrop-blur-md py-6 rounded-r-2xl border-r border-t border-b border-white/10;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(251, 191, 36, 0.02));
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .prose blockquote::before {
+    content: '"';
+    font-size: 3rem;
+    color: rgba(245, 158, 11, 0.3);
+    font-family: serif;
+    position: absolute;
+    margin-left: -2rem;
+    margin-top: -1rem;
   }
 
   .prose ul,
@@ -139,14 +154,131 @@ hr {
   }
 
   .prose pre {
-    @apply bg-white/5 backdrop-blur-sm border border-gray-700/30 p-6 rounded-2xl my-6 text-sm overflow-x-auto shadow-xl;
+    @apply relative bg-gray-900/80 backdrop-blur-md border border-white/10 p-0 rounded-2xl my-6 text-sm overflow-hidden shadow-2xl;
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.8));
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .prose pre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(90deg, #ef4444 0%, #f97316 33%, #eab308 66%, #22c55e 100%);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .prose pre::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ef4444;
+    box-shadow: 
+      20px 0 0 #f97316,
+      40px 0 0 #eab308;
   }
 
   .prose code {
-    @apply text-blue-300 font-mono text-sm rounded-lg bg-white/10 backdrop-blur-sm px-3 py-1 border border-gray-700/30;
+    @apply inline-flex items-center text-amber-300 font-mono text-sm rounded-lg px-3 py-1.5 border transition-all duration-200;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
+    border-color: rgba(245, 158, 11, 0.2);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
+
+  .prose code:hover {
+    @apply text-amber-200;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.08));
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
   .prose pre code {
-    @apply bg-transparent p-0 text-gray-200 text-sm border-none;
+    @apply bg-transparent p-0 text-gray-100 text-sm border-none block leading-relaxed mt-10 px-6 pb-6;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    line-height: 1.6;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .prose pre code:hover {
+    @apply text-gray-100;
+    background: transparent;
+    border: none;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Syntax highlighting improvements */
+  .prose pre code .token.comment,
+  .prose pre code .token.prolog,
+  .prose pre code .token.doctype,
+  .prose pre code .token.cdata {
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  .prose pre code .token.punctuation {
+    color: #9ca3af;
+  }
+
+  .prose pre code .token.property,
+  .prose pre code .token.tag,
+  .prose pre code .token.boolean,
+  .prose pre code .token.number,
+  .prose pre code .token.constant,
+  .prose pre code .token.symbol,
+  .prose pre code .token.deleted {
+    color: #f87171;
+  }
+
+  .prose pre code .token.selector,
+  .prose pre code .token.attr-name,
+  .prose pre code .token.string,
+  .prose pre code .token.char,
+  .prose pre code .token.builtin,
+  .prose pre code .token.inserted {
+    color: #34d399;
+  }
+
+  .prose pre code .token.operator,
+  .prose pre code .token.entity,
+  .prose pre code .token.url,
+  .prose pre code .language-css .token.string,
+  .prose pre code .style .token.string {
+    color: #fbbf24;
+  }
+
+  .prose pre code .token.atrule,
+  .prose pre code .token.attr-value,
+  .prose pre code .token.keyword {
+    color: #a78bfa;
+  }
+
+  .prose pre code .token.function,
+  .prose pre code .token.class-name {
+    color: #60a5fa;
+  }
+
+  .prose pre code .token.regex,
+  .prose pre code .token.important,
+  .prose pre code .token.variable {
+    color: #fb7185;
   }
   .prose code::before,
   .prose code::after {
@@ -154,16 +286,25 @@ hr {
   }
   
   .prose table {
-    @apply w-full my-8 border-collapse text-sm bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/30;
+    @apply w-full my-8 border-collapse text-sm bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10;
+    box-shadow: 
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   .prose thead {
-    @apply border-b border-primary/30 bg-primary/5;
+    @apply border-b border-amber-400/30;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
   }
   .prose th {
-    @apply px-6 py-4 text-left font-medium text-white;
+    @apply px-6 py-4 text-left font-semibold text-white;
   }
   .prose tbody tr {
-    @apply border-b border-gray-700/20;
+    @apply border-b border-white/10;
+    transition: background-color 0.2s ease;
+  }
+  .prose tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
   }
   .prose tbody tr:last-child {
     @apply border-none;
