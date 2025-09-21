@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router';
 import { useAuth } from '~/contexts/auth-context';
 import { PostsService, type CreatePostRequest } from '~/services/posts-service';
 import { MarkdownPreview } from '~/components/markdown-preview';
+import { SitemapStatus } from '~/components/sitemap-status';
 import { FaGithub, FaLock, FaUser } from 'react-icons/fa';
+import { useSitemap } from '~/hooks/useSitemap';
 
 export default function CreatePostScreen() {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading, login } = useAuth();
+  const { addPost: addPostToSitemap, isLoading: sitemapLoading, error: sitemapError } = useSitemap();
   
   const [formData, setFormData] = useState<CreatePostRequest>({
     title: '',
@@ -21,6 +24,7 @@ export default function CreatePostScreen() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [sitemapSuccess, setSitemapSuccess] = useState(false);
 
   // Não redirecionar automaticamente - vamos mostrar a tela de login se necessário
   // useEffect removido para permitir acesso à página
@@ -170,6 +174,7 @@ export default function CreatePostScreen() {
     try {
       setIsSubmitting(true);
       setError(null);
+      setSitemapSuccess(false);
 
       const postData: CreatePostRequest = {
         title: formData.title.trim(),
@@ -177,16 +182,41 @@ export default function CreatePostScreen() {
         tags: tagsInput.trim() ? tagsInput.split(',').map(tag => tag.trim()).filter(Boolean) : []
       };
 
-      await PostsService.createPost(postData);
+      // Criar o post
+      const createdPostResponse = await PostsService.createPost(postData);
       
       setSuccess(true);
+      
+      // Adicionar ao sitemap automaticamente
+      if (createdPostResponse.success && createdPostResponse.data?.post) {
+        try {
+          const post = createdPostResponse.data.post;
+          const sitemapResult = await addPostToSitemap({
+            id: post.id || post._id,
+            title: post.title,
+            createdAt: post.createdAt || new Date().toISOString(),
+            updatedAt: post.createdAt // Se não há updatedAt, usar createdAt
+          });
+          
+          if (sitemapResult) {
+            setSitemapSuccess(true);
+            console.log('✅ Post adicionado ao sitemap com sucesso');
+          } else {
+            console.warn('⚠️ Post criado, mas falha ao adicionar ao sitemap');
+          }
+        } catch (sitemapErr) {
+          console.error('❌ Erro ao adicionar post ao sitemap:', sitemapErr);
+          // Não falha a criação do post se o sitemap falhar
+        }
+      }
+      
       setFormData({ title: '', content: '', tags: [] });
       setTagsInput('');
       
       // Redirecionar após sucesso
       setTimeout(() => {
         navigate('/blog');
-      }, 2000);
+      }, 3000);
       
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao criar post');
@@ -238,7 +268,16 @@ export default function CreatePostScreen() {
         {/* Success Message */}
         {success && (
           <div className="mb-6 p-4 bg-green-900/20 border border-green-600 rounded-lg">
-            <p className="text-green-400">✅ Post criado com sucesso! Redirecionando...</p>
+            <div className="space-y-2">
+              <p className="text-green-400">✅ Post criado com sucesso!</p>
+              {sitemapSuccess && (
+                <p className="text-green-300 text-sm">🗺️ Sitemap atualizado automaticamente</p>
+              )}
+              {sitemapError && (
+                <p className="text-yellow-400 text-sm">⚠️ Post criado, mas houve problema com o sitemap</p>
+              )}
+              <p className="text-green-300 text-sm">Redirecionando para o blog...</p>
+            </div>
           </div>
         )}
 
@@ -366,6 +405,11 @@ console.log('Código');
             </button>
           </div>
         </form>
+
+        {/* Sitemap Status */}
+        <div className="mt-12">
+          <SitemapStatus />
+        </div>
       </div>
     </div>
   );
