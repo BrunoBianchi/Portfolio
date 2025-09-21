@@ -58,6 +58,9 @@ export default function NavbarComponent() {
           <a href="https://brunobianchi.dev/#experience" className="text-xs sm:text-sm hover:underline whitespace-nowrap">
             Experiências
           </a>
+          <a href="/servicos" className="text-xs sm:text-sm hover:underline whitespace-nowrap">
+            Serviços
+          </a>
           <a href="https://blog.brunobianchi.dev/" className="text-xs sm:text-sm hover:underline whitespace-nowrap" rel="noopener noreferrer">
             Blog
           </a>
@@ -114,6 +117,13 @@ export default function NavbarComponent() {
               onClick={closeMobileMenu}
             >
               Experiências
+            </a>
+            <a
+              href="/servicos"
+              className="block py-2 text-sm hover:text-primary"
+              onClick={closeMobileMenu}
+            >
+              Serviços
             </a>
             <a
               href="https://blog.brunobianchi.dev/"

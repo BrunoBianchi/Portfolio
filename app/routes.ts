@@ -8,6 +8,8 @@ export default [
     // Rotas para path /blog/ (além do subdomínio)
     route("blog", "./screens/blog-screen.tsx"),
     route("blog/:id", "./routes/blog.$id.tsx"),
+    // Rota de serviços e valores
+    route("servicos", "./routes/servicos.tsx"),
     // Rota administrativa para criação de posts
     route("admin/create-post", "./screens/create-post-screen.tsx"),
 ] satisfies RouteConfig;
