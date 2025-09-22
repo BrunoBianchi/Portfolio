@@ -73,4 +73,17 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+  <url>
+    <loc>https://brunobianchi.dev/blog/Como-Eu-E-Meus-Amigos-Estamos-Criando-Um-MVP-Que-Irá-Mudar-A-Vida-Dos-Universitários---Estagioai.com</loc>
+    <lastmod>2025-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://blog.brunobianchi.dev/post/Como-Eu-E-Meus-Amigos-Estamos-Criando-Um-MVP-Que-Irá-Mudar-A-Vida-Dos-Universitários---Estagioai.com</loc>
+    <lastmod>2025-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
